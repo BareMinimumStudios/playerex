@@ -9,16 +9,16 @@ import com.bibireden.playerex.compat.CompatUtils
 import com.bibireden.playerex.ext.id
 import de.dafuqs.additionalentityattributes.AdditionalEntityAttributes
 import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon
-import net.minecraft.entity.attribute.EntityAttributes
-import net.minecraft.util.Identifier
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.entity.ai.attributes.Attributes
 
 object DefaultAttributeImpl {
-    val OVERRIDES: Map<Identifier, AttributeOverride> = mutableMapOf(
+    val OVERRIDES: Map<ResourceLocation, AttributeOverride> = mutableMapOf(
         PlayerEXAttributes.POISON_RESISTANCE.id to AttributeOverride(
             smoothness = 1.0,
             formula = StackingFormula.Diminished
         ),
-        EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE.id to AttributeOverride(
+        Attributes.KNOCKBACK_RESISTANCE.id to AttributeOverride(
             smoothness = 1.0,
             formula = StackingFormula.Diminished
         ),
@@ -26,7 +26,7 @@ object DefaultAttributeImpl {
             smoothness = 1.0,
             formula = StackingFormula.Diminished
         ),
-        EntityAttributes.GENERIC_ATTACK_SPEED.id to AttributeOverride(
+        Attributes.ATTACK_SPEED.id to AttributeOverride(
             smoothness = 1.0,
             formula = StackingFormula.Diminished
         ),
@@ -66,7 +66,7 @@ object DefaultAttributeImpl {
             smoothness = 1.0,
             formula = StackingFormula.Diminished
         ),
-        EntityAttributes.GENERIC_LUCK.id to AttributeOverride(
+        Attributes.LUCK.id to AttributeOverride(
             smoothness = 1.0,
             formula = StackingFormula.Diminished
         ),
@@ -87,22 +87,22 @@ object DefaultAttributeImpl {
         }
     }
 
-    val FUNCTIONS: Map<Identifier, List<AttributeFunction>> = mapOf(
+    val FUNCTIONS: Map<ResourceLocation, List<AttributeFunction>> = mapOf(
         PlayerEXAttributes.CONSTITUTION.id to listOf(
-            AttributeFunction(EntityAttributes.GENERIC_MAX_HEALTH.id, StackingBehavior.Add, 0.5),
-            AttributeFunction(EntityAttributes.GENERIC_ARMOR.id, StackingBehavior.Add, 0.25),
+            AttributeFunction(Attributes.MAX_HEALTH.id, StackingBehavior.Add, 0.5),
+            AttributeFunction(Attributes.ARMOR.id, StackingBehavior.Add, 0.25),
             AttributeFunction(AdditionalEntityAttributes.MAGIC_PROTECTION.id, StackingBehavior.Add, 0.25),
             AttributeFunction(AdditionalEntityAttributes.LUNG_CAPACITY.id, StackingBehavior.Add, 0.01),
             AttributeFunction(PlayerEXAttributes.POISON_RESISTANCE.id, StackingBehavior.Add, 0.1),
         ),
         PlayerEXAttributes.STRENGTH.id to listOf(
-            AttributeFunction(EntityAttributes.GENERIC_ATTACK_DAMAGE.id, StackingBehavior.Multiply, 0.02),
-            AttributeFunction(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE.id, StackingBehavior.Add, 0.1),
+            AttributeFunction(Attributes.ATTACK_DAMAGE.id, StackingBehavior.Multiply, 0.02),
+            AttributeFunction(Attributes.KNOCKBACK_RESISTANCE.id, StackingBehavior.Add, 0.1),
             AttributeFunction(PlayerEXAttributes.MELEE_CRITICAL_DAMAGE.id, StackingBehavior.Multiply, 0.05),
             AttributeFunction(PlayerEXAttributes.BREAKING_SPEED.id, StackingBehavior.Add, 0.01),
         ),
         PlayerEXAttributes.DEXTERITY.id to listOf(
-            AttributeFunction(EntityAttributes.GENERIC_ATTACK_SPEED.id, StackingBehavior.Multiply, 0.01),
+            AttributeFunction(Attributes.ATTACK_SPEED.id, StackingBehavior.Multiply, 0.01),
             AttributeFunction(PlayerEXAttributes.RANGED_DAMAGE.id, StackingBehavior.Multiply, 0.02),
             AttributeFunction(PlayerEXAttributes.RANGED_CRITICAL_DAMAGE.id, StackingBehavior.Multiply, 0.05),
             AttributeFunction(EntityAttributes_RangedWeapon.HASTE.id, StackingBehavior.Multiply, 0.02),
@@ -129,7 +129,7 @@ object DefaultAttributeImpl {
             AttributeFunction(PlayerEXAttributes.MELEE_CRITICAL_CHANCE.id, StackingBehavior.Multiply, 0.02),
             AttributeFunction(PlayerEXAttributes.RANGED_CRITICAL_CHANCE.id, StackingBehavior.Multiply, 0.02),
             // loot table chance?? wh-
-            AttributeFunction(EntityAttributes.GENERIC_LUCK.id, StackingBehavior.Add, 0.05),
+            AttributeFunction(Attributes.LUCK.id, StackingBehavior.Add, 0.05),
             AttributeFunction(PlayerEXAttributes.EVASION.id, StackingBehavior.Add, 0.01),
         ).apply {
             if (CompatUtils.isModLoaded("spell_power")) {
@@ -137,8 +137,8 @@ object DefaultAttributeImpl {
             }
         },
     )
-    val ENTITY_TYPES: Map<Identifier, EntityTypeData> = mapOf(
-        Identifier.of("minecraft", "player")!! to EntityTypeData(mapOf(
+    val ENTITY_TYPES: Map<ResourceLocation, EntityTypeData> = mapOf(
+        ResourceLocation.tryBuild("minecraft", "player")!! to EntityTypeData(mapOf(
             PlayerEXAttributes.LEVEL.id to 0.0,
             PlayerEXAttributes.CONSTITUTION.id to 0.0,
             PlayerEXAttributes.STRENGTH.id to 0.0,

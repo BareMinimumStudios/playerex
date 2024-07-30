@@ -5,14 +5,14 @@ import com.bibireden.playerex.api.attribute.PlayerEXAttributes
 import com.bibireden.playerex.components.PlayerEXComponents
 import com.bibireden.playerex.components.player.IPlayerDataComponent
 import com.bibireden.playerex.util.PlayerEXUtil
-import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.world.entity.player.Player
 
-val PlayerEntity.level: Double
+val Player.level: Double
     get() = DataAttributesAPI.getValue(PlayerEXAttributes.LEVEL, this).orElse(1.0)
 
-val PlayerEntity.data: IPlayerDataComponent
+val Player.data: IPlayerDataComponent
     get() = this.getComponent(PlayerEXComponents.PLAYER_DATA)
 
-fun PlayerEntity.canLevelUp(amount: Int = 1): Boolean {
+fun Player.canLevelUp(amount: Int = 1): Boolean {
     return this.experienceLevel >= PlayerEXUtil.getRequiredXpForLevel(this, this.level + amount)
 }

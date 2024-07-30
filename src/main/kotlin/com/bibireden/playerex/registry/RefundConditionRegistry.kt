@@ -1,9 +1,9 @@
 package com.bibireden.playerex.registry
 
 import com.bibireden.playerex.components.player.IPlayerDataComponent
-import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.world.entity.player.Player
 
-typealias RefundCondition = (IPlayerDataComponent, PlayerEntity) -> Double
+typealias RefundCondition = (IPlayerDataComponent, Player) -> Double
 
 object RefundConditionRegistry {
     private val entries: MutableList<RefundCondition> = mutableListOf()

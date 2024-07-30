@@ -1,9 +1,9 @@
 package com.bibireden.playerex.ext
 
-import net.minecraft.entity.attribute.EntityAttribute
-import net.minecraft.registry.Registries
-import net.minecraft.util.Identifier
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.entity.ai.attributes.Attribute
 
 
-val EntityAttribute.id: Identifier
-    get() = Registries.ATTRIBUTE.getId(this)!!
+val Attribute.id: ResourceLocation
+    get() = BuiltInRegistries.ATTRIBUTE.getKey(this)!!

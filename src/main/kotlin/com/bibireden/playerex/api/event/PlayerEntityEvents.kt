@@ -4,8 +4,8 @@ import com.bibireden.playerex.api.event.PlayerEntityEvents.ShouldCritical
 import com.bibireden.playerex.api.event.PlayerEntityEvents.AttackCriticalDamage
 import net.fabricmc.fabric.api.event.Event
 import net.fabricmc.fabric.api.event.EventFactory
-import net.minecraft.entity.Entity
-import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.player.Player
 
 object PlayerEntityEvents {
 
@@ -14,7 +14,7 @@ object PlayerEntityEvents {
      */
     @JvmField
     val ON_CRITICAL: Event<AttackCriticalDamage> = EventFactory.createArrayBacked(AttackCriticalDamage::class.java) { callbacks: Array<AttackCriticalDamage> ->
-        AttackCriticalDamage { player: PlayerEntity, target: Entity, amount: Float ->
+        AttackCriticalDamage { player: Player, target: Entity, amount: Float ->
             var previous = amount
             for (callback in callbacks) {
                 previous = callback.onCriticalDamage(player, target, previous)
@@ -28,7 +28,7 @@ object PlayerEntityEvents {
      */
     @JvmField
     val SHOULD_CRITICAL: Event<ShouldCritical> = EventFactory.createArrayBacked(ShouldCritical::class.java) { callbacks: Array<ShouldCritical> ->
-        ShouldCritical { player: PlayerEntity, target: Entity, vanilla: Boolean ->
+        ShouldCritical { player: Player, target: Entity, vanilla: Boolean ->
             for (callback in callbacks) {
                 if (callback.shouldCritical(player, target, vanilla)) return@ShouldCritical true
             }
@@ -37,10 +37,10 @@ object PlayerEntityEvents {
     }
 
     fun interface AttackCriticalDamage {
-        fun onCriticalDamage(player: PlayerEntity, target: Entity, amount: Float): Float
+        fun onCriticalDamage(player: Player, target: Entity, amount: Float): Float
     }
 
     fun interface ShouldCritical {
-        fun shouldCritical(player: PlayerEntity, target: Entity, vanilla: Boolean): Boolean
+        fun shouldCritical(player: Player, target: Entity, vanilla: Boolean): Boolean
     }
 }

@@ -5,18 +5,18 @@ import com.bibireden.playerex.components.player.PlayerDataComponent;
 import com.bibireden.playerex.factory.ServerNetworkingFactory;
 import com.bibireden.playerex.networking.types.NotificationType;
 import com.bibireden.playerex.util.PlayerEXUtil;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @SuppressWarnings("UnreachableCode")
-@Mixin(ServerPlayerEntity.class)
-public abstract class ServerPlayerEntityMixin {
-    @Inject(method = "addExperienceLevels", at = @At("TAIL"))
+@Mixin(ServerPlayer.class)
+public abstract class ServerPlayerMixin {
+    @Inject(method = "giveExperienceLevels", at = @At("TAIL"))
     private void addExperienceLevels(int levels, CallbackInfo ci) {
-        ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
+        ServerPlayer player = (ServerPlayer) (Object) this;
         PlayerDataComponent component = (PlayerDataComponent) PlayerEXComponents.PLAYER_DATA.get(player);
 
         int current = player.experienceLevel;

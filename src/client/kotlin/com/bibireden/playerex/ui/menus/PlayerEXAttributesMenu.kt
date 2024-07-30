@@ -20,11 +20,11 @@ import io.wispforest.owo.ui.container.Containers
 import io.wispforest.owo.ui.container.FlowLayout
 import io.wispforest.owo.ui.core.*
 import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon
-import net.minecraft.client.network.ClientPlayerEntity
-import net.minecraft.entity.attribute.EntityAttributes
-import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.registry.Registries
-import net.minecraft.text.Text
+import net.minecraft.client.player.LocalPlayer
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.world.entity.ai.attributes.Attributes
+import net.minecraft.world.entity.player.Player
+import net.minecraft.network.chat.Component
 import org.jetbrains.annotations.ApiStatus
 
 // todo: cache buttons/certain UI elements
@@ -32,8 +32,8 @@ import org.jetbrains.annotations.ApiStatus
 @ApiStatus.Internal
 class PlayerEXAttributesMenu : MenuComponent(algorithm = Algorithm.HORIZONTAL) {
     private val MELEE_COMBAT_STATS: List<Pair<EntityAttributeSupplier, FormattingPredicate>> = listOf(
-        EntityAttributeSupplier(EntityAttributes.GENERIC_ATTACK_DAMAGE.id) to FormattingPredicates.NORMAL,
-        EntityAttributeSupplier(EntityAttributes.GENERIC_ATTACK_SPEED.id) to FormattingPredicates.NORMAL,
+        EntityAttributeSupplier(Attributes.ATTACK_DAMAGE.id) to FormattingPredicates.NORMAL,
+        EntityAttributeSupplier(Attributes.ATTACK_SPEED.id) to FormattingPredicates.NORMAL,
         EntityAttributeSupplier(PlayerEXAttributes.MELEE_CRITICAL_DAMAGE.id) to FormattingPredicates.PERCENTAGE_DIVIDE,
         EntityAttributeSupplier(PlayerEXAttributes.MELEE_CRITICAL_CHANCE.id) to FormattingPredicates.PERCENTAGE_DIVIDE
     )
@@ -46,10 +46,10 @@ class PlayerEXAttributesMenu : MenuComponent(algorithm = Algorithm.HORIZONTAL) {
     )
 
     private val DEFENSE_COMBAT_STATS: List<Pair<EntityAttributeSupplier, FormattingPredicate>> = listOf(
-        EntityAttributeSupplier(EntityAttributes.GENERIC_ARMOR.id) to FormattingPredicates.NORMAL,
+        EntityAttributeSupplier(Attributes.ARMOR.id) to FormattingPredicates.NORMAL,
         EntityAttributeSupplier(AdditionalEntityAttributes.MAGIC_PROTECTION.id) to FormattingPredicates.NORMAL,
-        EntityAttributeSupplier(EntityAttributes.GENERIC_ARMOR_TOUGHNESS.id) to FormattingPredicates.NORMAL,
-        EntityAttributeSupplier(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE.id) to FormattingPredicates.PERCENTAGE_DIVIDE,
+        EntityAttributeSupplier(Attributes.ARMOR_TOUGHNESS.id) to FormattingPredicates.NORMAL,
+        EntityAttributeSupplier(Attributes.KNOCKBACK_RESISTANCE.id) to FormattingPredicates.PERCENTAGE_DIVIDE,
         EntityAttributeSupplier(PlayerEXAttributes.EVASION.id) to FormattingPredicates.PERCENTAGE_DIVIDE,
     )
 
@@ -57,7 +57,7 @@ class PlayerEXAttributesMenu : MenuComponent(algorithm = Algorithm.HORIZONTAL) {
         EntityAttributeSupplier(PlayerEXAttributes.HEALTH_REGENERATION.id) to FormattingPredicates.NORMAL,
         EntityAttributeSupplier(PlayerEXAttributes.HEAL_AMPLIFICATION.id) to FormattingPredicates.NORMAL,
         EntityAttributeSupplier(PlayerEXAttributes.LIFESTEAL.id) to FormattingPredicates.PERCENTAGE_DIVIDE,
-        EntityAttributeSupplier(EntityAttributes.GENERIC_MOVEMENT_SPEED.id) to FormattingPredicates.NORMAL,
+        EntityAttributeSupplier(Attributes.MOVEMENT_SPEED.id) to FormattingPredicates.NORMAL,
     )
 
     private val RESISTANCE_STATS: List<Pair<EntityAttributeSupplier, FormattingPredicate>> = listOf(
@@ -89,9 +89,9 @@ class PlayerEXAttributesMenu : MenuComponent(algorithm = Algorithm.HORIZONTAL) {
         }
     }
 
-    private fun onInputFieldUpdated(player: PlayerEntity, component: IPlayerDataComponent) {
+    private fun onInputFieldUpdated(player: Player, component: IPlayerDataComponent) {
         this.childById(FlowLayout::class, "attributes")?.childById(TextBoxComponent::class, "input")?.also {
-            val result = it.text.toDoubleOrNull() ?: return@also
+            val result = it.value.toDoubleOrNull() ?: return@also
             this.forEachDescendant { descendant ->
                 if (descendant is AttributeButtonComponent) {
                     val max = (descendant.attribute as IEntityAttribute).`data_attributes$max`()
@@ -106,13 +106,13 @@ class PlayerEXAttributesMenu : MenuComponent(algorithm = Algorithm.HORIZONTAL) {
 
     }
 
-    override fun build(player: ClientPlayerEntity, adapter: OwoUIAdapter<FlowLayout>, component: IPlayerDataComponent) {
+    override fun build(player: LocalPlayer, adapter: OwoUIAdapter<FlowLayout>, component: IPlayerDataComponent) {
         child(Containers.verticalScroll(
             Sizing.fill(45),
             Sizing.fill(100),
             Containers.verticalFlow(Sizing.fill(100), Sizing.content()).apply {
                 child(Containers.horizontalFlow(Sizing.fill(100), Sizing.content(2)).apply {
-                    child(Components.label(Text.translatable("playerex.ui.category.primary_attributes")))
+                    child(Components.label(Component.translatable("playerex.ui.category.primary_attributes")))
                     child(
                         Components.textBox(Sizing.fixed(27))
                             .also {
@@ -129,7 +129,7 @@ class PlayerEXAttributesMenu : MenuComponent(algorithm = Algorithm.HORIZONTAL) {
                 verticalAlignment(VerticalAlignment.TOP)
                 gap(5)
                 padding(Insets.right(5))
-                children(PlayerEXAttributes.PRIMARY_ATTRIBUTE_IDS.mapNotNull(Registries.ATTRIBUTE::get).map { AttributeComponent(it, player, component) })
+                children(PlayerEXAttributes.PRIMARY_ATTRIBUTE_IDS.mapNotNull(BuiltInRegistries.ATTRIBUTE::get).map { AttributeComponent(it, player, component) })
             }.id("attributes"))
         )
         child(Containers.verticalScroll(

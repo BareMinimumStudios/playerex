@@ -2,10 +2,10 @@ package com.bibireden.playerex.api.attribute
 
 import com.bibireden.playerex.PlayerEX
 import com.bibireden.playerex.ext.id
-import net.minecraft.entity.attribute.ClampedEntityAttribute
-import net.minecraft.registry.Registries
-import net.minecraft.registry.Registry
-import net.minecraft.util.Identifier
+import net.minecraft.core.Registry
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.entity.ai.attributes.RangedAttribute
 
 object PlayerEXAttributes {
     @JvmField
@@ -74,12 +74,12 @@ object PlayerEXAttributes {
     @JvmField
     val RANGED_CRITICAL_DAMAGE = register("ranged_crit_damage", 0.0, 0.0, 1000000.0)
 
-    fun register(path: String, base: Double, min: Double, max: Double): ClampedEntityAttribute {
-        val attribute = ClampedEntityAttribute("attribute.name.${PlayerEX.MOD_ID}.$path", base, min, max)
-        return Registry.register(Registries.ATTRIBUTE, Identifier.of(PlayerEX.MOD_ID, path)!!, attribute)
+    fun register(path: String, base: Double, min: Double, max: Double): RangedAttribute {
+        val attribute = RangedAttribute("attribute.name.${PlayerEX.MOD_ID}.$path", base, min, max)
+        return Registry.register(BuiltInRegistries.ATTRIBUTE, ResourceLocation.tryBuild(PlayerEX.MOD_ID, path)!!, attribute)
     }
 
-    val PRIMARY_ATTRIBUTE_IDS: Set<Identifier> = setOf(
+    val PRIMARY_ATTRIBUTE_IDS: Set<ResourceLocation> = setOf(
         CONSTITUTION.id,
         STRENGTH.id,
         DEXTERITY.id,

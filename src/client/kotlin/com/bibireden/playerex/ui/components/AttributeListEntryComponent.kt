@@ -1,22 +1,21 @@
 package com.bibireden.playerex.ui.components
 
 import com.bibireden.data_attributes.api.DataAttributesAPI
-import com.bibireden.playerex.ext.id
 import com.bibireden.playerex.ui.util.Colors
 import io.wispforest.owo.ui.component.LabelComponent
 import io.wispforest.owo.ui.core.HorizontalAlignment
 import io.wispforest.owo.ui.core.VerticalAlignment
-import net.minecraft.entity.attribute.EntityAttribute
-import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.text.Text
+import net.minecraft.world.entity.ai.attributes.Attribute
+import net.minecraft.world.entity.player.Player
+import net.minecraft.network.chat.Component
 
 typealias FormattingPredicate = (Double) -> String
 
 class AttributeListEntryComponent(
-    val attribute: EntityAttribute,
-    val player: PlayerEntity,
+    val attribute: Attribute,
+    val player: Player,
     private val formattingPredicate: FormattingPredicate
-) : LabelComponent(Text.empty()) {
+) : LabelComponent(Component.empty()) {
     init {
         horizontalTextAlignment(HorizontalAlignment.CENTER)
         verticalTextAlignment(VerticalAlignment.CENTER)
@@ -26,11 +25,11 @@ class AttributeListEntryComponent(
 
     fun refresh() {
         text(
-            Text.translatable(attribute.translationKey)
+            Component.translatable(attribute.descriptionId)
                 .append(": ")
-                .append(Text.literal(
+                .append(Component.literal(
                     DataAttributesAPI.getValue(attribute, player).map { formattingPredicate(it) }
-                        .orElse("N/A")).styled { it.withColor(Colors.GOLD) }
+                        .orElse("N/A")).withStyle { it.withColor(Colors.GOLD) }
                 )
         )
     }

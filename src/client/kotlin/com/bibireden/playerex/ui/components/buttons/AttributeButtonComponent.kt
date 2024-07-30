@@ -11,16 +11,16 @@ import com.bibireden.playerex.ui.childById
 import io.wispforest.owo.ui.component.ButtonComponent
 import io.wispforest.owo.ui.component.TextBoxComponent
 import io.wispforest.owo.ui.core.Sizing
-import net.minecraft.entity.attribute.EntityAttribute
-import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.text.Text
+import net.minecraft.world.entity.ai.attributes.Attribute
+import net.minecraft.world.entity.player.Player
+import net.minecraft.network.chat.Component
 
-class AttributeButtonComponent(val attribute: EntityAttribute, private val player: PlayerEntity, private val component: IPlayerDataComponent, val type: PlayerEXScreen.AttributeButtonComponentType) : ButtonComponent(
-    Text.literal(type.symbol),
+class AttributeButtonComponent(val attribute: Attribute, private val player: Player, private val component: IPlayerDataComponent, val type: PlayerEXScreen.AttributeButtonComponentType) : ButtonComponent(
+    Component.literal(type.symbol),
     {
         // reference text-box to get needed value to send to server
         it.parent()?.parent()?.childById(TextBoxComponent::class, "input")?.let { box ->
-            val amount = box.text.toDoubleOrNull() ?: return@let
+            val amount = box.value.toDoubleOrNull() ?: return@let
             val points = type.getPointsFromComponent(component)
 
             if (points < amount) return@let // invalid, not enough points.

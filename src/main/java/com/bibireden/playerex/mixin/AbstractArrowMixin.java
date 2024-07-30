@@ -2,13 +2,13 @@ package com.bibireden.playerex.mixin;
 
 import com.bibireden.data_attributes.api.DataAttributesAPI;
 import com.bibireden.playerex.api.attribute.PlayerEXAttributes;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,18 +17,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Optional;
 
-@Mixin(PersistentProjectileEntity.class)
-public abstract class PersistentProjectileEntityMixin extends ProjectileEntity {
+@Mixin(AbstractArrow.class)
+public abstract class AbstractArrowMixin extends Projectile {
     // Constructor for the mixin class
-    private PersistentProjectileEntityMixin(EntityType<? extends ProjectileEntity> entityType, World world) {
-        super(entityType, world);
+    private AbstractArrowMixin(EntityType<? extends Projectile> entityType, Level level) {
+        super(entityType, level);
     }
 
     @SuppressWarnings("UnreachableCode")
-    @Inject(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/projectile/PersistentProjectileEntity;isCritical()Z"))
+    @Inject(method = "onHitEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/AbstractArrow;isCritArrow()Z"))
     private void playerex_onEntityHit(EntityHitResult entityHitResult, CallbackInfo info) {
-        PersistentProjectileEntity persistentProjectileEntity = (PersistentProjectileEntity)(Object)this;
-        Entity owner = persistentProjectileEntity.getOwner();
+        AbstractArrow projectileEntity = (AbstractArrow)(Object)this;
+        Entity owner = projectileEntity.getOwner();
 
         if(owner instanceof LivingEntity) {
 
@@ -36,16 +36,16 @@ public abstract class PersistentProjectileEntityMixin extends ProjectileEntity {
 
             if (rangedCritChanceOptional.isPresent())
             {
-                persistentProjectileEntity.setCritical(false);
+                projectileEntity.setCritArrow(false);
             }
         }
     }
 
     @SuppressWarnings("UnreachableCode")
-    @ModifyArg(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"))
+    @ModifyArg(method = "onHitEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"))
     private float playerex_onEntityHit(float i) {
-        PersistentProjectileEntity persistentProjectileEntity = (PersistentProjectileEntity)(Object) this;
-        Entity owner = persistentProjectileEntity.getOwner();
+        AbstractArrow projectileEntity = (AbstractArrow)(Object) this;
+        Entity owner = projectileEntity.getOwner();
         double damage = i;
 
         if(owner instanceof LivingEntity livingEntity) {
@@ -60,7 +60,7 @@ public abstract class PersistentProjectileEntityMixin extends ProjectileEntity {
             if (rangedCritOptional.isPresent())
             {
                 boolean cache = livingEntity.getRandom().nextFloat() < rangedCritOptional.get();
-                persistentProjectileEntity.setCritical(cache);
+                projectileEntity.setCritArrow(cache);
 
                 if (cache)
                 {

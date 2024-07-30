@@ -1,7 +1,5 @@
 package com.bibireden.playerex.ui.components
 
-import com.bibireden.data_attributes.DataAttributes
-import com.bibireden.data_attributes.DataAttributesClient
 import com.bibireden.data_attributes.api.DataAttributesAPI
 import com.bibireden.data_attributes.api.attribute.EntityAttributeSupplier
 import com.bibireden.data_attributes.api.attribute.IEntityAttribute
@@ -16,41 +14,41 @@ import com.bibireden.playerex.ui.util.Colors
 import io.wispforest.owo.ui.component.Components
 import io.wispforest.owo.ui.container.FlowLayout
 import io.wispforest.owo.ui.core.*
-import net.minecraft.entity.attribute.EntityAttribute
-import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.text.Style
-import net.minecraft.text.Text
-import net.minecraft.util.Formatting
+import net.minecraft.ChatFormatting
+import net.minecraft.network.chat.Style
+import net.minecraft.world.entity.ai.attributes.Attribute
+import net.minecraft.world.entity.player.Player
 import kotlin.jvm.optionals.getOrNull
+import net.minecraft.network.chat.Component
 
 private val StackingBehavior.symbol: String
     get() = if (this == StackingBehavior.Add) "+" else "×"
 
-class AttributeComponent(private val attribute: EntityAttribute, private val player: PlayerEntity, component: IPlayerDataComponent) : FlowLayout(Sizing.fill(100), Sizing.fixed(18), Algorithm.HORIZONTAL) {
+class AttributeComponent(private val attribute: Attribute, private val player: Player, component: IPlayerDataComponent) : FlowLayout(Sizing.fill(100), Sizing.fixed(18), Algorithm.HORIZONTAL) {
     val label: AttributeLabelComponent
 
     fun refresh() {
         val entries = DataAttributesAPI.clientManager.data.functions[attribute.id]
         if (!entries.isNullOrEmpty()) {
             label.tooltip(
-                Text.translatable("playerex.ui.main.modified_attributes").also { text ->
+                Component.translatable("playerex.ui.main.modified_attributes").also { text ->
                     text.append("\n")
-                    text.append(Text.literal(attribute.id.toString()).formatted(Formatting.DARK_GRAY))
+                    text.append(Component.literal(attribute.id.toString()).withStyle(ChatFormatting.DARK_GRAY))
                     text.append("\n\n")
                     entries.forEach { function ->
                         val childAttribute = EntityAttributeSupplier(function.id).get().getOrNull() ?: return@forEach
                         val formula = (childAttribute as IEntityAttribute).`data_attributes$formula`()
 
                         text.apply {
-                            append(Text.translatable(childAttribute.translationKey).styled { it.withColor(Colors.SATURATED_BLUE) })
+                            append(Component.translatable(childAttribute.descriptionId).withStyle { it.withColor(Colors.SATURATED_BLUE) })
                             append(" (")
-                            append(Text.literal(function.behavior.symbol).styled { it.withColor(Colors.DARK_GREEN) })
-                            append(Text.literal("${function.value}"))
-                            append(Text.literal(":").fillStyle(Style.EMPTY.withColor(Colors.DARK_GRAY)))
-                            append(Text.literal(formula.name.lowercase()).styled { it.withColor(if (formula == StackingFormula.Flat) Colors.SANDY else Colors.IMPISH_RED) })
+                            append(Component.literal(function.behavior.symbol).withStyle { it.withColor(Colors.DARK_GREEN) })
+                            append(Component.literal("${function.value}"))
+                            append(Component.literal(":").withStyle(Style.EMPTY.withColor(Colors.DARK_GRAY)))
+                            append(Component.literal(formula.name.lowercase()).withStyle { it.withColor(if (formula == StackingFormula.Flat) Colors.SANDY else Colors.IMPISH_RED) })
                             append(")")
                             val decLength = function.value.toString().substringAfter('.').length
-                            append(Text.literal(" (%.${decLength}f)\n".format(DataAttributesAPI.getValue(childAttribute, player).orElse(0.0))).formatted(Formatting.GRAY))
+                            append(Component.literal(" (%.${decLength}f)\n".format(DataAttributesAPI.getValue(childAttribute, player).orElse(0.0))).withStyle(ChatFormatting.GRAY))
                         }
                     }
                 }
@@ -60,7 +58,7 @@ class AttributeComponent(private val attribute: EntityAttribute, private val pla
 
     init {
         child(
-            Components.label(Text.translatable(attribute.translationKey))
+            Components.label(Component.translatable(attribute.descriptionId))
                 .verticalTextAlignment(VerticalAlignment.CENTER)
                 .sizing(Sizing.content(), Sizing.fill(100))
                 .positioning(Positioning.relative(0, 50))

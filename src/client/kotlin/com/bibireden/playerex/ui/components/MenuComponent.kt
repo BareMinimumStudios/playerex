@@ -7,10 +7,8 @@ import io.wispforest.owo.ui.core.OwoUIAdapter
 import io.wispforest.owo.ui.core.Sizing
 import io.wispforest.owo.util.EventSource
 import io.wispforest.owo.util.EventStream
-import net.minecraft.client.MinecraftClient
-import net.minecraft.client.gui.screen.Screen
-import net.minecraft.client.network.ClientPlayerEntity
-import net.minecraft.entity.attribute.EntityAttribute
+import net.minecraft.client.player.LocalPlayer
+import net.minecraft.world.entity.ai.attributes.Attribute
 import org.jetbrains.annotations.ApiStatus
 
 /**
@@ -28,7 +26,7 @@ abstract class MenuComponent(horizontalSizing: Sizing = Sizing.fill(100), vertic
     val onAttributeUpdated: EventSource<OnAttributeUpdated> = onAttributeUpdatedEvents.source()
 
     /** When the [PlayerEXScreen] is ready to be constructed, this function (if the component is registered) will be called.*/
-    abstract fun build(player: ClientPlayerEntity, adapter: OwoUIAdapter<FlowLayout>, component: IPlayerDataComponent)
+    abstract fun build(player: LocalPlayer, adapter: OwoUIAdapter<FlowLayout>, component: IPlayerDataComponent)
 
     fun interface OnLevelUpdated {
         fun onLevelUpdated(level: Int)
@@ -41,7 +39,7 @@ abstract class MenuComponent(horizontalSizing: Sizing = Sizing.fill(100), vertic
     }
 
     fun interface OnAttributeUpdated {
-        fun onAttributeUpdated(attribute: EntityAttribute, level: Double)
+        fun onAttributeUpdated(attribute: Attribute, level: Double)
 
         companion object {
             val stream: EventStream<OnAttributeUpdated> get() = EventStream { subscribers ->

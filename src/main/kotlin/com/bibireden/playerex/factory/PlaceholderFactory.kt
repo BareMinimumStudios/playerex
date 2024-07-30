@@ -8,14 +8,14 @@ import com.bibireden.playerex.api.attribute.PlayerEXAttributes
 import com.bibireden.playerex.ext.level
 import eu.pb4.placeholders.api.PlaceholderHandler
 import eu.pb4.placeholders.api.PlaceholderResult
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.MinecraftServer
-import net.minecraft.server.network.ServerPlayerEntity
-import net.minecraft.util.Identifier
-import net.minecraft.util.math.MathHelper
+import net.minecraft.server.level.ServerPlayer
+import net.minecraft.util.Mth
 import kotlin.math.max
 
 object PlaceholderFactory {
-    val STORE: MutableMap<Identifier, PlaceholderHandler> = mutableMapOf();
+    val STORE: MutableMap<ResourceLocation, PlaceholderHandler> = mutableMapOf();
 
     private fun nameLevelPair(server: MinecraftServer, namesIn: Collection<String>, indexIn: Int): Pair<String, Int>
     {
@@ -35,7 +35,7 @@ object PlaceholderFactory {
 
             names.sortWith(Comparator.comparing { (_, level) -> level })
 
-            val j = MathHelper.clamp(indexIn, 1, names.size)
+            val j = Mth.clamp(indexIn, 1, names.size)
 
             return names[names.size - j]
         }
@@ -71,13 +71,13 @@ object PlaceholderFactory {
     }
 
     init {
-        val levelId = Identifier.of(PlayerEX.MOD_ID, "level")
-        val nameTopId = Identifier.of(PlayerEX.MOD_ID, "name_top")
-        val levelTopId = Identifier.of(PlayerEX.MOD_ID, "level_top")
+        val levelId = ResourceLocation.tryBuild(PlayerEX.MOD_ID, "level")
+        val nameTopId = ResourceLocation.tryBuild(PlayerEX.MOD_ID, "name_top")
+        val levelTopId = ResourceLocation.tryBuild(PlayerEX.MOD_ID, "level_top")
 
         if (levelId != null) {
             STORE[levelId] = PlaceholderHandler { ctx, _ ->
-                val player: ServerPlayerEntity? = ctx?.player
+                val player: ServerPlayer? = ctx?.player
 
                 player ?: return@PlaceholderHandler PlaceholderResult.invalid("No player!");
 

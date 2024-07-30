@@ -2,8 +2,8 @@ package com.bibireden.playerex.mixin;
 
 import com.bibireden.playerex.api.event.LivingEntityEvents;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -42,12 +42,12 @@ public abstract class LivingEntityMixin {
         }
     }
 
-    @ModifyVariable(method = "damage", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+    @ModifyVariable(method = "hurt", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private float playerex$damage(float original, DamageSource source) {
         return LivingEntityEvents.ON_DAMAGE.invoker().onDamage((LivingEntity) (Object) this, source, original);
     }
 
-    @ModifyReturnValue(method = "damage", at = @At("RETURN"))
+    @ModifyReturnValue(method = "hurt", at = @At("RETURN"))
     private boolean playerex$damage(boolean original, DamageSource source, float damage) {
         boolean cancelled = LivingEntityEvents.SHOULD_DAMAGE.invoker().shouldDamage((LivingEntity) (Object) this, source, damage);
         return cancelled && original;

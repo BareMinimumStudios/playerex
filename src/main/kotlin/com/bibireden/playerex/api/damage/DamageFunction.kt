@@ -1,7 +1,7 @@
 package com.bibireden.playerex.api.damage
 
-import net.minecraft.entity.LivingEntity
-import net.minecraft.entity.damage.DamageSource
+import net.minecraft.world.damagesource.DamageSource
+import net.minecraft.world.entity.LivingEntity
 
 fun interface DamageFunction {
     /**

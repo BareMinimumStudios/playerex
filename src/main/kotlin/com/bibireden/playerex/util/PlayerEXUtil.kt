@@ -3,7 +3,7 @@ package com.bibireden.playerex.util
 import com.bibireden.data_attributes.api.util.Maths
 import com.bibireden.playerex.PlayerEX
 import com.bibireden.playerex.ext.level
-import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.world.entity.player.Player
 import net.objecthunter.exp4j.Expression
 import net.objecthunter.exp4j.ExpressionBuilder
 import net.objecthunter.exp4j.function.Function
@@ -30,7 +30,7 @@ object PlayerEXUtil {
 
     @JvmStatic
     /** Computes the experience cost of the provided level. */
-    fun getRequiredXpForLevel(player: PlayerEntity, target: Double): Int {
+    fun getRequiredXpForLevel(player: Player, target: Double): Int {
         val steps = (target - player.level).toInt()
         if (steps <= 0) return 0
 
@@ -45,5 +45,5 @@ object PlayerEXUtil {
 
     /** todo: document, none evident on former, resolve if orElse is needed here, and if we can do nullable or not without drastically changing things */
     @JvmStatic
-    fun getRequiredXpForNextLevel(player: PlayerEntity): Int = getRequiredXpForLevel(player, player.level + 1)
+    fun getRequiredXpForNextLevel(player: Player): Int = getRequiredXpForLevel(player, player.level + 1)
 }

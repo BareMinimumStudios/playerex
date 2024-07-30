@@ -5,16 +5,16 @@ import com.bibireden.playerex.PlayerEX
 import com.bibireden.playerex.api.attribute.PlayerEXAttributes
 import com.bibireden.playerex.components.PlayerEXComponents
 import com.bibireden.playerex.registry.DamageModificationRegistry
-import net.minecraft.entity.Entity
-import net.minecraft.entity.LivingEntity
-import net.minecraft.entity.damage.DamageSource
-import net.minecraft.entity.effect.StatusEffects
-import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.entity.projectile.PersistentProjectileEntity
-import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.server.level.ServerPlayer
+import net.minecraft.world.damagesource.DamageSource
+import net.minecraft.world.effect.MobEffects
+import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.player.Player
+import net.minecraft.world.entity.projectile.AbstractArrow
 
 object EventFactory {
-    fun reset(oldPlayer: ServerPlayerEntity, newPlayer: ServerPlayerEntity, isAlive: Boolean)
+    fun reset(oldPlayer: ServerPlayer, newPlayer: ServerPlayer, isAlive: Boolean)
     {
         PlayerEXComponents.PLAYER_DATA.get(newPlayer).reset(if (PlayerEX.CONFIG.resetOnDeath) 0 else 100)
     }
@@ -26,16 +26,16 @@ object EventFactory {
 
     fun healthRegeneration(livingEntity: LivingEntity)
     {
-        if (!livingEntity.world.isClient) {
-            val healthRegenerationOption = DataAttributesAPI.getValue(PlayerEXAttributes.HEALTH_REGENERATION, livingEntity);
+        if (!livingEntity.level().isClientSide()) {
+            val healthRegenerationOption = DataAttributesAPI.getValue(PlayerEXAttributes.HEALTH_REGENERATION, livingEntity)
 
             if (healthRegenerationOption.isPresent)
             {
-                val healthRegeneration = healthRegenerationOption.get();
+                val healthRegeneration = healthRegenerationOption.get()
 
                 if (healthRegeneration > 0.0 && livingEntity.health < livingEntity.maxHealth)
                 {
-                    livingEntity.heal(healthRegeneration.toFloat());
+                    livingEntity.heal(healthRegeneration.toFloat())
                 }
 
                 return
@@ -64,16 +64,16 @@ object EventFactory {
     {
         if (original == 0.0F)
         {
-            return true;
+            return true
         }
 
-        val origin: Entity? = source.source;
-        val attacker: Entity? = source.attacker;
+        val origin: Entity? = source.directEntity
+        val attacker: Entity? = source.entity
 
-        if (attacker is LivingEntity && (origin is LivingEntity || origin is PersistentProjectileEntity))
+        if (attacker is LivingEntity && (origin is LivingEntity || origin is AbstractArrow))
         {
             DataAttributesAPI.getValue(PlayerEXAttributes.LIFESTEAL, livingEntity).ifPresent {
-                attacker.heal((original * it * 10.0).toFloat());
+                attacker.heal((original * it * 10.0).toFloat())
             }
         }
 
@@ -81,37 +81,37 @@ object EventFactory {
 
         if (evasionOption.isPresent)
         {
-            val chance = livingEntity.random.nextFloat();
-            return !(chance < evasionOption.get() && origin is PersistentProjectileEntity);
+            val chance = livingEntity.random.nextFloat()
+            return !(chance < evasionOption.get() && origin is AbstractArrow)
         }
 
         return true
     }
 
-    fun onCritAttack(player: PlayerEntity, target: Entity, amount: Float): Float
+    fun onCritAttack(player: Player, target: Entity, amount: Float): Float
     {
-        if (target !is LivingEntity) return amount;
+        if (target !is LivingEntity) return amount
 
-        val meleeCritOption = DataAttributesAPI.getValue(PlayerEXAttributes.MELEE_CRITICAL_DAMAGE, player);
+        val meleeCritOption = DataAttributesAPI.getValue(PlayerEXAttributes.MELEE_CRITICAL_DAMAGE, player)
 
         if (meleeCritOption.isPresent)
         {
-            return (amount * (1.0 + (meleeCritOption.get() * 10.0)) / 1.5).toFloat();
+            return (amount * (1.0 + (meleeCritOption.get() * 10.0)) / 1.5).toFloat()
         }
 
         return amount
     }
 
-    fun attackIsCrit(player: PlayerEntity, target: Entity, original: Boolean): Boolean
+    fun attackIsCrit(player: Player, target: Entity, original: Boolean): Boolean
     {
-        if (target !is LivingEntity) return original;
+        if (target !is LivingEntity) return original
 
-        val critChanceOptional = DataAttributesAPI.getValue(PlayerEXAttributes.MELEE_CRITICAL_CHANCE, player);
+        val critChanceOptional = DataAttributesAPI.getValue(PlayerEXAttributes.MELEE_CRITICAL_CHANCE, player)
 
         if (critChanceOptional.isPresent)
         {
-            val chance = player.random.nextFloat();
-            return (chance < critChanceOptional.get()) && !player.isClimbing && !player.hasStatusEffect(StatusEffects.BLINDNESS) && !player.hasVehicle();
+            val chance = player.random.nextFloat()
+            return (chance < critChanceOptional.get()) && !player.onClimbable() && !player.hasEffect(MobEffects.BLINDNESS) && !player.isPassenger
         }
 
         return original

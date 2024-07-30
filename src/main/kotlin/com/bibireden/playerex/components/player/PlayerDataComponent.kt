@@ -21,32 +21,32 @@ import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent
 import dev.onyxstudios.cca.api.v3.component.sync.ComponentPacketWriter
 import io.wispforest.endec.Endec
 import io.wispforest.endec.impl.StructEndecBuilder
-import net.minecraft.entity.attribute.EntityAttribute
-import net.minecraft.entity.attribute.EntityAttributeInstance
-import net.minecraft.entity.attribute.EntityAttributeModifier
-import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.nbt.NbtCompound
-import net.minecraft.network.PacketByteBuf
-import net.minecraft.registry.Registries
-import net.minecraft.server.network.ServerPlayerEntity
-import net.minecraft.util.Identifier
-import net.minecraft.util.math.MathHelper
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.network.FriendlyByteBuf
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.server.level.ServerPlayer
+import net.minecraft.util.Mth
+import net.minecraft.world.entity.ai.attributes.Attribute
+import net.minecraft.world.entity.ai.attributes.AttributeInstance
+import net.minecraft.world.entity.ai.attributes.AttributeModifier
+import net.minecraft.world.entity.player.Player
 import kotlin.math.round
 
 /**
- * Implementation of player-data that is meant to be synchronized. Contains [EntityAttribute] data and provided modifiers,
+ * Implementation of player-data that is meant to be synchronized. Contains [Attribute] data and provided modifiers,
  * skill points and refundable points.
  */
 class PlayerDataComponent(
-    private val player: PlayerEntity,
+    private val player: Player,
     private var _refundablePoints: Int = 0,
     private var _skillPoints: Int = 0,
-    private var _modifiers: MutableMap<Identifier, Double> = mutableMapOf(),
+    private var _modifiers: MutableMap<ResourceLocation, Double> = mutableMapOf(),
     var isLevelUpNotified: Boolean = false,
 ) : IPlayerDataComponent, AutoSyncedComponent {
-    data class Packet(val modifiers: Map<Identifier, Double>, val refundablePoints: Int, val skillPoints: Int, val isLevelUpNotified: Boolean)
+    data class Packet(val modifiers: Map<ResourceLocation, Double>, val refundablePoints: Int, val skillPoints: Int, val isLevelUpNotified: Boolean)
 
-    private fun toPacketNbt(): NbtCompound = NbtCompound().also(::writeToNbt)
+    private fun toPacketNbt(): CompoundTag = CompoundTag().also(::writeToNbt)
 
     companion object {
         val ENDEC = StructEndecBuilder.of(
@@ -59,32 +59,32 @@ class PlayerDataComponent(
     }
 
     /**
-     * Attempts to fetch an [EntityAttributeInstance] based on the provided [Identifier].
+     * Attempts to fetch an [AttributeInstance] based on the provided [ResourceLocation].
      *
      * @return a [Pair] of the instance, and whether that instance contains an existing modifier that has the UUID [PlayerEXModifiers.UUID].
      */
-    private fun getInstance(key: Identifier): Pair<EntityAttributeInstance, Boolean>? {
-        val attribute = Registries.ATTRIBUTE[key] ?: return null
-        val instance = this.player.attributes.getCustomInstance(attribute) ?: return null
+    private fun getInstance(key: ResourceLocation): Pair<AttributeInstance, Boolean>? {
+        val attribute = BuiltInRegistries.ATTRIBUTE[key] ?: return null
+        val instance = this.player.attributes.getInstance(attribute) ?: return null
         return Pair(instance, instance.getModifier(PlayerEXModifiers.UUID) != null)
     }
 
     private fun sync(packet: ComponentPacketWriter) {
-        this.player.world.takeUnless { it.isClient }?.let { world ->
+        this.player.level().takeUnless { it.isClientSide() }?.let { world ->
             PlayerEXComponents.PLAYER_DATA.sync(this.player, packet)
         }
     }
 
     /**
-     * Attempts to set a special PlayerEX-specific modifier to an [EntityAttributeInstance] based on the [Identifier] key provided.
+     * Attempts to set a special PlayerEX-specific modifier to an [AttributeInstance] based on the [ResourceLocation] key provided.
      */
-    private fun trySet(key: Identifier, value: Double): Boolean {
+    private fun trySet(key: ResourceLocation, value: Double): Boolean {
         val (instance, isPlayerEXModifierPresent) = this.getInstance(key) ?: return false
         if (isPlayerEXModifierPresent) {
             (instance as IEntityAttributeInstance).updateModifier(PlayerEXModifiers.UUID, value)
         }
         else {
-            instance.addPersistentModifier(EntityAttributeModifier(PlayerEXModifiers.UUID, "PlayerEX Attribute", value, EntityAttributeModifier.Operation.ADDITION))
+            instance.addPermanentModifier(AttributeModifier(PlayerEXModifiers.UUID, "PlayerEX Attribute", value, AttributeModifier.Operation.ADDITION))
         }
         this._modifiers[key] = value
         return true
@@ -92,11 +92,11 @@ class PlayerDataComponent(
 
     // todo: this function angers me!!!! 😡 remove should be suitable enough instead of a try.
     /**
-     * Attempts to remove a special PlayerEX modifier if present on the [EntityAttributeInstance] linked by the provided [Identifier] key.
+     * Attempts to remove a special PlayerEX modifier if present on the [AttributeInstance] linked by the provided [ResourceLocation] key.
      *
-     * @return [Boolean] Whether there was an existing [EntityAttributeInstance], whether an [EntityAttributeModifier] was removed or not.
+     * @return [Boolean] Whether there was an existing [AttributeInstance], whether an [AttributeInstance] was removed or not.
      * */
-    private fun tryRemove(key: Identifier): Boolean {
+    private fun tryRemove(key: ResourceLocation): Boolean {
         return this.getInstance(key)?.let { (instance, isModifierPresent) ->
             if (isModifierPresent) {
                 instance.removeModifier(PlayerEXModifiers.UUID)
@@ -104,24 +104,24 @@ class PlayerDataComponent(
         } != null
     }
 
-    override fun get(attribute: EntityAttribute): Double {
+    override fun get(attribute: Attribute): Double {
         return this._modifiers.getOrDefault(attribute.id, 0.0)
     }
 
-    override fun set(attribute: EntityAttribute, value: Int) {
+    override fun set(attribute: Attribute, value: Int) {
         val identifier = attribute.id
-        val attributeValue = attribute.clamp(value.toDouble())
+        val attributeValue = attribute.sanitizeValue(value.toDouble())
 
         if (!this.trySet(identifier, attributeValue)) return
 
         this.sync { buf, player -> buf.writeNbt(toPacketNbt())}
     }
 
-    override fun add(attribute: EntityAttribute, value: Double) {
+    override fun add(attribute: Attribute, value: Double) {
         this.set(attribute, (value + this.get(attribute)).toInt())
     }
 
-    override fun remove(attribute: EntityAttribute) {
+    override fun remove(attribute: Attribute) {
         val identifier = attribute.id
         if (!this.tryRemove(identifier).also { if (it) this._modifiers.remove(identifier) }) return
         this.sync { buf, player -> buf.writeNbt(toPacketNbt())}
@@ -130,7 +130,7 @@ class PlayerDataComponent(
     override fun reset(percent: Int) {
         val partition = if (percent == 0) 0.0 else percent / 100.0
 
-        val kept = mutableMapOf<Identifier, Double>()
+        val kept = mutableMapOf<ResourceLocation, Double>()
         for ((id, value) in this.modifiers) {
             if (partition == 0.0) {
                 this.tryRemove(id)
@@ -163,7 +163,7 @@ class PlayerDataComponent(
             maxRefundPoints += condition(this, this.player)
         }
 
-        this._refundablePoints = round(MathHelper.clamp((this.refundablePoints + points).toDouble(), 0.0, maxRefundPoints)).toInt()
+        this._refundablePoints = round(Mth.clamp((this.refundablePoints + points).toDouble(), 0.0, maxRefundPoints)).toInt()
 
         this.sync { buf, _ -> buf.writeNbt(toPacketNbt())}
 
@@ -185,7 +185,7 @@ class PlayerDataComponent(
                 val skillPoints = CONFIG.skillPointsPerLevelUp * amount
                 val component = PlayerEXComponents.PLAYER_DATA.get(player)
 
-                if (!override) player.addExperienceLevels(-required)
+                if (!override) player.giveExperienceLevels(-required)
                 component.addSkillPoints(skillPoints)
                 component.set(PlayerEXAttributes.LEVEL, expectedLevel.toInt())
 
@@ -195,7 +195,7 @@ class PlayerDataComponent(
         }.orElse(false)
     }
 
-    override fun skillUp(skill: EntityAttribute, amount: Int, override: Boolean): Boolean {
+    override fun skillUp(skill: Attribute, amount: Int, override: Boolean): Boolean {
         if (amount <= 0) return false
 
         return DataAttributesAPI.getValue(skill, player).map { current ->
@@ -214,7 +214,7 @@ class PlayerDataComponent(
         }.orElse(false)
     }
 
-    override fun refund(skill: EntityAttribute, amount: Int): Boolean {
+    override fun refund(skill: Attribute, amount: Int): Boolean {
         if (amount <= 0 || this.refundablePoints < amount) return false
         return DataAttributesAPI.getValue(skill, player).map { value ->
             if (amount > value) return@map false
@@ -229,7 +229,7 @@ class PlayerDataComponent(
         }.orElse(false)
     }
 
-    val modifiers: Map<Identifier, Double>
+    val modifiers: Map<ResourceLocation, Double>
         get() = this._modifiers
 
     override val skillPoints: Int
@@ -238,7 +238,7 @@ class PlayerDataComponent(
     override val refundablePoints: Int
         get() = this._refundablePoints
 
-    override fun readFromNbt(tag: NbtCompound) {
+    override fun readFromNbt(tag: CompoundTag) {
         ENDEC.decodeFully(NbtDeserializer::of, tag.get("DART")).also {
             this._modifiers = it.modifiers.toMutableMap()
             this._refundablePoints = it.refundablePoints
@@ -247,13 +247,13 @@ class PlayerDataComponent(
         }
     }
 
-    override fun writeToNbt(tag: NbtCompound) {
+    override fun writeToNbt(tag: CompoundTag) {
         tag.put("DART", ENDEC.encodeFully(NbtSerializer::of, Packet(this._modifiers, this.refundablePoints, this.skillPoints, this.isLevelUpNotified)))
     }
 
-    override fun shouldSyncWith(player: ServerPlayerEntity): Boolean = player == this.player
+    override fun shouldSyncWith(player: ServerPlayer): Boolean = player == this.player
 
-    override fun applySyncPacket(buf: PacketByteBuf) {
+    override fun applySyncPacket(buf: FriendlyByteBuf) {
         this.readFromNbt(buf.readNbt() ?: return)
     }
 }
