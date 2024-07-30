@@ -34,15 +34,15 @@ class PlayerEXAttributesMenu : MenuComponent(algorithm = Algorithm.HORIZONTAL) {
     private val MELEE_COMBAT_STATS: List<Pair<EntityAttributeSupplier, FormattingPredicate>> = listOf(
         EntityAttributeSupplier(Attributes.ATTACK_DAMAGE.id) to FormattingPredicates.NORMAL,
         EntityAttributeSupplier(Attributes.ATTACK_SPEED.id) to FormattingPredicates.NORMAL,
-        EntityAttributeSupplier(PlayerEXAttributes.MELEE_CRITICAL_DAMAGE.id) to FormattingPredicates.PERCENTAGE_DIVIDE,
-        EntityAttributeSupplier(PlayerEXAttributes.MELEE_CRITICAL_CHANCE.id) to FormattingPredicates.PERCENTAGE_DIVIDE
+        EntityAttributeSupplier(PlayerEXAttributes.MELEE_CRITICAL_DAMAGE.id) to FormattingPredicates.PERCENTAGE_MULTIPLY,
+        EntityAttributeSupplier(PlayerEXAttributes.MELEE_CRITICAL_CHANCE.id) to FormattingPredicates.PERCENTAGE_MULTIPLY
     )
 
     private val RANGED_COMBAT_STATS: List<Pair<EntityAttributeSupplier, FormattingPredicate>> = listOf(
-        EntityAttributeSupplier(PlayerEXAttributes.RANGED_DAMAGE.id) to FormattingPredicates.NORMAL,
-        EntityAttributeSupplier(PlayerEXAttributes.RANGED_CRITICAL_DAMAGE.id) to FormattingPredicates.PERCENTAGE_DIVIDE,
-        EntityAttributeSupplier(PlayerEXAttributes.RANGED_CRITICAL_CHANCE.id) to FormattingPredicates.PERCENTAGE_DIVIDE,
+        EntityAttributeSupplier(PlayerEXAttributes.RANGED_CRITICAL_DAMAGE.id) to FormattingPredicates.PERCENTAGE_MULTIPLY,
+        EntityAttributeSupplier(PlayerEXAttributes.RANGED_CRITICAL_CHANCE.id) to FormattingPredicates.PERCENTAGE_MULTIPLY,
         EntityAttributeSupplier(EntityAttributes_RangedWeapon.HASTE.id) to FormattingPredicates.fromBaseValue(EntityAttributes_RangedWeapon.HASTE.attribute),
+        EntityAttributeSupplier(EntityAttributes_RangedWeapon.DAMAGE.id) to FormattingPredicates.NORMAL,
     )
 
     private val DEFENSE_COMBAT_STATS: List<Pair<EntityAttributeSupplier, FormattingPredicate>> = listOf(
@@ -50,13 +50,13 @@ class PlayerEXAttributesMenu : MenuComponent(algorithm = Algorithm.HORIZONTAL) {
         EntityAttributeSupplier(AdditionalEntityAttributes.MAGIC_PROTECTION.id) to FormattingPredicates.NORMAL,
         EntityAttributeSupplier(Attributes.ARMOR_TOUGHNESS.id) to FormattingPredicates.NORMAL,
         EntityAttributeSupplier(Attributes.KNOCKBACK_RESISTANCE.id) to FormattingPredicates.PERCENTAGE_DIVIDE,
-        EntityAttributeSupplier(PlayerEXAttributes.EVASION.id) to FormattingPredicates.PERCENTAGE_DIVIDE,
+        EntityAttributeSupplier(PlayerEXAttributes.EVASION.id) to FormattingPredicates.PERCENTAGE_MULTIPLY,
     )
 
     private val VITALITY_STATS: List<Pair<EntityAttributeSupplier, FormattingPredicate>> = listOf(
-        EntityAttributeSupplier(PlayerEXAttributes.HEALTH_REGENERATION.id) to FormattingPredicates.NORMAL,
-        EntityAttributeSupplier(PlayerEXAttributes.HEAL_AMPLIFICATION.id) to FormattingPredicates.NORMAL,
-        EntityAttributeSupplier(PlayerEXAttributes.LIFESTEAL.id) to FormattingPredicates.PERCENTAGE_DIVIDE,
+        EntityAttributeSupplier(PlayerEXAttributes.HEALTH_REGENERATION.id) to FormattingPredicates.PERCENTAGE_MULTIPLY,
+        EntityAttributeSupplier(PlayerEXAttributes.HEAL_AMPLIFICATION.id) to FormattingPredicates.PERCENTAGE_MULTIPLY,
+        EntityAttributeSupplier(PlayerEXAttributes.LIFESTEAL.id) to FormattingPredicates.PERCENTAGE_MULTIPLY,
         EntityAttributeSupplier(Attributes.MOVEMENT_SPEED.id) to FormattingPredicates.NORMAL,
     )
 

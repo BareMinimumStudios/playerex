@@ -10,6 +10,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -19,6 +20,8 @@ import java.util.Optional;
 
 @Mixin(AbstractArrow.class)
 public abstract class AbstractArrowMixin extends Projectile {
+    @Shadow public abstract void setCritArrow(boolean critical);
+
     // Constructor for the mixin class
     private AbstractArrowMixin(EntityType<? extends Projectile> entityType, Level level) {
         super(entityType, level);
@@ -27,16 +30,18 @@ public abstract class AbstractArrowMixin extends Projectile {
     @SuppressWarnings("UnreachableCode")
     @Inject(method = "onHitEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/AbstractArrow;isCritArrow()Z"))
     private void playerex_onEntityHit(EntityHitResult entityHitResult, CallbackInfo info) {
-        AbstractArrow projectileEntity = (AbstractArrow)(Object)this;
-        Entity owner = projectileEntity.getOwner();
+        AbstractArrow projectileEntity = (AbstractArrow) (Object) this;
+        Entity entity = projectileEntity.getOwner();
 
-        if(owner instanceof LivingEntity) {
+        if (entity instanceof LivingEntity) {
 
-            Optional<Double> rangedCritChanceOptional = DataAttributesAPI.getValue(PlayerEXAttributes.RANGED_CRITICAL_CHANCE, (LivingEntity)owner);
+            Optional<Double> rangedCritChanceOptional = DataAttributesAPI.getValue(PlayerEXAttributes.RANGED_CRITICAL_CHANCE, (LivingEntity) entity);
 
-            if (rangedCritChanceOptional.isPresent())
-            {
+            if (rangedCritChanceOptional.isPresent()) {
                 projectileEntity.setCritArrow(false);
+            }
+            if (this.getOwner() instanceof LivingEntity owner) {
+                DataAttributesAPI.getValue(PlayerEXAttributes.RANGED_CRITICAL_CHANCE, owner).ifPresent((chance) -> this.setCritArrow(false));
             }
         }
     }
@@ -49,10 +54,6 @@ public abstract class AbstractArrowMixin extends Projectile {
         double damage = i;
 
         if(owner instanceof LivingEntity livingEntity) {
-            Optional<Double> damageOptional = DataAttributesAPI.getValue(PlayerEXAttributes.RANGED_DAMAGE, livingEntity);
-
-            damage = damageOptional.isPresent() ? damageOptional.get() + i : i;
-
             final double amount = damage;
 
             Optional<Double> rangedCritOptional = DataAttributesAPI.getValue(PlayerEXAttributes.RANGED_CRITICAL_CHANCE, livingEntity);

@@ -2,6 +2,7 @@ package com.bibireden.playerex.ui.util
 
 import com.bibireden.playerex.ui.components.FormattingPredicate
 import net.minecraft.world.entity.ai.attributes.Attribute
+import kotlin.math.round
 
 object FormattingPredicates {
     val NORMAL: FormattingPredicate = { "%.2f".format(it) }
@@ -11,7 +12,7 @@ object FormattingPredicates {
 
     fun fromBaseValue(attribute: Attribute): FormattingPredicate {
         return {
-            val result = it - attribute.defaultValue
+            val result = round(it - attribute.defaultValue).toInt()
             var text = "$result"
             if (result > 0) text = "+$result"
             text + "%"

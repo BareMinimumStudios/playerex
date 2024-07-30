@@ -58,13 +58,13 @@
 			"curseforge": 958325,
 			"loaders": ["fabric", "quilt"],
 			"dependencies": [
-				"fabric-api@0.92.2+1.20.1(required){modrinth:P7dR8mSH}{curseforge:306612}#(ignore:github)",
-				"fabric-language-kotlin@1.9.5+kotlin.1.8.22(required){modrinth:Ha28R6CL}{curseforge:308769}#(ignore:github)",
-				"data-attributes-directors-cut@2.0.0-beta.7+1.20.1-fabric(required){modrinth:KCGxOJsE}{curseforge:955929}#(ignore:github)",
+				"fabric-api@>=0.92.2+1.20.1(required){modrinth:P7dR8mSH}{curseforge:306612}#(ignore:github)",
+				"fabric-language-kotlin@>=1.9.5+kotlin.1.8.22(required){modrinth:Ha28R6CL}{curseforge:308769}#(ignore:github)",
+				"data-attributes-directors-cut@>=2.0.0-beta.7+1.20.1-fabric(required){modrinth:KCGxOJsE}{curseforge:955929}#(ignore:github)",
 				"owo-lib@0.11.2(required){modrinth:ccKDOlHs}{curseforge:532610}#(ignore:github)",
-				"ranged_weapon_api@1.1.0+1.20.1(required){modrinth:AqaIIO6D}{curseforge:962162}#(ignore:github)",
+				"ranged_weapon_api@>=1.1.0+1.20.1(required){modrinth:AqaIIO6D}{curseforge:962162}#(ignore:github)",
 				"cardinal-components@5.2.2(embedded){modrinth:K01OU20C}{curseforge:318449}#(ignore:github)",
-				"spell-engine@0.15.8+1.20.1(optional){modrinth:XvoWJaA2}{curseforge:807653}#(ignore:github)"
+				"spell-engine@>=0.15.8+1.20.1(optional){modrinth:XvoWJaA2}{curseforge:807653}#(ignore:github)"
 			]
 		}
 	}

@@ -66,9 +66,6 @@ object PlayerEXAttributes {
     val EVASION = register("evasion", 0.0, 0.0, 100.0);
 
     @JvmField
-    val RANGED_DAMAGE = register("ranged_damage", 0.0, 0.0, 1000000.0)
-
-    @JvmField
     val RANGED_CRITICAL_CHANCE = register("ranged_crit_chance", 0.0, 0.0, 1.0)
 
     @JvmField
