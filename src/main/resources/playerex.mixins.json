@@ -8,7 +8,6 @@
     "InventoryMixin",
     "LivingEntityMixin",
     "PlayerMixin",
-    "ServerLevelMixin",
     "ServerPlayerMixin"
   ],
   "injectors": {

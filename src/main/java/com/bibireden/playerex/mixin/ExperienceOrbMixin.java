@@ -14,9 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ExperienceOrb.class)
 public abstract class ExperienceOrbMixin extends Entity {
-    public ExperienceOrbMixin(EntityType<?> entityType, Level level) {
-        super(entityType, level);
-    }
+    public ExperienceOrbMixin(EntityType<?> entityType, Level level) { super(entityType, level); }
 
     @Inject(method = "<init>(Lnet/minecraft/world/level/Level;DDDI)V", at = @At("TAIL"))
     private void playerex$init(Level world, double x, double y, double z, int amount, CallbackInfo ci) {

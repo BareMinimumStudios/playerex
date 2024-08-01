@@ -27,9 +27,7 @@ public abstract class LivingEntityMixin {
     @Inject(method = "heal", at = @At("HEAD"), cancellable = true)
     private void playerex$heal(float original, CallbackInfo ci) {
         final boolean cancelled = LivingEntityEvents.SHOULD_HEAL.invoker().shouldHeal((LivingEntity) (Object) this, original);
-        if (!cancelled) {
-            ci.cancel();
-        }
+        if (!cancelled) ci.cancel();
     }
 
     @Inject(method = "tick", at = @At("TAIL"))

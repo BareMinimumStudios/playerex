@@ -5,27 +5,33 @@ import com.bibireden.playerex.components.player.PlayerDataComponent;
 import com.bibireden.playerex.factory.ServerNetworkingFactory;
 import com.bibireden.playerex.networking.types.NotificationType;
 import com.bibireden.playerex.util.PlayerEXUtil;
+import com.mojang.authlib.GameProfile;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@SuppressWarnings("UnreachableCode")
 @Mixin(ServerPlayer.class)
-public abstract class ServerPlayerMixin {
+public abstract class ServerPlayerMixin extends Player {
+    public ServerPlayerMixin(Level level, BlockPos pos, float yRot, GameProfile gameProfile) {
+        super(level, pos, yRot, gameProfile);
+    }
+
     @Inject(method = "giveExperienceLevels", at = @At("TAIL"))
     private void addExperienceLevels(int levels, CallbackInfo ci) {
-        ServerPlayer player = (ServerPlayer) (Object) this;
-        PlayerDataComponent component = (PlayerDataComponent) PlayerEXComponents.PLAYER_DATA.get(player);
+        PlayerDataComponent component = (PlayerDataComponent) PlayerEXComponents.PLAYER_DATA.get(this);
 
-        int current = player.experienceLevel;
-        int required = PlayerEXUtil.getRequiredXpForNextLevel(player);
+        int current = this.experienceLevel;
+        int required = PlayerEXUtil.getRequiredXpForNextLevel(this);
 
         if (current >= required) {
             if (!component.isLevelUpNotified()) {
                 component.setLevelUpNotified(true);
-                ServerNetworkingFactory.notify(player, NotificationType.LevelUpAvailable);
+                ServerNetworkingFactory.notify(this, NotificationType.LevelUpAvailable);
             }
         }
         else {
