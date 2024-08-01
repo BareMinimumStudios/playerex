@@ -52,7 +52,7 @@ object PlayerEXClient : ClientModInitializer {
 			}
 		}
 
-		PlayerEXMenuRegistry.register(PlayerEXAttributesMenu::class.java)
+		PlayerEXMenuRegistry.register(PlayerEX.id("attributes"), PlayerEXAttributesMenu::class.java)
 
 		ClientTickEvents.END_CLIENT_TICK.register { client ->
 			if (PlayerEX.CONFIG.disableUI) return@register
