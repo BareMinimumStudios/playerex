@@ -23,12 +23,9 @@ public abstract class ServerPlayerMixin extends Player {
 
     @Inject(method = "giveExperienceLevels", at = @At("TAIL"))
     private void addExperienceLevels(int levels, CallbackInfo ci) {
-        PlayerDataComponent component = (PlayerDataComponent) PlayerEXComponents.PLAYER_DATA.get(this);
+        PlayerDataComponent component = (PlayerDataComponent) this.getComponent(PlayerEXComponents.PLAYER_DATA);
 
-        int current = this.experienceLevel;
-        int required = PlayerEXUtil.getRequiredXpForNextLevel(this);
-
-        if (current >= required) {
+        if (this.experienceLevel >= PlayerEXUtil.getRequiredXpForNextLevel(this)) {
             if (!component.isLevelUpNotified()) {
                 component.setLevelUpNotified(true);
                 ServerNetworkingFactory.notify(this, NotificationType.LevelUpAvailable);
