@@ -22,58 +22,41 @@ import java.util.Optional;
 public abstract class AbstractArrowMixin extends Projectile {
     @Shadow public abstract void setCritArrow(boolean critical);
 
-    // Constructor for the mixin class
+    @Shadow public abstract boolean isCritArrow();
+
     private AbstractArrowMixin(EntityType<? extends Projectile> entityType, Level level) {
         super(entityType, level);
     }
 
-    @SuppressWarnings("UnreachableCode")
     @Inject(method = "onHitEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/AbstractArrow;isCritArrow()Z"))
-    private void playerex_onEntityHit(EntityHitResult entityHitResult, CallbackInfo info) {
-        AbstractArrow projectileEntity = (AbstractArrow) (Object) this;
-        Entity entity = projectileEntity.getOwner();
-
-        if (entity instanceof LivingEntity) {
-
-            Optional<Double> rangedCritChanceOptional = DataAttributesAPI.getValue(PlayerEXAttributes.RANGED_CRITICAL_CHANCE, (LivingEntity) entity);
-
-            if (rangedCritChanceOptional.isPresent()) {
-                projectileEntity.setCritArrow(false);
-            }
-            if (this.getOwner() instanceof LivingEntity owner) {
-                DataAttributesAPI.getValue(PlayerEXAttributes.RANGED_CRITICAL_CHANCE, owner).ifPresent((chance) -> this.setCritArrow(false));
-            }
+    private void playerex$onEntityHit(EntityHitResult entityHitResult, CallbackInfo info) {
+        if (this.getOwner() instanceof LivingEntity entity) {
+            DataAttributesAPI.getValue(PlayerEXAttributes.RANGED_CRITICAL_CHANCE, entity).ifPresent((chance) ->
+                this.setCritArrow(false)
+            );
         }
     }
 
-    @SuppressWarnings("UnreachableCode")
     @ModifyArg(method = "onHitEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"))
-    private float playerex_onEntityHit(float i) {
-        AbstractArrow projectileEntity = (AbstractArrow)(Object) this;
-        Entity owner = projectileEntity.getOwner();
-        double damage = i;
+    private float playerex$onEntityHit(float original) {
+        if (this.getOwner() instanceof LivingEntity entity) {
+            final float damage = original;
 
-        if(owner instanceof LivingEntity livingEntity) {
-            final double amount = damage;
-
-            Optional<Double> rangedCritOptional = DataAttributesAPI.getValue(PlayerEXAttributes.RANGED_CRITICAL_CHANCE, livingEntity);
-
-            if (rangedCritOptional.isPresent())
-            {
-                boolean cache = livingEntity.getRandom().nextFloat() < rangedCritOptional.get();
-                projectileEntity.setCritArrow(cache);
-
-                if (cache)
-                {
-                    Optional<Double> rangedCritDamageOptional = DataAttributesAPI.getValue(PlayerEXAttributes.RANGED_CRITICAL_DAMAGE, livingEntity);
-                    if (rangedCritOptional.isPresent())
-                    {
-                        damage = amount * (1.0 + (10.0 * rangedCritDamageOptional.get()));
-                    }
+            boolean isCritical = DataAttributesAPI.getValue(PlayerEXAttributes.RANGED_CRITICAL_CHANCE, entity)
+                .map((chance) -> {
+                    boolean shouldCritical = entity.getRandom().nextFloat() < chance;
+                    this.setCritArrow(shouldCritical);
+                    return shouldCritical;
                 }
+            ).orElse(this.isCritArrow());
+
+            if (isCritical) {
+                final long offset = this.random.nextInt(Math.round(original) / 2 + 2);
+                return DataAttributesAPI.getValue(PlayerEXAttributes.RANGED_CRITICAL_DAMAGE, entity)
+                    .map((v) -> (damage * (1.0 + (10.0 * v))))
+                    .orElse((double) Math.min(offset + original, Integer.MAX_VALUE)).floatValue();
             }
         }
-
-        return (float) damage;
+        return original;
     }
 }
