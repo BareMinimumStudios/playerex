@@ -1,3 +1,4 @@
-## Fixes & Changes ⚒️
-- Fixed issues with `alpha.5` having an outdated variant of the previous.
-- Migrated to mojmappings.
+## Changes ⚒️
+- Updated to a newer build of `OfflinePlayerCache`.
+- Changed some more internals.
+- Reimplemented original calculation of projectile critical chance.

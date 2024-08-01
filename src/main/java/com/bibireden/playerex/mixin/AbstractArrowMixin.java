@@ -52,11 +52,11 @@ public abstract class AbstractArrowMixin extends Projectile {
 
             if (isCritical) {
                 return DataAttributesAPI.getValue(PlayerEXAttributes.RANGED_CRITICAL_DAMAGE, entity)
-                    .map((v) -> (damage * (1.0 + (10.0 * v))))
+                    .map((v) -> (float) (damage * (1.0 + (10.0 * v))))
                     .orElseGet(() -> {
                         final long offset = this.random.nextInt(Math.round(original) / 2 + 2);
-                        return (double) Math.min(offset + (long) original, Integer.MAX_VALUE);
-                    }).floatValue();
+                        return Math.min(offset + original, Integer.MAX_VALUE);
+                    });
             }
         }
         return original;
