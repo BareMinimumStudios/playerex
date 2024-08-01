@@ -42,8 +42,7 @@ abstract class MenuComponent(horizontalSizing: Sizing = Sizing.fill(100), vertic
         fun onLevelUpdated(level: Int)
 
         companion object {
-            val stream: EventStream<OnLevelUpdated>
-                get() = EventStream { subscribers ->
+            val stream: EventStream<OnLevelUpdated> = EventStream { subscribers ->
                 OnLevelUpdated { level -> subscribers.forEach { it.onLevelUpdated(level) } }
             }
         }
@@ -53,8 +52,7 @@ abstract class MenuComponent(horizontalSizing: Sizing = Sizing.fill(100), vertic
         fun onAttributeUpdated(attribute: Attribute, level: Double)
 
         companion object {
-            val stream: EventStream<OnAttributeUpdated>
-                get() = EventStream { subscribers ->
+            val stream: EventStream<OnAttributeUpdated> get() = EventStream { subscribers ->
                 OnAttributeUpdated {  attribute, value -> subscribers.forEach { it.onAttributeUpdated(attribute, value) } }
             }
         }
