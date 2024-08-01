@@ -1,10 +1,15 @@
 package com.bibireden.playerex
 
+import com.bibireden.data_attributes.api.DataAttributesAPI
 import com.bibireden.data_attributes.api.attribute.EntityAttributeSupplier
 import com.bibireden.data_attributes.api.event.EntityAttributeModifiedEvents
 import com.bibireden.data_attributes.api.factory.DefaultAttributeFactory
+import com.bibireden.opc.api.OfflinePlayerCacheAPI
 import com.bibireden.playerex.api.PlayerEXAPI
+import com.bibireden.playerex.api.PlayerEXCachedKeys
+import com.bibireden.playerex.api.PlayerEXCachedKeys.Level
 import com.bibireden.playerex.api.attribute.DefaultAttributeImpl
+import com.bibireden.playerex.api.attribute.PlayerEXAttributes
 import com.bibireden.playerex.api.event.LivingEntityEvents
 import com.bibireden.playerex.api.event.PlayerEXSoundEvents
 import com.bibireden.playerex.api.event.PlayerEntityEvents
@@ -17,6 +22,9 @@ import com.bibireden.playerex.networking.registerServerbound
 import com.bibireden.playerex.networking.types.UpdatePacketType
 import de.dafuqs.additionalentityattributes.AdditionalEntityAttributes
 import eu.pb4.placeholders.api.Placeholders
+import io.wispforest.endec.Endec
+import io.wispforest.endec.impl.BuiltInEndecs
+import io.wispforest.endec.impl.RecordEndec
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents
@@ -26,6 +34,7 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.ai.attributes.Attributes
 import org.slf4j.LoggerFactory
+import kotlin.jvm.optionals.getOrElse
 
 object PlayerEX : ModInitializer {
 	const val MOD_ID: String = "playerex"
@@ -98,5 +107,11 @@ object PlayerEX : ModInitializer {
 		}
 
 		LOGGER.info(gimmick)
+	}
+
+	init {
+		OfflinePlayerCacheAPI.register(PlayerEXCachedKeys.LEVEL_KEY, Level::class.java, Level.CODEC) {
+			Level(DataAttributesAPI.getValue(PlayerEXAttributes.LEVEL, it).map(Double::toInt).orElse(0))
+		}
 	}
 }

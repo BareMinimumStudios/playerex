@@ -1,10 +1,8 @@
 package com.bibireden.playerex.factory
 
-import com.bibireden.data_attributes.api.DataAttributesAPI
-import com.bibireden.opc.cache.OfflinePlayerCache
+import com.bibireden.opc.api.OfflinePlayerCacheAPI
 import com.bibireden.playerex.PlayerEX
 import com.bibireden.playerex.api.PlayerEXCachedKeys
-import com.bibireden.playerex.api.attribute.PlayerEXAttributes
 import com.bibireden.playerex.ext.level
 import eu.pb4.placeholders.api.PlaceholderHandler
 import eu.pb4.placeholders.api.PlaceholderResult
@@ -19,39 +17,35 @@ object PlaceholderFactory {
 
     private fun nameLevelPair(server: MinecraftServer, namesIn: Collection<String>, indexIn: Int): Pair<String, Int>
     {
-        val cache = OfflinePlayerCache.get(server)
+        val cache = OfflinePlayerCacheAPI.getCache(server)
 
-        if (cache !== null) {
-            val names: ArrayList<Pair<String, Int>> = ArrayList(namesIn.size);
+        val names: ArrayList<Pair<String, Int>> = ArrayList(namesIn.size);
 
-            var i = 0
+        var i = 0
 
-            for (name: String in namesIn) {
-                val cachedData = cache.get(server, name, PlayerEXCachedKeys.LEVEL_KEY) ?: continue
-
-                names[i] = Pair(name, cachedData)
+        for (name: String in namesIn) {
+            cache.getEntry(PlayerEXCachedKeys.Level::class.java, name).ifPresent {
+                names[i] = Pair(name, it.level)
                 i++
             }
-
-            names.sortWith(Comparator.comparing { (_, level) -> level })
-
-            val j = Mth.clamp(indexIn, 1, names.size)
-
-            return names[names.size - j]
         }
 
-        return Pair("", 0)
+        names.sortWith(Comparator.comparing { (_, level) -> level })
+
+        val j = Mth.clamp(indexIn, 1, names.size)
+
+        return names[names.size - j]
     }
 
     private fun top(stringFunction: (Pair<String, Int>) -> String): PlaceholderHandler
     {
         return PlaceholderHandler { ctx, arg ->
             val server = ctx.server()
-            val cache = OfflinePlayerCache.get(server) ?: return@PlaceholderHandler PlaceholderResult.invalid("Improper cache")
+            val cache = OfflinePlayerCacheAPI.getCache(server)
 
             var index: Int = 1
 
-            val names: Collection<String> = cache.usernames(server)
+            val names: Collection<String> = cache.usernames
 
             if (arg !== null)
             {
