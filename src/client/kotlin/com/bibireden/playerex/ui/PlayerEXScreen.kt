@@ -128,8 +128,8 @@ class PlayerEXScreen : BaseUIModelScreen<FlowLayout>(FlowLayout::class.java, Dat
         val nextPage = rootComponent.childById(ButtonComponent::class, "next")!!
         val exit = rootComponent.childById(ButtonComponent::class, "exit")!!
 
-        PlayerEXMenuRegistry.get().forEach {
-            val instance = it.getDeclaredConstructor().newInstance()
+        PlayerEXMenuRegistry.get().forEach { (_, clazz) ->
+            val instance = clazz.getDeclaredConstructor().newInstance()
             instance.init(minecraft!!, this, player.data)
             instance.build(content)
             pages.add(instance)
