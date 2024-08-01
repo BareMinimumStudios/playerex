@@ -30,15 +30,6 @@ object PlayerEXAPI {
         RefundConditionRegistry.register(condition)
     }
 
-//    /**
-//     * Registers an Attribute Menu. These are displayed in PlayerEX's attributes screen.
-//     *
-//     * @param screen
-//     */
-//    fun registerAttributeMenu(menu: AttributesMenu) {
-//        AttributesMenuRegistry.register(menu)
-//    }
-
     /**
      * @return Returns all the registered refund conditions. Note that while this is
      *         mutable and backed by the original registry,
