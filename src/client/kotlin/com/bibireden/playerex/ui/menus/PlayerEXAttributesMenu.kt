@@ -26,8 +26,6 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.network.chat.Component
 import org.jetbrains.annotations.ApiStatus
 
-// todo: cache buttons/certain UI elements
-
 @ApiStatus.Internal
 class PlayerEXAttributesMenu : MenuComponent(algorithm = Algorithm.HORIZONTAL) {
     private val MELEE_COMBAT_STATS: List<Pair<EntityAttributeSupplier, FormattingPredicate>> = listOf(
@@ -72,18 +70,11 @@ class PlayerEXAttributesMenu : MenuComponent(algorithm = Algorithm.HORIZONTAL) {
     private fun onAttributeUpdate() {
         // refresh all attribute labels
         this.forEachDescendant { component ->
-            // todo: use derived interface to check instance
-            if (component is AttributeComponent) {
-                component.refresh()
-                return@forEachDescendant
-            }
-            if (component is AttributeLabelComponent) {
-                component.refresh()
-                return@forEachDescendant
-            }
-            if (component is AttributeListEntryComponent) {
-                component.refresh()
-                return@forEachDescendant
+            // a bit more tolerable
+            when (component) {
+                is AttributeComponent -> component.refresh()
+                is AttributeLabelComponent -> component.refresh()
+                is AttributeListEntryComponent -> component.refresh()
             }
         }
     }

@@ -8,7 +8,6 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.player.Player
 
 object PlayerEntityEvents {
-
     /**
      * Fired if the player lands a critical hit. The result is the damage.
      */
