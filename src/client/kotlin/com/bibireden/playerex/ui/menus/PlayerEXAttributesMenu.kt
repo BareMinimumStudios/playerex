@@ -20,7 +20,6 @@ import io.wispforest.owo.ui.container.Containers
 import io.wispforest.owo.ui.container.FlowLayout
 import io.wispforest.owo.ui.core.*
 import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon
-import net.minecraft.client.player.LocalPlayer
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.player.Player
@@ -106,7 +105,10 @@ class PlayerEXAttributesMenu : MenuComponent(algorithm = Algorithm.HORIZONTAL) {
 
     }
 
-    override fun build(player: LocalPlayer, adapter: OwoUIAdapter<FlowLayout>, component: IPlayerDataComponent) {
+    override fun build(rootComponent: FlowLayout) {
+        val player = client?.player ?: return
+        val component = playerComponent ?: return
+
         child(Containers.verticalScroll(
             Sizing.fill(45),
             Sizing.fill(100),

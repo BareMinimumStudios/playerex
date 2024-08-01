@@ -130,7 +130,8 @@ class PlayerEXScreen : BaseUIModelScreen<FlowLayout>(FlowLayout::class.java, Dat
 
         PlayerEXMenuRegistry.get().forEach {
             val instance = it.getDeclaredConstructor().newInstance()
-            instance.build(player, this.uiAdapter, player.data)
+            instance.init(minecraft!!, this, player.data)
+            instance.build(content)
             pages.add(instance)
         }
 
