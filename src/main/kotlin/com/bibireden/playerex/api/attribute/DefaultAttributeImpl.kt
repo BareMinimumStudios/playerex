@@ -11,7 +11,9 @@ import de.dafuqs.additionalentityattributes.AdditionalEntityAttributes
 import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.ai.attributes.Attributes
+import org.jetbrains.annotations.ApiStatus
 
+@ApiStatus.Internal
 object DefaultAttributeImpl {
     val OVERRIDES: Map<ResourceLocation, AttributeOverride> = mutableMapOf(
         PlayerEXAttributes.POISON_RESISTANCE.id to AttributeOverride(

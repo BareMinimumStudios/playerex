@@ -49,7 +49,7 @@ object PlayerEX : ModInitializer {
 
 	private val gimmick = listOf(
 		"Let's do it right this time...",
-		"PlayerEX: Bringing leveling and attribute manipulation to your doorstep."
+		"We test in production (not really).",
 	).random()
 
 	override fun onInitialize() {

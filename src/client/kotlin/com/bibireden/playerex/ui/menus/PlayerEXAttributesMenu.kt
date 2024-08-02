@@ -38,7 +38,7 @@ class PlayerEXAttributesMenu : MenuComponent(algorithm = Algorithm.HORIZONTAL) {
     private val RANGED_COMBAT_STATS: List<Pair<EntityAttributeSupplier, FormattingPredicate>> = listOf(
         EntityAttributeSupplier(PlayerEXAttributes.RANGED_CRITICAL_DAMAGE.id) to FormattingPredicates.PERCENTAGE_MULTIPLY,
         EntityAttributeSupplier(PlayerEXAttributes.RANGED_CRITICAL_CHANCE.id) to FormattingPredicates.PERCENTAGE_MULTIPLY,
-        EntityAttributeSupplier(EntityAttributes_RangedWeapon.HASTE.id) to FormattingPredicates.fromBaseValue(EntityAttributes_RangedWeapon.HASTE.attribute),
+        EntityAttributeSupplier(EntityAttributes_RangedWeapon.HASTE.id) to FormattingPredicates.fromBaseValue(EntityAttributes_RangedWeapon.HASTE.attribute, true),
         EntityAttributeSupplier(EntityAttributes_RangedWeapon.DAMAGE.id) to FormattingPredicates.NORMAL,
     )
 

@@ -75,7 +75,8 @@ object PlayerEXAttributes {
         val attribute = RangedAttribute("attribute.name.${PlayerEX.MOD_ID}.$path", base, min, max)
         return Registry.register(BuiltInRegistries.ATTRIBUTE, ResourceLocation.tryBuild(PlayerEX.MOD_ID, path)!!, attribute)
     }
-
+    
+    @JvmField
     val PRIMARY_ATTRIBUTE_IDS: Set<ResourceLocation> = setOf(
         CONSTITUTION.id,
         STRENGTH.id,
