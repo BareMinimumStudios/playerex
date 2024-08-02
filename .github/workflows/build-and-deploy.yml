@@ -52,7 +52,7 @@ jobs:
         if: github.ref == 'refs/heads/${{ env.BRANCH_PREFIX }}'
         id: minecraft_version
         run: |
-          minecraft_version_val=$(grep "mod_version" gradle.properties | cut -d'+' -f2 | tr -d '\n')
+          minecraft_version_val=$(grep "mod_version" gradle.properties | cut -d'=' -f2 | cut -d'-' -f1 | tr -d '\n')
           echo "minecraft_version=$minecraft_version_val" >> $GITHUB_OUTPUT
       - name: deploy with mc-publish
         if: github.ref == 'refs/heads/${{ env.BRANCH_PREFIX }}'
