@@ -1,11 +1,13 @@
-name: Build and Deploy
+name: Deployment (J17)
 on:
   push:
     branches-ignore:
       - master
+      - "**/dev**"
       - "**-dev"
       - "**-dev**"
       - dev
+
 
 jobs:
   build-and-deploy:
