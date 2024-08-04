@@ -12,5 +12,6 @@ object RefundFactory {
         registry.accept { data, player -> data.get(PlayerEXAttributes.DEXTERITY) }
         registry.accept { data, player -> data.get(PlayerEXAttributes.INTELLIGENCE) }
         registry.accept { data, player -> data.get(PlayerEXAttributes.LUCKINESS) }
+        registry.accept { data, player -> data.get(PlayerEXAttributes.FOCUS) }
     }
 }
