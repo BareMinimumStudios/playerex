@@ -15,7 +15,7 @@ abstract class LocalPlayerMixin {
     @Shadow @Final protected Minecraft minecraft;
 
     @Inject(method = "setExperienceValues", at = @At("TAIL"))
-    private void setExperience(CallbackInfo ci) {
+    private void playerex$setExperienceValues(CallbackInfo ci) {
         if (minecraft.screen instanceof PlayerEXScreen screen) screen.onExperienceUpdated();
     }
 }

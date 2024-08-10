@@ -47,7 +47,6 @@ public abstract class LivingEntityMixin {
 
     @ModifyReturnValue(method = "hurt", at = @At("RETURN"))
     private boolean playerex$damage(boolean original, DamageSource source, float damage) {
-        boolean cancelled = LivingEntityEvents.SHOULD_DAMAGE.invoker().shouldDamage((LivingEntity) (Object) this, source, damage);
-        return cancelled && original;
+        return LivingEntityEvents.SHOULD_DAMAGE.invoker().shouldDamage((LivingEntity) (Object) this, source, damage);
     }
 }

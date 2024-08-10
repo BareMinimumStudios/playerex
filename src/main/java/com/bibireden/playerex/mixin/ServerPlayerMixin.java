@@ -22,7 +22,7 @@ public abstract class ServerPlayerMixin extends Player {
     }
 
     @Inject(method = "giveExperienceLevels", at = @At("TAIL"))
-    private void addExperienceLevels(int levels, CallbackInfo ci) {
+    private void playerex$giveExperienceLevels(int levels, CallbackInfo ci) {
         PlayerDataComponent component = (PlayerDataComponent) this.getComponent(PlayerEXComponents.PLAYER_DATA);
 
         if (this.experienceLevel >= PlayerEXUtil.getRequiredXpForNextLevel(this)) {
