@@ -29,12 +29,20 @@ public final class PlayerEXMenuRegistry {
      * which will be applied to the {@link PlayerEXScreen} as a page.
      */
     public static void register(ResourceLocation id, @NotNull Class<? extends MenuComponent> menu) {
-        ENTRIES.add(new Pair<>(id, menu));
-        ENTRIES.sort((a, b) -> {
-            var order = PRIORITY_ORDER.getOrDefault(a.getFirst().getNamespace(), Integer.MAX_VALUE);
-            var order2 = PRIORITY_ORDER.getOrDefault(b.getFirst().getNamespace(), Integer.MAX_VALUE);
-            return order.compareTo(order2);
-        });
+        Pair<ResourceLocation, Class<? extends MenuComponent>> pair = new Pair<>(id, menu);
+        Integer insertingPriority = PRIORITY_ORDER.get(pair.getFirst().toString());
+
+        if (!ENTRIES.isEmpty()) {
+            for (int i = 0, size = ENTRIES.size(); i < size; i++) {
+                Pair<ResourceLocation, Class<? extends MenuComponent>> entry = ENTRIES.get(i);
+                Integer priority = PRIORITY_ORDER.get(entry.getFirst().toString());
+                if (priority > insertingPriority) {
+                    ENTRIES.add(i, pair);
+                    return;
+                }
+            }
+        }
+        ENTRIES.add(pair);
     }
 
     @NotNull
