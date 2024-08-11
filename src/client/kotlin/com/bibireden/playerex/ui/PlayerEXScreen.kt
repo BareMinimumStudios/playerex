@@ -2,7 +2,7 @@ package com.bibireden.playerex.ui
 
 import com.bibireden.playerex.PlayerEXClient
 import com.bibireden.playerex.components.player.IPlayerDataComponent
-import com.bibireden.playerex.ext.data
+import com.bibireden.playerex.ext.dataComponent
 import com.bibireden.playerex.ext.level
 import com.bibireden.playerex.networking.NetworkingChannels
 import com.bibireden.playerex.networking.NetworkingPackets
@@ -77,8 +77,8 @@ class PlayerEXScreen : BaseUIModelScreen<FlowLayout>(FlowLayout::class.java, Dat
     private fun updatePointsAvailable() {
         this.uiAdapter.rootComponent.childById(LabelComponent::class, "points_available")?.apply {
             text(Component.translatable("playerex.ui.main.skill_points_header").append(": [").append(
-                Component.literal("${player.data.skillPoints}").withStyle {
-                    it.withColor(when (player.data.skillPoints) {
+                Component.literal("${player.dataComponent.skillPoints}").withStyle {
+                    it.withColor(when (player.dataComponent.skillPoints) {
                         0 -> Colors.GRAY else -> Colors.SATURATED_BLUE
                     })
                 }).append("]")
@@ -130,7 +130,7 @@ class PlayerEXScreen : BaseUIModelScreen<FlowLayout>(FlowLayout::class.java, Dat
 
         PlayerEXMenuRegistry.get().forEach { (_, clazz) ->
             val instance = clazz.getDeclaredConstructor().newInstance()
-            instance.init(minecraft!!, this, player.data)
+            instance.init(minecraft!!, this, player.dataComponent)
             instance.build(content)
             pages.add(instance)
         }

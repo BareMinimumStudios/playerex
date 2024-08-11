@@ -9,6 +9,9 @@ import net.minecraft.world.entity.ai.attributes.RangedAttribute
 
 object PlayerEXAttributes {
     @JvmField
+    val PRIMARY_ATTRIBUTE_IDS: Set<ResourceLocation>
+
+    @JvmField
     val LEVEL = register("level", 0.0, 0.0, 100.0)
 
     @JvmField
@@ -75,14 +78,8 @@ object PlayerEXAttributes {
         val attribute = RangedAttribute("attribute.name.${PlayerEX.MOD_ID}.$path", base, min, max)
         return Registry.register(BuiltInRegistries.ATTRIBUTE, ResourceLocation.tryBuild(PlayerEX.MOD_ID, path)!!, attribute)
     }
-    
-    @JvmField
-    val PRIMARY_ATTRIBUTE_IDS: Set<ResourceLocation> = setOf(
-        CONSTITUTION.id,
-        STRENGTH.id,
-        DEXTERITY.id,
-        INTELLIGENCE.id,
-        LUCKINESS.id,
-        FOCUS.id,
-    )
+
+    init {
+        PRIMARY_ATTRIBUTE_IDS = setOf(CONSTITUTION.id, STRENGTH.id, DEXTERITY.id, INTELLIGENCE.id, LUCKINESS.id, FOCUS.id)
+    }
 }

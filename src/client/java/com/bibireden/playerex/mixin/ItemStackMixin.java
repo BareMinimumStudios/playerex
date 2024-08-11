@@ -4,6 +4,7 @@ import com.bibireden.data_attributes.api.item.ItemFields;
 import com.bibireden.playerex.PlayerEX;
 import com.bibireden.playerex.config.PlayerEXConfigModel;
 import com.google.common.collect.Multimap;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -78,25 +79,17 @@ abstract class ItemStackMixin {
     private double playerex$modifyAdditionAttributeKnockback(double original) { return original / 10.0; }
 
     // todo: not sure about the implementation(s) here...
-    @Inject(method = "getTooltipLines", at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", ordinal = 7, shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
+    @Inject(method = "getTooltipLines", at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", ordinal = 7, shift = At.Shift.AFTER))
     private void playerex$insertModifierEqualsTooltip(
         Player player, TooltipFlag context,
         CallbackInfoReturnable<List<Component>> info,
-        List<Component> list,
-        MutableComponent arg3,
-        int arg4,
-        EquipmentSlot[] arg5,
-        int arg6,
-        int arg7,
-        EquipmentSlot arg8,
-        Multimap<?, ?> arg9,
-        Iterator<?> arg10,
-        Map.Entry<Attribute, AttributeModifier> entry,
-        AttributeModifier entityAttributeModifier,
-        double arg13, double e
+        @Local List<Component> list,
+        @Local Map.Entry<Attribute, AttributeModifier> entry,
+        @Local AttributeModifier modifier,
+        @Local(ordinal = 1) double e
     ) {
         list.set(list.size() - 1, Component.literal(" ")
-            .append(Component.translatable("attribute.modifier.equals." + entityAttributeModifier.getOperation().toValue(), playerex$value(e, entry, entityAttributeModifier), Component.translatable(entry.getKey().getDescriptionId())))
+            .append(Component.translatable("attribute.modifier.equals." + modifier.getOperation().toValue(), playerex$value(e, entry, modifier), Component.translatable(entry.getKey().getDescriptionId())))
             .withStyle(ChatFormatting.DARK_GREEN)
         );
     }
@@ -122,27 +115,19 @@ abstract class ItemStackMixin {
         );
     }
 
-    @Inject(method = "getTooltipLines", at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", ordinal = 9, shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
+    @Inject(method = "getTooltipLines", at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", ordinal = 9, shift = At.Shift.AFTER))
     private void playerex$insertModifierTakeTooltip(
         Player player, TooltipFlag context,
         CallbackInfoReturnable<List<Component>> info,
-        List<Component> list,
-        MutableComponent arg3,
-        int arg4,
-        EquipmentSlot[] arg5,
-        int arg6,
-        int arg7,
-        EquipmentSlot arg8,
-        Multimap<?, ?> arg9,
-        Iterator<?> arg10,
-        Map.Entry<Attribute, AttributeModifier> entry,
-        AttributeModifier entityAttributeModifier,
-        double arg13, double e
+        @Local List<Component> list,
+        @Local Map.Entry<Attribute, AttributeModifier> entry,
+        @Local AttributeModifier modifier,
+        @Local(ordinal = 1) double e
     ) {
         list.set(
             list.size() - 1,
-            Component.translatable("attribute.modifier.take." + entityAttributeModifier.getOperation().toValue(),
-            playerex$value(e, entry, entityAttributeModifier),
+            Component.translatable("attribute.modifier.take." + modifier.getOperation().toValue(),
+            playerex$value(e, entry, modifier),
             Component.translatable(entry.getKey().getDescriptionId())).withStyle(ChatFormatting.RED)
         );
     }

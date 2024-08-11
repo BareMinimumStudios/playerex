@@ -6,7 +6,7 @@ import com.bibireden.data_attributes.api.attribute.IEntityAttribute
 import com.bibireden.playerex.api.attribute.PlayerEXAttributes
 import com.bibireden.playerex.api.attribute.TradeSkillAttributes
 import com.bibireden.playerex.components.PlayerEXComponents
-import com.bibireden.playerex.ext.data
+import com.bibireden.playerex.ext.dataComponent
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.builder.RequiredArgumentBuilder
@@ -119,7 +119,7 @@ object PlayerEXCommands {
 
     private fun executeRefundGetCommand(ctx: Context): Int {
         val player = EntityArgument.getPlayer(ctx, "player")
-        ctx.source.sendSuccess({ Component.translatable("playerex.command.refund.get", player.name, player.data.refundablePoints) }, false)
+        ctx.source.sendSuccess({ Component.translatable("playerex.command.refund.get", player.name, player.dataComponent.refundablePoints) }, false)
         return 1
     }
 
@@ -132,7 +132,7 @@ object PlayerEXCommands {
             val attribute = supplier.get().get()
             val computed = Mth.clamp(amount, 0, it.toInt())
 
-            if (player.data.refund(attribute, computed)) {
+            if (player.dataComponent.refund(attribute, computed)) {
                 ctx.source.sendSuccess({ Component.translatable("playerex.command.refunded", amount, Component.translatable(attribute.descriptionId), player.name) }, false)
                 ctx.source.sendSuccess(updatedValueText(attribute, it - amount), false)
                 1
@@ -146,7 +146,7 @@ object PlayerEXCommands {
     private fun executeRefundAddCommand(ctx: Context, amount: Int = 1): Int {
         val player = EntityArgument.getPlayer(ctx, "player")
 
-        player.data.addRefundablePoints(amount)
+        player.dataComponent.addRefundablePoints(amount)
 
         ctx.source.sendSuccess({ Component.translatable("playerex.command.refund.add", amount, player.name) }, false)
 
@@ -161,7 +161,7 @@ object PlayerEXCommands {
             val attribute = supplier.get().get()
             val computed = Mth.clamp(amount, 0, (attribute as IEntityAttribute).`data_attributes$max`().toInt() - it.toInt())
 
-            if (player.data.skillUp(attribute, computed, true)) {
+            if (player.dataComponent.skillUp(attribute, computed, true)) {
                 ctx.source.sendSuccess({ Component.translatable("playerex.command.skill_up", computed, Component.translatable(attribute.descriptionId), player.name) }, false)
                 ctx.source.sendSuccess(updatedValueText(attribute, it + computed), false)
                 1
@@ -180,7 +180,7 @@ object PlayerEXCommands {
             val attribute = PlayerEXAttributes.LEVEL
             val computed = Mth.clamp(amount, 0, (attribute as IEntityAttribute).`data_attributes$max`().toInt() - value.toInt())
 
-            if (!player.data.levelUp(computed, true)) {
+            if (!player.dataComponent.levelUp(computed, true)) {
                 // todo: err message, for now just -1
                 return@map -1
             }

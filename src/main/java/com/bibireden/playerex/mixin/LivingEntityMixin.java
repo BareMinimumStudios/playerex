@@ -13,8 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
-    @Unique
-    final private int TICKS_UNTIL_RESET = 20;
 
     @Unique
     private int playerex_ticks;
@@ -32,7 +30,8 @@ public abstract class LivingEntityMixin {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void playerex$tick(CallbackInfo ci) {
-        if (this.playerex_ticks < this.TICKS_UNTIL_RESET) {
+        final int TICKS_UNTIL_RESET = 20;
+        if (this.playerex_ticks < TICKS_UNTIL_RESET) {
             this.playerex_ticks++;
         }
         else {

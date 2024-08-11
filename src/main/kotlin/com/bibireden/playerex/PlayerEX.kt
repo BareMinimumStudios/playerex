@@ -8,12 +8,11 @@ import com.bibireden.playerex.api.PlayerEXAPI
 import com.bibireden.playerex.api.PlayerEXCachedKeys
 import com.bibireden.playerex.api.PlayerEXCachedKeys.Level
 import com.bibireden.playerex.api.attribute.PlayerEXAttributes
-import com.bibireden.playerex.api.attribute.TradeSkillAttributes
 import com.bibireden.playerex.api.event.LivingEntityEvents
 import com.bibireden.playerex.api.event.PlayerEXSoundEvents
 import com.bibireden.playerex.api.event.PlayerEntityEvents
-import com.bibireden.playerex.components.PlayerEXComponents
 import com.bibireden.playerex.config.PlayerEXConfig
+import com.bibireden.playerex.ext.dataComponent
 import com.bibireden.playerex.factory.*
 import com.bibireden.playerex.networking.NetworkingChannels
 import com.bibireden.playerex.networking.NetworkingPackets
@@ -41,10 +40,6 @@ object PlayerEX : ModInitializer {
 	@JvmField
 	val CONFIG = PlayerEXConfig.createAndLoad()
 
-	// this is literally here to initialize the singletons...
-	val PRIMARY_ATTRIBUTE_IDS = PlayerEXAttributes.PRIMARY_ATTRIBUTE_IDS
-	val TRADE_SKILL_IDS = TradeSkillAttributes.IDS
-
 	fun id(path: String) = ResourceLocation.tryBuild(MOD_ID, path)!!
 
 	private val gimmick = listOf(
@@ -56,15 +51,16 @@ object PlayerEX : ModInitializer {
 		NetworkingChannels.NOTIFICATIONS.registerClientboundDeferred(NetworkingPackets.Notify::class.java)
 
 		NetworkingChannels.MODIFY.registerServerbound(NetworkingPackets.Update::class) { (type, id, amount), ctx ->
+			val component = ctx.player.dataComponent
 			EntityAttributeSupplier(id).get().ifPresent {
 				when (type) {
-					UpdatePacketType.Skill -> PlayerEXComponents.PLAYER_DATA.get(ctx.player).skillUp(it, amount)
-					UpdatePacketType.Refund -> PlayerEXComponents.PLAYER_DATA.get(ctx.player).refund(it, amount)
+					UpdatePacketType.Skill -> component.skillUp(it, amount)
+					UpdatePacketType.Refund -> component.refund(it, amount)
 				}
 			}
 		}
 		NetworkingChannels.MODIFY.registerServerbound(NetworkingPackets.Level::class) { (amount), ctx ->
-			PlayerEXComponents.PLAYER_DATA.get(ctx.player).levelUp(amount)
+			ctx.player.dataComponent.levelUp(amount)
 		}
 
 		CommandRegistrationCallback.EVENT.register(PlayerEXCommands::register)

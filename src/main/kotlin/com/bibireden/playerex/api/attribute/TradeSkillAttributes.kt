@@ -6,6 +6,9 @@ import net.minecraft.resources.ResourceLocation
 
 object TradeSkillAttributes {
     @JvmField
+    val IDS: Set<ResourceLocation>
+    
+    @JvmField
     val MINING = register("mining", 0.0, 0.0, 100.0);
 
     @JvmField
@@ -26,14 +29,7 @@ object TradeSkillAttributes {
     @JvmField
     val FARMING = register("farming", 0.0, 0.0, 100.0);
 
-    @JvmField
-    val IDS: Set<ResourceLocation> = setOf(
-        MINING.id,
-        ALCHEMY.id,
-        FISHING.id,
-        FARMING.id,
-        LOGGING.id,
-        ENCHANTING.id,
-        ENCHANTING.id
-    )
+    init {
+        IDS = setOf(MINING.id, ALCHEMY.id, FISHING.id, FARMING.id, LOGGING.id, ENCHANTING.id, ENCHANTING.id)
+    }
 }

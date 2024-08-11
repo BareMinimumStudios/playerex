@@ -2,7 +2,6 @@ package com.bibireden.playerex.components.player
 
 import com.bibireden.data_attributes.api.DataAttributesAPI
 import com.bibireden.data_attributes.api.attribute.IEntityAttribute
-import com.bibireden.data_attributes.api.attribute.IEntityAttributeInstance
 import com.bibireden.data_attributes.endec.Endecs
 import com.bibireden.data_attributes.endec.nbt.NbtDeserializer
 import com.bibireden.data_attributes.endec.nbt.NbtSerializer
