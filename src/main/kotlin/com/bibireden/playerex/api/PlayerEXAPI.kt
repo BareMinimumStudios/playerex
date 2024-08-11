@@ -1,10 +1,22 @@
 package com.bibireden.playerex.api
 
+import com.bibireden.playerex.api.attribute.PlayerEXAttributes
+import com.bibireden.playerex.api.attribute.TradeSkillAttributes
 import com.bibireden.playerex.api.damage.DamageFunction
 import com.bibireden.playerex.api.damage.DamagePredicate
 import com.bibireden.playerex.registry.*
+import net.minecraft.resources.ResourceLocation
 
+@Suppress("UNUSED")
 object PlayerEXAPI {
+    /** Contains the attribute ids that are "skills", and are present on the main screens first page. */
+    @JvmField
+    val PRIMARY_ATTRIBUTE_IDS: Collection<ResourceLocation> = PlayerEXAttributes.PRIMARY_ATTRIBUTE_IDS
+    
+    /** Passive trade skill ids. */
+    @JvmField
+    val TRADE_SKILL_IDS: Collection<ResourceLocation> = TradeSkillAttributes.IDS
+
     /**
      * Registers a damage modification condition that is applied to living entities
      * under specific circumstances.

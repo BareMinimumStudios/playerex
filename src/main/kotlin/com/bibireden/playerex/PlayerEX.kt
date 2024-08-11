@@ -8,6 +8,7 @@ import com.bibireden.playerex.api.PlayerEXAPI
 import com.bibireden.playerex.api.PlayerEXCachedKeys
 import com.bibireden.playerex.api.PlayerEXCachedKeys.Level
 import com.bibireden.playerex.api.attribute.PlayerEXAttributes
+import com.bibireden.playerex.api.attribute.TradeSkillAttributes
 import com.bibireden.playerex.api.event.LivingEntityEvents
 import com.bibireden.playerex.api.event.PlayerEXSoundEvents
 import com.bibireden.playerex.api.event.PlayerEntityEvents
