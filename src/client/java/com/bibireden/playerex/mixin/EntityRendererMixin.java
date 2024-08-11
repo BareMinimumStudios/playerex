@@ -25,7 +25,10 @@ abstract class EntityRendererMixin<T extends Entity> {
         if (playerex$shouldRenderLevel() && entity instanceof Player livingEntity) {
             Optional<Double> maybeLevel = DataAttributesAPI.getValue(PlayerEXAttributes.LEVEL, livingEntity);
             if (maybeLevel.isPresent()) {
-                text = text.copy().append(" ").append(Component.translatable("playerex.ui.nameplate.level", maybeLevel.get().intValue()).withStyle((style) -> style.withColor(0xFFAA00)));
+                text = text.copy().append(" ").append(
+                    Component.translatable("playerex.ui.nameplate.level", maybeLevel.get().intValue())
+                        .withStyle((style) -> style.withColor(PlayerEX.CONFIG.getVisualSettings().getNameplateColor().rgb()))
+                );
             }
         }
         return text;

@@ -84,7 +84,7 @@ class PlayerEXAttributesMenu : MenuComponent(algorithm = Algorithm.HORIZONTAL) {
             val result = it.value.toDoubleOrNull() ?: return@also
             this.forEachDescendant { descendant ->
                 if (descendant is AttributeButtonComponent) {
-                    val max = (descendant.attribute as IEntityAttribute).`data_attributes$max`()
+                    val max = descendant.attribute.`data_attributes$max`()
                     val current = DataAttributesAPI.getValue(descendant.attribute, player).orElse(0.0)
                     when (descendant.type) {
                         PlayerEXScreen.AttributeButtonComponentType.Add -> descendant.active(result > 0 && component.skillPoints >= result && (current + result) <= max)

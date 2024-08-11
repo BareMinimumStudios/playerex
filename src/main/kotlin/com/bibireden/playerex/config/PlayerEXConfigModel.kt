@@ -1,9 +1,10 @@
 package com.bibireden.playerex.config
 
 import com.bibireden.playerex.PlayerEX
-import io.wispforest.owo.config.Option
+import io.wispforest.owo.config.Option.SyncMode
 
 import io.wispforest.owo.config.annotation.*
+import io.wispforest.owo.ui.core.Color
 
 @Suppress("UNUSED")
 @Modmenu(modId = PlayerEX.MOD_ID)
@@ -11,26 +12,26 @@ import io.wispforest.owo.config.annotation.*
 class PlayerEXConfigModel {
     @SectionHeader("client_options")
 
-    @Sync(Option.SyncMode.NONE)
+    @Sync(SyncMode.NONE)
     @JvmField
     var tooltip: Tooltip = Tooltip.Vanilla
 
-    @Sync(Option.SyncMode.NONE)
+    @Sync(SyncMode.NONE)
     @JvmField
     var showLevelOnNameplates: Boolean = true
 
     data class SoundSettings(
-        @Sync(Option.SyncMode.NONE)
+        @Sync(SyncMode.NONE)
         @JvmField
         @RangeConstraint(min = 0.0, max = 150.0)
         var levelUpVolume: Int = 100,
 
-        @Sync(Option.SyncMode.NONE)
+        @Sync(SyncMode.NONE)
         @JvmField
         @RangeConstraint(min = 0.0, max = 150.0)
         var skillUpVolume: Int = 100,
 
-        @Sync(Option.SyncMode.NONE)
+        @Sync(SyncMode.NONE)
         @JvmField
         @RangeConstraint(min = 0.0, max = 150.0)
         var refundVolume: Int = 100
@@ -38,20 +39,28 @@ class PlayerEXConfigModel {
 
     @JvmField @Nest var soundSettings = SoundSettings()
 
+    data class VisualSettings(
+        @Sync(SyncMode.NONE)
+        @JvmField
+        var nameplateColor: Color = Color.ofRgb(0xFFAA00),
+    )
+
+    @JvmField @Nest var visualSettings = VisualSettings()
+
     @SectionHeader("server_options")
-    @Sync(Option.SyncMode.OVERRIDE_CLIENT)
+    @Sync(SyncMode.OVERRIDE_CLIENT)
     @JvmField
     var resetOnDeath: Boolean = false
 
-    @Sync(Option.SyncMode.OVERRIDE_CLIENT)
+    @Sync(SyncMode.OVERRIDE_CLIENT)
     @JvmField
     var disableUI: Boolean = false
 
-    @Sync(Option.SyncMode.OVERRIDE_CLIENT)
+    @Sync(SyncMode.OVERRIDE_CLIENT)
     @JvmField
     var skillPointsPerLevelUp: Int = 1
 
-    @Sync(Option.SyncMode.OVERRIDE_CLIENT)
+    @Sync(SyncMode.OVERRIDE_CLIENT)
     @JvmField
     @Hook
     var levelFormula: String = "stairs(x,0.2,2.4,17,10,25)"
@@ -59,15 +68,15 @@ class PlayerEXConfigModel {
 //    @JvmField
 //    var expression: Expression
 
-    @Sync(Option.SyncMode.OVERRIDE_CLIENT)
+    @Sync(SyncMode.OVERRIDE_CLIENT)
     @JvmField
     var restorativeForceTicks: Int = 600
 
-    @Sync(Option.SyncMode.OVERRIDE_CLIENT)
+    @Sync(SyncMode.OVERRIDE_CLIENT)
     @JvmField
     var restorativeForceMultiplier: Int = 110
 
-    @Sync(Option.SyncMode.OVERRIDE_CLIENT)
+    @Sync(SyncMode.OVERRIDE_CLIENT)
     @JvmField
     var expNegationFactor: Int = 95
 
