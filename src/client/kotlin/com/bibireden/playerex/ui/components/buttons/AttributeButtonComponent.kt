@@ -18,7 +18,7 @@ import net.minecraft.network.chat.Component
 class AttributeButtonComponent(val attribute: Attribute, private val player: Player, private val component: IPlayerDataComponent, val type: PlayerEXScreen.AttributeButtonComponentType) : ButtonComponent(
     Component.literal(type.symbol),
     {
-        // reference text-box to get needed value to send to server
+        // reference text-box to get the necessary value to send to server
         it.parent()?.parent()?.childById(TextBoxComponent::class, "input")?.let { box ->
             val amount = box.value.toDoubleOrNull() ?: return@let
             val points = type.getPointsFromComponent(component)

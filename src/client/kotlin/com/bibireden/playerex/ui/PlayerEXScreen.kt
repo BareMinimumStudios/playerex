@@ -11,6 +11,7 @@ import com.bibireden.playerex.registry.PlayerEXMenuRegistry
 import com.bibireden.playerex.ui.components.MenuComponent
 import com.bibireden.playerex.ui.components.MenuComponent.OnLevelUpdated
 import com.bibireden.playerex.ui.components.buttons.AttributeButtonComponent
+import com.bibireden.playerex.ui.helper.InputHelper
 import com.bibireden.playerex.ui.util.Colors
 import com.bibireden.playerex.util.PlayerEXUtil
 import io.wispforest.owo.ui.base.BaseUIModelScreen
@@ -126,6 +127,8 @@ class PlayerEXScreen : BaseUIModelScreen<FlowLayout>(FlowLayout::class.java, Dat
         val levelUpButton = rootComponent.childById(ButtonComponent::class, "level:button")!!
 
         updateLevelUpButton()
+
+        levelAmount.setFilter(InputHelper::isUIntInput)
         levelAmount.onChanged().subscribe { updateLevelUpButton() }
 
         val previousPage = rootComponent.childById(ButtonComponent::class, "previous")!!

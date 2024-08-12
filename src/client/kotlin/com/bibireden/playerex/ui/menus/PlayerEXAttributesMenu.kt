@@ -2,7 +2,6 @@ package com.bibireden.playerex.ui.menus
 
 import com.bibireden.data_attributes.api.DataAttributesAPI
 import com.bibireden.data_attributes.api.attribute.EntityAttributeSupplier
-import com.bibireden.data_attributes.api.attribute.IEntityAttribute
 import com.bibireden.playerex.api.attribute.PlayerEXAttributes
 import com.bibireden.playerex.components.player.IPlayerDataComponent
 import com.bibireden.playerex.ext.id
@@ -12,6 +11,7 @@ import com.bibireden.playerex.ui.childById
 import com.bibireden.playerex.ui.components.*
 import com.bibireden.playerex.ui.components.buttons.AttributeButtonComponent
 import com.bibireden.playerex.ui.components.labels.AttributeLabelComponent
+import com.bibireden.playerex.ui.helper.InputHelper
 import com.bibireden.playerex.ui.util.FormattingPredicates
 import de.dafuqs.additionalentityattributes.AdditionalEntityAttributes
 import io.wispforest.owo.ui.component.Components
@@ -108,11 +108,12 @@ class PlayerEXAttributesMenu : MenuComponent(algorithm = Algorithm.HORIZONTAL) {
                     child(Components.label(Component.translatable("playerex.ui.category.primary_attributes")))
                     child(
                         Components.textBox(Sizing.fixed(27))
+                            .text("1")
                             .also {
                                 it.setMaxLength(4)
+                                it.setFilter(InputHelper::isUIntInput)
                                 it.onChanged().subscribe { onInputFieldUpdated(player, component) }
                             }
-                            .text("1")
                             .verticalSizing(Sizing.fixed(10))
                             .positioning(Positioning.relative(100, 0))
                             .id("input")
