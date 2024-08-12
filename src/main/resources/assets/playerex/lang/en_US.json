@@ -1,0 +1,191 @@
+{
+    "key.categories.playerex": "PlayerEX Controls",
+    "playerex.key.main_screen": "Open Main Screen",
+
+    "playerex.ui.main.title":[
+        {"text": "\uD83D\uDDB3 ", "color": "#F0C25E"},
+        {"text": "PlayerEX • Main Screen", "color": "white"}
+    ],
+
+    "playerex.ui.main.exit": "Exit",
+    "playerex.ui.main.exit.tooltip": "Exits from the window.",
+
+    "playerex.ui.main.skill_points_header": "SKILL POINTS",
+    "playerex.ui.main.modified_attributes": [ {"text": "❤ ", "color": "#48D19B"}, {"text": "Modified Attributes", "color": "white"} ],
+
+    "playerex.ui.category.primary_attributes": "Attributes",
+
+    "playerex.ui.current_level": [
+        {"text": "❤ ", "color": "#F0C25E"},
+        {"text": "Level: ", "color": "white"},
+        {"index": 0},
+        {"text": " (", "color": "#757575"},
+        {"index": 1, "color": "#757575", "italic": true, "underline": true },
+        {"text": " XP required until the next level)", "color": "#757575", "italic": true }
+    ],
+    "playerex.ui.level_button": [
+        {"text": "", "color": "#F0C25E"},
+        {"text": "You will need ", "color": "white"},
+        {"index": 0},
+        {"text": " XP in order to level by ", "color": "white"},
+        {"index": 1},
+        {"text": " point(s).", "color": "white"}, "\n",
+        {"text": "★ ", "color": "#62D16A"},
+        {"text": "Current XP: ", "color": "white"},
+        {"index": 2}
+    ],
+
+    "playerex.ui.nameplate.level": "<Lv. %s>",
+
+    "playerex.ui.main.categories.melee_combat": "⚔ MELEE",
+    "playerex.ui.main.categories.ranged_combat": "🏹 RANGED",
+    "playerex.ui.main.categories.defense_combat": "🛡 DEFENSE",
+    "playerex.ui.main.categories.vitality": "💖 VITALITY",
+    "playerex.ui.main.categories.resistance": "🩹 RESISTANCE",
+
+    "attribute.name.playerex.level": "Level",
+    "attribute.name.playerex.constitution": "Constitution",
+    "attribute.name.playerex.strength": "Strength",
+    "attribute.name.playerex.dexterity": "Dexterity",
+    "attribute.name.playerex.intelligence": "Intelligence",
+    "attribute.name.playerex.luckiness": "Luckiness",
+    "attribute.name.playerex.evasion": "Evasion",
+    "attribute.name.playerex.lifesteal": "Lifesteal",
+    "attribute.name.playerex.health_regeneration": "Health Regeneration",
+    "attribute.name.playerex.heal_amplification": "Heal Amplification",
+    "attribute.name.playerex.melee_crit_damage": "Melee Crit. Damage",
+    "attribute.name.playerex.melee_crit_chance": "Melee Crit. Chance",
+    "attribute.name.playerex.ranged_crit_damage": "Ranged Crit. Damage",
+    "attribute.name.playerex.ranged_crit_chance": "Ranged Crit. Chance",
+    "attribute.name.playerex.ranged_damage": "Ranged Damage",
+    "attribute.name.playerex.fire_resistance": "Fire Resistance",
+    "attribute.name.playerex.freeze_resistance": "Freeze Resistance",
+    "attribute.name.playerex.lightning_resistance": "Lightning Resistance",
+    "attribute.name.playerex.poison_resistance": "Poison Resistance",
+    "attribute.name.playerex.wither_resistance": "Wither Resistance",
+    "attribute.name.playerex.breaking_speed": "Breaking Speed",
+    "attribute.name.playerex.focus": "Focus",
+
+    "attribute.name.playerex.mining": "Mining",
+    "attribute.name.playerex.enchanting": "Enchanting",
+    "attribute.name.playerex.alchemy": "Alchemy",
+    "attribute.name.playerex.fishing": "Fishing",
+    "attribute.name.playerex.logging": "Logging",
+    "attribute.name.playerex.smithing": "Smithing",
+    "attribute.name.playerex.farming": "Farming",
+
+    "playerex.command.reset_chunk": "Reset experience negation factor for chunk at %s",
+    "playerex.command.refund": "Refunded %s skill points for player %s",
+
+    "playerex.command.updated_result": [
+        {"text": "➜ ", "color": "gray"},
+        {"text": "Updated Result: "},
+        {"index": 0, "color": "#60DF90"}
+    ],
+    "playerex.command.level_up": [
+        {"text": "❤ ", "color": "#F6CB3B"},
+        {"text": "Added ", "color": "white"},
+        {"index": 0, "color": "#60DF90"},
+        {"text": " level(s) to ", "color": "white"},
+        {"index": 1}
+    ],
+    "playerex.command.max_error": [
+        {"text": "⚑ ", "color": "#F53E3E"},
+        {"index": 0, "color": "#EEBC58"},
+        {"text": " is already at a maximum value for ", "color": "white"},
+        {"index": 1, "color": "#F6CB3B"},
+        {"text": ", and cannot be increased further!", "color": "white"}
+    ],
+    "playerex.command.level_get": [
+        {"text": "» ", "color": "#F6CB3B"},
+        {"text": "The current level of ", "color": "white"},
+        {"index": 0, "color": "#F6CB3B"},
+        {"text": " is at ", "color": "white"},
+        {"index": 1, "color": "#60DF90"}
+    ],
+    "playerex.command.refund.get": [
+        {"text": "» ", "color": "#F6CB3B"},
+        {"index": 0, "color": "#60DF90"},
+        {"text": " currently has ", "color": "white"},
+        {"index": 1, "color": "#F6CB3B"},
+        {"text": " refundable points.", "color": "white"}
+    ],
+    "playerex.command.skill_get": [
+        {"text": "» ", "color": "#F6CB3B"},
+        {"index": 0, "color": "#EEBC58"},
+        {"text": " is currently at ", "color": "white"},
+        {"index": 1, "color": "#60DF90"},
+        {"text": " for ", "color": "white"},
+        {"index": 2}
+    ],
+    "playerex.command.skill_up": [
+        {"text": "❤ ", "color": "#F6CB3B"},
+        {"text": "Added ", "color": "white"},
+        {"index": 0, "color": "#60DF90"},
+        {"text": " point(s) to ", "color": "white"},
+        {"index": 1, "color": "#EEBC58"},
+        {"text": " for ", "color": "white"},
+        {"index": 2}
+    ],
+    "playerex.command.refunded": [
+        {"text": "❤ ", "color": "#4ED780"},
+        {"text": "Refunded ", "color": "white"},
+        {"index": 0, "color": "#60DF90"},
+        {"text": " point(s) from ", "color": "white"},
+        {"index": 1, "color": "#EEBC58"},
+        {"text": " to ", "color": "white"},
+        {"index": 2}
+    ],
+    "playerex.command.skill_error": [
+        {"text": "⚑ ", "color": "#F53E3E"},
+        {"index": 0, "color": "white"}
+    ],
+    "playerex.command.reset": [
+        {"text": "❤ ", "color": "#F53E3E"},
+        {"text": "Reset level, skills and points for ", "color": "white"},
+        {"index": 0, "color": "#EEBC58"}
+    ],
+    "playerex.command.refund.add": [
+        {"text": "❤ ", "color": "#F53E3E"},
+        {"text": "Added ", "color": "white"},
+        {"index": 0, "color": "#EEBC58"},
+        {"text": " refundable points to ", "color": "white"},
+        {"index": 1}
+    ],
+    "playerex.command.refund_error": [
+        {"text": "⚑ ", "color": "#F53E3E"},
+        {"index": 0, "color": "#EEBC58"},
+        {"text": " does not have enough points to refund!", "color": "white"}
+    ],
+    "playerex.command.refund_attribute_unskilled": "%s has not been skilled for player %s!",
+
+    "text.config.playerex-config.title": "PlayerEX Config",
+    "text.config.playerex-config.section.client_options": "Client Options",
+    "text.config.playerex-config.section.server_options": "Server Options",
+
+    "text.config.playerex-config.option.tooltip": "Tooltip",
+    "text.config.playerex-config.enum.tooltip.default": "Default",
+    "text.config.playerex-config.enum.tooltip.playerex": [
+        {"text": "PlayerEX", "color": "#FF4646"}
+    ],
+    "text.config.playerex-config.enum.tooltip.vanilla": "Vanilla",
+
+    "text.config.playerex-config.option.showLevelOnNameplates": "Show Level on Nameplates",
+
+    "text.config.playerex-config.category.soundSettings": "Sound Options",
+    "text.config.playerex-config.option.soundSettings.levelUpVolume": "Level Up Volume",
+    "text.config.playerex-config.option.soundSettings.skillUpVolume": "Skill Up Volume",
+    "text.config.playerex-config.option.soundSettings.refundVolume": "Refund Volume",
+
+    "text.config.playerex-config.category.visualSettings": "Visual Options",
+    "text.config.playerex-config.option.visualSettings.nameplateColor": "Nameplate Color",
+
+    "text.config.playerex-config.option.resetOnDeath": "Reset on Death",
+    "text.config.playerex-config.option.skillPointsPerLevelUp": "Skill Points per. Level Up",
+    "text.config.playerex-config.option.levelFormula": "Leveling Formula",
+    "text.config.playerex-config.option.restorativeForceTicks": "Restorative Force Ticks",
+    "text.config.playerex-config.option.restorativeForceMultiplier": "Restorative Force Multiplier",
+    "text.config.playerex-config.option.expNegationFactor": "Experience Negation Factor",
+
+    "text.config.playerex-config.option.disableUI": "Disable UI"
+}
