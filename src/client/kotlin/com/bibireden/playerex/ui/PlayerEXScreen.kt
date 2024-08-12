@@ -2,7 +2,7 @@ package com.bibireden.playerex.ui
 
 import com.bibireden.playerex.PlayerEXClient
 import com.bibireden.playerex.components.player.IPlayerDataComponent
-import com.bibireden.playerex.ext.dataComponent
+import com.bibireden.playerex.ext.component
 import com.bibireden.playerex.ext.level
 import com.bibireden.playerex.networking.NetworkingChannels
 import com.bibireden.playerex.networking.NetworkingPackets
@@ -40,7 +40,9 @@ class PlayerEXScreen : BaseUIModelScreen<FlowLayout>(FlowLayout::class.java, Dat
     private val content by lazy { uiAdapter.rootComponent.childById(FlowLayout::class, "content")!! }
     private val footer by lazy { uiAdapter.rootComponent.childById(FlowLayout::class, "footer")!! }
 
+    private val currentLevel by lazy { uiAdapter.rootComponent.childById(LabelComponent::class, "level:current")!! }
     private val levelAmount by lazy { uiAdapter.rootComponent.childById(TextBoxComponent::class, "level:amount")!! }
+    private val levelButton by lazy { uiAdapter.rootComponent.childById(ButtonComponent::class, "level:button")!! }
 
     private val onLevelUpdatedEvents = OnLevelUpdated.stream
     private val onLevelUpdated: EventSource<OnLevelUpdated> = onLevelUpdatedEvents.source()
@@ -51,7 +53,7 @@ class PlayerEXScreen : BaseUIModelScreen<FlowLayout>(FlowLayout::class.java, Dat
     fun onLevelUpdated(level: Int) {
         val root = this.uiAdapter.rootComponent
 
-        root.childById(LabelComponent::class, "level:current")?.apply {
+        currentLevel.apply {
             text(Component.translatable("playerex.ui.current_level", player.level.toInt(), PlayerEXUtil.getRequiredXpForNextLevel(player)))
         }
 
@@ -77,10 +79,13 @@ class PlayerEXScreen : BaseUIModelScreen<FlowLayout>(FlowLayout::class.java, Dat
     private fun updatePointsAvailable() {
         this.uiAdapter.rootComponent.childById(LabelComponent::class, "points_available")?.apply {
             text(Component.translatable("playerex.ui.main.skill_points_header").append(": [").append(
-                Component.literal("${player.dataComponent.skillPoints}").withStyle {
-                    it.withColor(when (player.dataComponent.skillPoints) {
-                        0 -> Colors.GRAY else -> Colors.SATURATED_BLUE
-                    })
+                Component.literal("${player.component.skillPoints}").withStyle {
+                    it.withColor(
+                        when (player.component.skillPoints) {
+                            0 -> Colors.GRAY
+                            else -> Colors.SATURATED_BLUE
+                        }
+                    )
                 }).append("]")
             )
         }
@@ -100,7 +105,7 @@ class PlayerEXScreen : BaseUIModelScreen<FlowLayout>(FlowLayout::class.java, Dat
         val amount = levelAmount.value.toIntOrNull() ?: return
         val result = player.level + amount
 
-        this.uiAdapter.rootComponent.childById(ButtonComponent::class, "level:button")!!
+        levelButton
             .active(player.experienceLevel >= PlayerEXUtil.getRequiredXpForLevel(player, result))
             .tooltip(Component.translatable("playerex.ui.level_button", PlayerEXUtil.getRequiredXpForLevel(player, result), amount, player.experienceLevel))
     }
@@ -130,7 +135,7 @@ class PlayerEXScreen : BaseUIModelScreen<FlowLayout>(FlowLayout::class.java, Dat
 
         PlayerEXMenuRegistry.get().forEach { (_, clazz) ->
             val instance = clazz.getDeclaredConstructor().newInstance()
-            instance.init(minecraft!!, this, player.dataComponent)
+            instance.init(minecraft!!, this, player.component)
             instance.build(content)
             pages.add(instance)
         }

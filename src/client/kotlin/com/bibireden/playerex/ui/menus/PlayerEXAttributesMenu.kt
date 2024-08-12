@@ -46,7 +46,7 @@ class PlayerEXAttributesMenu : MenuComponent(algorithm = Algorithm.HORIZONTAL) {
         EntityAttributeSupplier(Attributes.ARMOR.id) to FormattingPredicates.NORMAL,
         EntityAttributeSupplier(AdditionalEntityAttributes.MAGIC_PROTECTION.id) to FormattingPredicates.NORMAL,
         EntityAttributeSupplier(Attributes.ARMOR_TOUGHNESS.id) to FormattingPredicates.NORMAL,
-        EntityAttributeSupplier(Attributes.KNOCKBACK_RESISTANCE.id) to FormattingPredicates.PERCENTAGE_DIVIDE,
+        EntityAttributeSupplier(Attributes.KNOCKBACK_RESISTANCE.id) to FormattingPredicates.PERCENTAGE_MULTIPLY,
         EntityAttributeSupplier(PlayerEXAttributes.EVASION.id) to FormattingPredicates.PERCENTAGE_MULTIPLY,
     )
 

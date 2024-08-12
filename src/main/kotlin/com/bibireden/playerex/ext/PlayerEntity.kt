@@ -9,5 +9,5 @@ import net.minecraft.world.entity.player.Player
 val Player.level: Double
     get() = DataAttributesAPI.getValue(PlayerEXAttributes.LEVEL, this).orElse(1.0)
 
-val Player.dataComponent: IPlayerDataComponent
+val Player.component: IPlayerDataComponent
     get() = this.getComponent(PlayerEXComponents.PLAYER_DATA)

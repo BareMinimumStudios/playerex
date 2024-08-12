@@ -75,8 +75,6 @@ class AttributeComponent(private val attribute: Attribute, private val player: P
         horizontalAlignment(HorizontalAlignment.RIGHT)
         verticalAlignment(VerticalAlignment.CENTER)
 
-        verticalAlignment(VerticalAlignment.CENTER)
-
         refresh()
     }
 }
