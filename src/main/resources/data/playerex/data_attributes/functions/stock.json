@@ -102,7 +102,7 @@
 			{
 				"id": "playerex:heal_amplification",
 				"behavior": "Add",
-				"value": 2.0E-4
+				"value": 0.0020
 			},
 			{
 				"id": "playerex:freeze_resistance",
@@ -129,7 +129,7 @@
 			{
 				"id": "minecraft:generic.knockback_resistance",
 				"behavior": "Add",
-				"value": 0.1
+				"value": 0.01
 			},
 			{
 				"id": "playerex:melee_crit_damage",

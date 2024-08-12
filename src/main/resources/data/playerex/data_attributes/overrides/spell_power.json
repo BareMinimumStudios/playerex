@@ -1,0 +1,22 @@
+{
+    "entries": {
+        "spell_power:haste": {
+            "enabled": true,
+            "min": 100.0,
+            "max": 1000.0,
+            "smoothness": 1.0,
+            "min_fallback": 100.0,
+            "max_fallback": 1000.0,
+            "formula": "Diminished"
+        },
+        "spell_power:critical_chance": {
+            "enabled": true,
+            "min": 100.0,
+            "max": 1000.0,
+            "smoothness": 1.0,
+            "min_fallback": 100.0,
+            "max_fallback": 1000.0,
+            "formula": "Diminished"
+        }
+    }
+}

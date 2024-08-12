@@ -3,14 +3,51 @@
 	"id": "playerex",
 	"version": "${version}",
 	"name": "PlayerEX: Directors Cut",
-	"description": "TBD",
+	"description": "Adds RPG-themed attributes to the game, and a leveling and skill mechanic to the player.",
 	"authors": [
-		"Bare Minimum Studios",
-		"CleverNucleus (former author)"
+		{
+			"name": "bibireden",
+			"contact": {
+				"homepage": "https://github.com/bibi-reden"
+			}
+		},
+		{
+			"name": "naomi",
+			"contact": {
+				"homepage": "https://github.com/naomieow"
+			}
+		},
+		{
+			"name": "DataEncoded",
+			"contact": {
+				"homepage": "https://github.com/DataEncoded"
+			}
+		}
+	],
+	"contributors": [
+		{
+			"name": "pokesmells",
+			"contact": {
+				"homepage": "https://github.com/pokesmells"
+			}
+		},
+		{
+			"name": "OverlordsIII",
+			"contact": {
+				"homepage": "https://github.com/OverlordsIII"
+			}
+		},
+		{
+			"name": "CleverNucleus [former author]",
+			"contact": {
+				"homepage": "https://github.com/CleverNucleus"
+			}
+		}
 	],
 	"contact": {
 		"homepage": "https://github.com/BareMinimumStudios/playerex",
-		"sources": "https://github.com/BareMinimumStudios/playerex"
+		"sources": "https://github.com/BareMinimumStudios/playerex",
+		"issues": "https://github.com/BareMinimumStudios/playerex/issues"
 	},
 	"license": "MIT",
 	"icon": "assets/playerex/icon.png",
@@ -66,6 +103,14 @@
 				"cardinal-components@5.2.2(embedded){modrinth:K01OU20C}{curseforge:318449}#(ignore:github)",
 				"spell-engine@>=0.15.8+1.20.1(optional){modrinth:XvoWJaA2}{curseforge:807653}#(ignore:github)"
 			]
+		},
+		"modmenu": {
+			"links": {
+				"modmenu.discord": "https://discord.gg/pcRw79hwey",
+				"modmenu.wiki": "https://bareminimumstudios.github.io/Bare-Minimum-Docs/",
+				"modmenu.kofi": "https://ko-fi.com/bibiredens",
+				"modmenu.modrinth": "https://modrinth.com/mod/playerex-directors-cut"
+			}
 		}
 	}
 }
