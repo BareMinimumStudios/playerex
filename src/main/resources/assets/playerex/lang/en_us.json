@@ -21,7 +21,7 @@
         {"index": 0},
         {"text": " (", "color": "#757575"},
         {"index": 1, "color": "#757575", "italic": true, "underline": true },
-        {"text": " XP until the next level)", "color": "#757575", "italic": true }
+        {"text": " XP required until the next level)", "color": "#757575", "italic": true }
     ],
     "playerex.ui.level_button": [
         {"text": "", "color": "#F0C25E"},

@@ -27,9 +27,8 @@ class AttributeListEntryComponent(
         text(
             Component.translatable(attribute.descriptionId)
                 .append(": ")
-                .append(Component.literal(
-                    DataAttributesAPI.getValue(attribute, player).map { formattingPredicate(it) }
-                        .orElse("N/A")).withStyle { it.withColor(Colors.GOLD) }
+                .append(Component.literal(DataAttributesAPI.getValue(attribute, player).map(formattingPredicate)
+                    .orElse("N/A")).withStyle { it.withColor(Colors.GOLD) }
                 )
         )
     }
