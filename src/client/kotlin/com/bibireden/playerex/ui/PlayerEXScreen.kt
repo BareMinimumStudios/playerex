@@ -118,7 +118,7 @@ class PlayerEXScreen : BaseUIModelScreen<FlowLayout>(FlowLayout::class.java, Dat
             result = Mth.clamp((player.experienceLevel.toDouble() / required) * 100, 0.0, 100.0)
         }
        footer.childById(BoxComponent::class, "progress")!!
-            .horizontalSizing().animate(1000, Easing.CUBIC, Sizing.fill(result.toInt())).forwards()
+            .horizontalSizing().animate(250, Easing.CUBIC, Sizing.fill(result.toInt())).forwards()
     }
 
     override fun build(rootComponent: FlowLayout) {

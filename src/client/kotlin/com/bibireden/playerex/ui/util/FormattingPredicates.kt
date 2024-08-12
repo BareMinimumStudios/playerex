@@ -4,6 +4,8 @@ import com.bibireden.playerex.ui.components.FormattingPredicate
 import net.minecraft.world.entity.ai.attributes.Attribute
 import kotlin.math.round
 
+@Suppress("UNUSED")
+@Deprecated("Use DataAttributes value formatting instead.", level = DeprecationLevel.WARNING)
 object FormattingPredicates {
     @JvmField
     val NORMAL: FormattingPredicate = { "%.2f".format(it) }
