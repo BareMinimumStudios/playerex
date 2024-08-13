@@ -82,15 +82,9 @@ object EventFactory {
     fun onCritAttack(player: Player, target: Entity, amount: Float): Float
     {
         if (target !is LivingEntity) return amount
-
-        val meleeCritOption = DataAttributesAPI.getValue(PlayerEXAttributes.MELEE_CRITICAL_DAMAGE, player)
-
-        if (meleeCritOption.isPresent)
-        {
-            return (amount * (1.0 + (meleeCritOption.get() * 10.0)) / 1.5).toFloat()
-        }
-
-        return amount
+        return DataAttributesAPI.getValue(PlayerEXAttributes.MELEE_CRITICAL_DAMAGE, player)
+            .map { (amount * (1.0 + (it * 10.0)) / 1.5).toFloat() }
+            .orElse(amount)
     }
 
     fun attackIsCrit(player: Player, target: Entity, original: Boolean): Boolean
