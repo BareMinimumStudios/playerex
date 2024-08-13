@@ -1,0 +1,9 @@
+{
+    "entries": {
+        "ranged_weapon:haste": {
+            "enabled": true,
+            "smoothness": 1,
+            "format": "Percentage"
+        }
+    }
+}

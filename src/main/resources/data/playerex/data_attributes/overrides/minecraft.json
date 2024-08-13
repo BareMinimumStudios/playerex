@@ -7,7 +7,8 @@
             "smoothness": 1.0,
             "min_fallback": 0.0,
             "max_fallback": 1.0,
-            "formula": "Diminished"
+            "formula": "Diminished",
+            "format": "Percentage"
         },
         "minecraft:generic.luck": {
             "enabled": true,
