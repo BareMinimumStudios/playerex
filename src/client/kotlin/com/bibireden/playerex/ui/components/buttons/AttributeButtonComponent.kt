@@ -15,7 +15,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.player.Player
 import net.minecraft.network.chat.Component
 
-class AttributeButtonComponent(val attribute: Attribute, private val player: Player, private val component: IPlayerDataComponent, val type: PlayerEXScreen.AttributeButtonComponentType) : ButtonComponent(
+class AttributeButtonComponent(val attribute: Attribute, private val player: Player, private val component: IPlayerDataComponent, val type: PlayerEXScreen.ButtonType) : ButtonComponent(
     Component.literal(type.symbol),
     {
         // reference text-box to get the necessary value to send to server
@@ -41,8 +41,8 @@ class AttributeButtonComponent(val attribute: Attribute, private val player: Pla
        DataAttributesAPI.getValue(attribute, player).ifPresent { value ->
            val max = (attribute as IEntityAttribute).`data_attributes$max`();
            this.active(when (type) {
-               PlayerEXScreen.AttributeButtonComponentType.Add -> component.skillPoints > 0 && max > value
-               PlayerEXScreen.AttributeButtonComponentType.Remove -> component.refundablePoints > 0 && value > 0
+               PlayerEXScreen.ButtonType.Add -> component.skillPoints > 0 && max > value
+               PlayerEXScreen.ButtonType.Remove -> component.refundablePoints > 0 && value > 0
            })
        }
     }

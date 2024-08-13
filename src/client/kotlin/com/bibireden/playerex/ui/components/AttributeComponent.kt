@@ -7,7 +7,7 @@ import com.bibireden.data_attributes.api.attribute.StackingBehavior
 import com.bibireden.data_attributes.api.attribute.StackingFormula
 import com.bibireden.playerex.components.player.IPlayerDataComponent
 import com.bibireden.playerex.ext.id
-import com.bibireden.playerex.ui.PlayerEXScreen.AttributeButtonComponentType
+import com.bibireden.playerex.ui.PlayerEXScreen.ButtonType
 import com.bibireden.playerex.ui.components.buttons.AttributeButtonComponent
 import com.bibireden.playerex.ui.components.labels.AttributeLabelComponent
 import com.bibireden.playerex.ui.util.Colors
@@ -65,12 +65,12 @@ class AttributeComponent(private val attribute: Attribute, private val player: P
                 .id("${attribute.id}:label")
         )
 
-        child(AttributeButtonComponent(attribute, player, component, AttributeButtonComponentType.Remove))
+        child(AttributeButtonComponent(attribute, player, component, ButtonType.Remove))
         child(
             AttributeLabelComponent(attribute, player).also { label = it }
                 .horizontalSizing(Sizing.fill(34))
         )
-        child(AttributeButtonComponent(attribute, player, component, AttributeButtonComponentType.Add))
+        child(AttributeButtonComponent(attribute, player, component, ButtonType.Add))
 
         horizontalAlignment(HorizontalAlignment.RIGHT)
         verticalAlignment(VerticalAlignment.CENTER)

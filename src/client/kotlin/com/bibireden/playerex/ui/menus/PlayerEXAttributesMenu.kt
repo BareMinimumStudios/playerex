@@ -5,7 +5,6 @@ import com.bibireden.data_attributes.api.attribute.EntityAttributeSupplier
 import com.bibireden.playerex.api.attribute.PlayerEXAttributes
 import com.bibireden.playerex.components.player.IPlayerDataComponent
 import com.bibireden.playerex.ext.id
-import com.bibireden.playerex.ext.level
 import com.bibireden.playerex.ui.PlayerEXScreen
 import com.bibireden.playerex.ui.childById
 import com.bibireden.playerex.ui.components.*
@@ -84,8 +83,8 @@ class PlayerEXAttributesMenu : MenuComponent(algorithm = Algorithm.HORIZONTAL) {
                     val max = descendant.attribute.`data_attributes$max`()
                     val current = DataAttributesAPI.getValue(descendant.attribute, player).orElse(0.0)
                     when (descendant.type) {
-                        PlayerEXScreen.AttributeButtonComponentType.Add -> descendant.active(result > 0 && component.skillPoints >= result && (current + result) <= max)
-                        PlayerEXScreen.AttributeButtonComponentType.Remove -> descendant.active(result > 0 && component.refundablePoints > 0 && (current - result >= 0))
+                        PlayerEXScreen.ButtonType.Add -> descendant.active(result > 0 && component.skillPoints >= result && (current + result) <= max)
+                        PlayerEXScreen.ButtonType.Remove -> descendant.active(result > 0 && component.refundablePoints > 0 && (current - result >= 0))
                     }
                 }
             }

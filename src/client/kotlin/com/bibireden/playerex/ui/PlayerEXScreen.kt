@@ -187,7 +187,7 @@ class PlayerEXScreen : BaseUIModelScreen<FlowLayout>(FlowLayout::class.java, Dat
         return super.keyPressed(keyCode, scanCode, modifiers)
     }
 
-    enum class AttributeButtonComponentType {
+    enum class ButtonType {
         Add,
         Remove;
 
