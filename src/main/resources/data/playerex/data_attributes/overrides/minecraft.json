@@ -5,19 +5,20 @@
             "min": 0.0,
             "max": 1.0,
             "smoothness": 1.0,
-            "min_fallback": 0.0,
-            "max_fallback": 1.0,
             "formula": "Diminished",
             "format": "Percentage"
         },
         "minecraft:generic.luck": {
             "enabled": true,
-            "min": -1024.0,
-            "max": 1024.0,
             "smoothness": 1.0,
-            "min_fallback": -1024.0,
-            "max_fallback": 1024.0,
             "formula": "Diminished"
+        },
+        "minecraft:generic.max_health": {
+            "enabled": true,
+            "min": 0.0,
+            "max": 1000000.0,
+            "smoothness": 1.0,
+            "formula": "Flat"
         }
     }
 }
