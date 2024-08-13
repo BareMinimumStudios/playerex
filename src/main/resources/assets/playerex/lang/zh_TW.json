@@ -48,7 +48,7 @@
             "underline": true
         },
         {
-            "text": " XP until the next level)",
+            "text": " XP required until the next level)",
             "color": "#757575",
             "italic": true
         }
@@ -386,6 +386,8 @@
     "text.config.playerex-config.option.soundSettings.levelUpVolume": "Level Up Volume",
     "text.config.playerex-config.option.soundSettings.skillUpVolume": "Skill Up Volume",
     "text.config.playerex-config.option.soundSettings.refundVolume": "Refund Volume",
+    "text.config.playerex-config.category.visualSettings": "Visual Options",
+    "text.config.playerex-config.option.visualSettings.nameplateColor": "Nameplate Color",
     "text.config.playerex-config.option.resetOnDeath": "Reset on Death",
     "text.config.playerex-config.option.skillPointsPerLevelUp": "Skill Points per. Level Up",
     "text.config.playerex-config.option.levelFormula": "Leveling Formula",
