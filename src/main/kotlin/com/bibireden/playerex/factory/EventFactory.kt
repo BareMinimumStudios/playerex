@@ -72,8 +72,8 @@ object EventFactory {
 
         if (attacker is LivingEntity && (origin is LivingEntity || origin is AbstractArrow))
         {
-            DataAttributesAPI.getValue(PlayerEXAttributes.LIFESTEAL, livingEntity).ifPresent {
-                attacker.heal((original * it * 10.0).toFloat())
+            DataAttributesAPI.getValue(PlayerEXAttributes.LIFESTEAL, attacker).ifPresent {
+                attacker.heal((original * it).toFloat())
             }
         }
 
