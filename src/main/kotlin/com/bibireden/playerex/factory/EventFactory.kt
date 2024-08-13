@@ -62,10 +62,7 @@ object EventFactory {
 
     fun shouldDamage(livingEntity: LivingEntity, source: DamageSource, original: Float): Boolean
     {
-        if (original == 0.0F)
-        {
-            return true
-        }
+        if (original == 0.0F) return true
 
         val origin: Entity? = source.directEntity
         val attacker: Entity? = source.entity
