@@ -77,15 +77,9 @@ object EventFactory {
             }
         }
 
-        val evasionOption = DataAttributesAPI.getValue(PlayerEXAttributes.EVASION, livingEntity)
-
-        if (evasionOption.isPresent)
-        {
-            val chance = livingEntity.random.nextFloat()
-            return !(chance < evasionOption.get() && origin is AbstractArrow)
-        }
-
-        return true
+        return DataAttributesAPI.getValue(PlayerEXAttributes.EVASION, livingEntity).map {
+            !(livingEntity.random.nextFloat() < it && origin is AbstractArrow)
+        }.orElse(true)
     }
 
     fun onCritAttack(player: Player, target: Entity, amount: Float): Float
