@@ -90,7 +90,7 @@
 			{
 				"id": "spell_power:haste",
 				"behavior": "Add",
-				"value": 0.002
+				"value": 2
 			}
 		],
 		"playerex:focus": [
