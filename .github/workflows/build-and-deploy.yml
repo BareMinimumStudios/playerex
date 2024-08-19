@@ -7,9 +7,6 @@ on:
       - "**-dev"
       - "**-dev**"
       - dev
-    paths:
-      - src/**
-      - gradle.properties
 
 
 jobs:
