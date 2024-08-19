@@ -97,9 +97,7 @@ class PlayerDataComponent(
      * */
     private fun tryRemove(key: ResourceLocation): Boolean {
         return this.getInstance(key)?.let { (instance, isModifierPresent) ->
-            if (isModifierPresent) {
-                instance.removeModifier(PlayerEXModifiers.UUID)
-            }
+            if (isModifierPresent) instance.removeModifier(PlayerEXModifiers.UUID)
         } != null
     }
 
@@ -127,7 +125,7 @@ class PlayerDataComponent(
     }
 
     override fun reset(percent: Int) {
-        val partition = if (percent == 0) 0.0 else percent / 100.0
+        val partition = percent / 100.0
 
         val kept = mutableMapOf<ResourceLocation, Double>()
         for ((id, value) in this.modifiers) {
@@ -136,7 +134,9 @@ class PlayerDataComponent(
             }
             else {
                 val retained = value * partition
-                if (!this.trySet(id, retained)) continue
+                if (!this.trySet(id, retained)) {
+                    continue
+                }
                 kept[id] = retained
             }
         }

@@ -6,6 +6,7 @@ import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.ai.attributes.RangedAttribute
+import org.jetbrains.annotations.ApiStatus
 
 object PlayerEXAttributes {
     @JvmField
@@ -74,6 +75,7 @@ object PlayerEXAttributes {
     @JvmField
     val RANGED_CRITICAL_DAMAGE = register("ranged_crit_damage", 0.0, 0.0, 1_000_000.0)
 
+    @ApiStatus.Internal
     fun register(path: String, base: Double, min: Double, max: Double): RangedAttribute {
         val attribute = RangedAttribute("attribute.name.${PlayerEX.MOD_ID}.$path", base, min, max)
         return Registry.register(BuiltInRegistries.ATTRIBUTE, ResourceLocation.tryBuild(PlayerEX.MOD_ID, path)!!, attribute)
