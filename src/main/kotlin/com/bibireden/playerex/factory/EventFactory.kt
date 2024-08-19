@@ -3,8 +3,10 @@ package com.bibireden.playerex.factory
 import com.bibireden.data_attributes.api.DataAttributesAPI
 import com.bibireden.playerex.PlayerEX
 import com.bibireden.playerex.api.attribute.PlayerEXAttributes
+import com.bibireden.playerex.components.player.PlayerDataComponent
 import com.bibireden.playerex.ext.component
 import com.bibireden.playerex.registry.DamageModificationRegistry
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.effect.MobEffects
@@ -16,7 +18,13 @@ import net.minecraft.world.entity.projectile.AbstractArrow
 object EventFactory {
     fun reset(oldPlayer: ServerPlayer, newPlayer: ServerPlayer, isAlive: Boolean)
     {
-        newPlayer.component.reset(if (PlayerEX.CONFIG.resetOnDeath) 0 else 100)
+        val factor = if (PlayerEX.CONFIG.resetOnDeath) 0 else 100
+        // attempt reconciliation
+        (oldPlayer.component as PlayerDataComponent).modifiers.forEach { (rl, value) ->
+            val attr = BuiltInRegistries.ATTRIBUTE[rl] ?: return@forEach
+            newPlayer.component.set(attr, value.toInt())
+        }
+        newPlayer.component.reset(factor)
     }
 
     fun healed(entity: LivingEntity, amount: Float): Float
