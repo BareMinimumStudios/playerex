@@ -22,6 +22,7 @@ import de.dafuqs.additionalentityattributes.AdditionalEntityAttributes
 import eu.pb4.placeholders.api.Placeholders
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
+import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents
 import net.fabricmc.fabric.api.networking.v1.ServerLoginConnectionEvents
 import net.minecraft.core.Registry
@@ -78,6 +79,8 @@ object PlayerEX : ModInitializer {
 
 		DamageFactory.forEach(PlayerEXAPI::registerDamageModification)
 		RefundFactory.forEach(PlayerEXAPI::registerRefundCondition)
+
+		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(EventFactory::entityWasKilled)
 
 		PlaceholderFactory.STORE.forEach(Placeholders::register)
 

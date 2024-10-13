@@ -76,6 +76,20 @@
 
     "playerex.broken": "Broken",
 
+    "playerex.item.level": [
+        {"text": "Level: "},
+        {"index": 0},
+        {"text": "/"},
+        {"index": 1}
+    ],
+
+    "playerex.item.experience": [
+        {"text": "Exp: "},
+        {"index": 0},
+        {"text": "/"},
+        {"index": 1}
+    ],
+
     "playerex.command.reset_chunk": "Reset experience negation factor for chunk at %s",
     "playerex.command.refund": "Refunded %s skill points for player %s",
 

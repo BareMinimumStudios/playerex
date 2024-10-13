@@ -2,7 +2,9 @@ package com.bibireden.playerex.util
 
 import com.bibireden.data_attributes.api.util.Maths
 import com.bibireden.playerex.PlayerEX
+import com.bibireden.playerex.api.PlayerEXTags
 import com.bibireden.playerex.ext.level
+import com.bibireden.playerex.ext.xp
 import com.google.common.collect.Multimap
 import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
@@ -33,6 +35,21 @@ object PlayerEXUtil {
         return ExpressionBuilder(PlayerEX.CONFIG.levelFormula).variable(VARIABLE).function(STAIRCASE_FUNCTION).build()
     }
 
+    private val weaponExpression: Expression
+        get() = createWeaponExpression()
+
+    @JvmStatic
+    private fun createWeaponExpression(): Expression {
+        return ExpressionBuilder(PlayerEX.CONFIG.weaponLevelingSettings.formula).variable(VARIABLE).build()
+    }
+    private val armorExpression: Expression
+        get() = createArmorExpression()
+
+    @JvmStatic
+    private fun createArmorExpression(): Expression {
+        return ExpressionBuilder(PlayerEX.CONFIG.armorLevelingSettings.formula).variable(VARIABLE).build()
+    }
+
     @JvmStatic
     /** Computes the experience cost of the provided level. */
     fun getRequiredXpForLevel(player: Player, target: Double): Int {
@@ -53,11 +70,46 @@ object PlayerEXUtil {
     fun getRequiredXpForNextLevel(player: Player): Int = getRequiredXpForLevel(player, player.level + 1)
 
     @JvmStatic
+    fun getRequiredXpForLevel(item: ItemStack, target: Int): Int {
+        if (target <= item.level) return 0
+        var acc = 0
+        for (x in item.level+1..target) {
+            when {
+                isWeapon(item) -> acc += abs(round(weaponExpression.setVariable(VARIABLE, (x).toDouble()).evaluate())).toInt()
+                isArmor(item) -> acc += abs(round(armorExpression.setVariable(VARIABLE, (x).toDouble()).evaluate())).toInt()
+            }
+        }
+        return acc
+    }
+
+    @JvmStatic
+    fun getRequiredXpForNextLevel(item: ItemStack): Int = getRequiredXpForLevel(item, item.level + 1)
+
+    @JvmStatic
+    fun getMaxLevel(item: ItemStack): Int {
+        return when {
+            isWeapon(item) -> PlayerEX.CONFIG.weaponLevelingSettings.maxLevel
+            isArmor(item) -> PlayerEX.CONFIG.armorLevelingSettings.maxLevel
+            else -> 0
+        }
+    }
+
+    @JvmStatic
     fun isBroken(stack: ItemStack): Boolean {
         if (stack.tag != null) {
             return stack.tag!!.getBoolean("broken")
         }
         return false
+    }
+
+    @JvmStatic
+    fun isWeapon(stack: ItemStack): Boolean {
+        return stack.`is`(PlayerEXTags.WEAPONS)
+    }
+
+    @JvmStatic
+    fun isArmor(stack: ItemStack): Boolean {
+        return stack.`is`(PlayerEXTags.ARMOR)
     }
 
     @JvmStatic
@@ -69,6 +121,37 @@ object PlayerEXUtil {
             val newModifier = AttributeModifier(modifier.id, modifier.name, 0.0, modifier.operation)
             multimap.remove(attribute, modifier)
             multimap.put(attribute, newModifier)
+        }
+    }
+
+    @JvmStatic
+    /** Adds a [Double] to the value of an [AttributeModifier] from the provided [Multimap] **/
+    fun addToModifier(multimap: Multimap<Attribute, AttributeModifier>, attribute: Attribute, amount: Double) {
+        val optional = multimap[attribute].stream().findFirst()
+        if (optional.isPresent) {
+            val modifier = optional.get()
+            val newModifier = AttributeModifier(modifier.id, modifier.name, modifier.amount + amount, modifier.operation)
+            multimap.remove(attribute, modifier)
+            multimap.put(attribute, newModifier)
+        }
+    }
+
+    @JvmStatic
+    fun isLevelable(stack: ItemStack): Boolean {
+        return (isWeapon(stack) && PlayerEX.CONFIG.weaponLevelingSettings.enabled)
+                || (isArmor(stack) && PlayerEX.CONFIG.armorLevelingSettings.enabled)
+    }
+
+    @JvmStatic
+    fun levelItem(itemStack: ItemStack, xpToAdd: Int, maxLevel: Int) {
+        if (isLevelable(itemStack)) {
+            var nextLevel = getRequiredXpForNextLevel(itemStack)
+            itemStack.xp += xpToAdd
+            while (itemStack.xp >= nextLevel && itemStack.level < maxLevel) {
+                itemStack.xp -= nextLevel
+                itemStack.level += 1
+                nextLevel = getRequiredXpForNextLevel(itemStack)
+            }
         }
     }
 }

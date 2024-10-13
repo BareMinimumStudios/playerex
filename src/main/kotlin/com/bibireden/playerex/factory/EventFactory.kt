@@ -5,15 +5,22 @@ import com.bibireden.playerex.PlayerEX
 import com.bibireden.playerex.api.attribute.PlayerEXAttributes
 import com.bibireden.playerex.components.player.PlayerDataComponent
 import com.bibireden.playerex.ext.component
+import com.bibireden.playerex.ext.level
+import com.bibireden.playerex.ext.xp
 import com.bibireden.playerex.registry.DamageModificationRegistry
+import com.bibireden.playerex.util.PlayerEXUtil
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalEntityTypeTags
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.MobCategory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.AbstractArrow
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.level.Level
 
 object EventFactory {
     fun reset(oldPlayer: ServerPlayer, newPlayer: ServerPlayer, isAlive: Boolean)
@@ -110,4 +117,43 @@ object EventFactory {
         return original
     }
 
+    fun entityWasKilled(level: Level, entity: Entity, killedEntity: Entity) {
+        if (PlayerEX.CONFIG.weaponLevelingSettings.enabled) {
+            when (entity) {
+                is Player -> {
+                    val mainHandItem: ItemStack = entity.mainHandItem
+
+                    if (PlayerEXUtil.isLevelable(mainHandItem)) {
+                        PlayerEXUtil.levelItem(mainHandItem, if (killedEntity.type.category.isFriendly) {
+                            PlayerEX.CONFIG.weaponLevelingSettings.xpFromPassive
+                        } else if (killedEntity.type.category == MobCategory.MONSTER) {
+                            if (killedEntity.type.`is`(ConventionalEntityTypeTags.BOSSES)) {
+                                PlayerEX.CONFIG.weaponLevelingSettings.xpFromBoss
+                            } else {
+                                PlayerEX.CONFIG.weaponLevelingSettings.xpFromHostile
+                            }
+                        } else {
+                            0
+                        }, PlayerEX.CONFIG.weaponLevelingSettings.maxLevel)
+                    }
+
+                    for (item in entity.armorSlots) {
+                        if (PlayerEXUtil.isLevelable(item)) {
+                            PlayerEXUtil.levelItem(item, if (killedEntity.type.category.isFriendly) {
+                                PlayerEX.CONFIG.armorLevelingSettings.xpFromPassive
+                            } else if (killedEntity.type.category == MobCategory.MONSTER) {
+                                if (killedEntity.type.`is`(ConventionalEntityTypeTags.BOSSES)) {
+                                    PlayerEX.CONFIG.armorLevelingSettings.xpFromBoss
+                                } else {
+                                    PlayerEX.CONFIG.armorLevelingSettings.xpFromHostile
+                                }
+                            } else {
+                                0
+                            }, PlayerEX.CONFIG.armorLevelingSettings.maxLevel)
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
