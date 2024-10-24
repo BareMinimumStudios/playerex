@@ -24,7 +24,7 @@
             "color": "white"
         }
     ],
-    "playerex.ui.category.primary_attributes": "Attributes",
+    "playerex.ui.category.attributes": "Attributes",
     "playerex.ui.current_level": [
         {
             "text": "❤ ",
