@@ -24,7 +24,7 @@
             "color": "white"
         }
     ],
-    "playerex.ui.category.attributes": "Attributes",
+    "playerex.ui.category.attributes": "ATTRIBUTES",
     "playerex.ui.current_level": [
         {
             "text": "❤ ",
@@ -90,6 +90,19 @@
         }
     ],
     "playerex.ui.nameplate.level": "<Lv. %s>",
+    "playerex.ui.menu.playerex.attributes": [
+        {
+            "text": "✎ ",
+            "color": "#F0C25E"
+        },
+        {
+            "text": "PlayerEX Attributes",
+            "color": "white"
+        }
+    ],
+    "playerex.ui.main.labels.health": "Health",
+    "playerex.ui.main.sections.vigor": "VIGOR",
+    "playerex.ui.main.sections.combat_stats": "COMBAT STATS",
     "playerex.ui.main.categories.melee_combat": "⚔ MELEE",
     "playerex.ui.main.categories.ranged_combat": "🏹 RANGED",
     "playerex.ui.main.categories.defense_combat": "🛡 DEFENSE",
