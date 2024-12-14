@@ -130,6 +130,7 @@
     "attribute.name.playerex.wither_resistance": "Wither Resistance",
     "attribute.name.playerex.breaking_speed": "Breaking Speed",
     "attribute.name.playerex.focus": "Focus",
+    "attribute.name.playerex.percent_damage_reduction": "% Damage Reduction",
     "attribute.name.playerex.mining": "Mining",
     "attribute.name.playerex.enchanting": "Enchanting",
     "attribute.name.playerex.alchemy": "Alchemy",
@@ -138,6 +139,52 @@
     "attribute.name.playerex.smithing": "Smithing",
     "attribute.name.playerex.farming": "Farming",
     "playerex.broken": "Broken",
+    "playerex.item.level": [
+        {
+            "text": "Level: ",
+            "color": "#6EBAE5"
+        },
+        {
+            "index": 0,
+            "color": "gold"
+        },
+        {
+            "text": "/",
+            "color": "gold"
+        },
+        {
+            "index": 1,
+            "color": "gold"
+        }
+    ],
+    "playerex.item.experience": [
+        {
+            "text": "Exp: ",
+            "color": "#6EBAE5"
+        },
+        {
+            "index": 0,
+            "color": "gold"
+        },
+        {
+            "text": "/",
+            "color": "gold"
+        },
+        {
+            "index": 1,
+            "color": "gold"
+        }
+    ],
+    "playerex.item.reduction": [
+        {
+            "index": 0,
+            "color": "blue"
+        },
+        {
+            "text": "% Damage Reduction",
+            "color": "blue"
+        }
+    ],
     "playerex.command.reset_chunk": "Reset experience negation factor for chunk at %s",
     "playerex.command.refund": "Refunded %s skill points for player %s",
     "playerex.command.updated_result": [
@@ -416,5 +463,25 @@
     "text.config.playerex-config.category.soundSettings": "Sound Options",
     "text.config.playerex-config.option.soundSettings.levelUpVolume": "Level Up Volume",
     "text.config.playerex-config.option.soundSettings.skillUpVolume": "Skill Up Volume",
-    "text.config.playerex-config.option.soundSettings.refundVolume": "Refund Volume"
+    "text.config.playerex-config.option.soundSettings.refundVolume": "Refund Volume",
+    "text.config.playerex-config.category.weaponLevelingSettings": "Weapon Leveling",
+    "text.config.playerex-config.option.weaponLevelingSettings.enabled": "Activated",
+    "text.config.playerex-config.option.weaponLevelingSettings.damagePerLevel": "Attack Damage per Level",
+    "text.config.playerex-config.option.weaponLevelingSettings.formula": "XP Formula",
+    "text.config.playerex-config.option.weaponLevelingSettings.xpFromPassive": "XP from Passive Mobs",
+    "text.config.playerex-config.option.weaponLevelingSettings.xpFromHostile": "XP from Hostile Mobs",
+    "text.config.playerex-config.option.weaponLevelingSettings.xpFromMiniboss": "XP from Minibosses (unused)",
+    "text.config.playerex-config.option.weaponLevelingSettings.xpFromBoss": "XP from Bosses",
+    "text.config.playerex-config.option.weaponLevelingSettings.maxLevel": "Maximum Level",
+    "text.config.playerex-config.category.armorLevelingSettings": "Armor Leveling",
+    "text.config.playerex-config.option.armorLevelingSettings.enabled": "Activated",
+    "text.config.playerex-config.option.armorLevelingSettings.armorPerLevel": "Armor per Level",
+    "text.config.playerex-config.option.armorLevelingSettings.reductionPerLevel": "% Damage Reduction per Level",
+    "text.config.playerex-config.option.armorLevelingSettings.maxReduction": "Max % Damage Reduction",
+    "text.config.playerex-config.option.armorLevelingSettings.formula": "XP Formula",
+    "text.config.playerex-config.option.armorLevelingSettings.xpFromPassive": "XP from Passive Mobs",
+    "text.config.playerex-config.option.armorLevelingSettings.xpFromHostile": "XP from Hostile Mobs",
+    "text.config.playerex-config.option.armorLevelingSettings.xpFromMiniboss": "XP from Minibosses (unused)",
+    "text.config.playerex-config.option.armorLevelingSettings.xpFromBoss": "XP from Bosses",
+    "text.config.playerex-config.option.armorLevelingSettings.maxLevel": "Maximum Level"
 }
