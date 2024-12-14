@@ -277,18 +277,9 @@ abstract class ItemStackMixin {
         if (PlayerEXUtil.isLevelable(itemStack)) {
             list.add(Component.translatable("playerex.item.level", getLevel(), PlayerEXUtil.getMaxLevel(itemStack)));
             list.add(Component.translatable("playerex.item.experience", getXp(), PlayerEXUtil.getRequiredXpForNextLevel(itemStack)));
-        }
-    }
-
-    @Inject(method = "getTooltipLines", at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", ordinal = 6, shift = At.Shift.AFTER))
-    private void playerex$insertReductionTooltip(
-            Player player, TooltipFlag context,
-            CallbackInfoReturnable<List<Component>> info,
-            @Local List<Component> list
-    ) {
-        ItemStack itemStack = (ItemStack) (Object) this;
-        if (PlayerEXUtil.isArmor(itemStack)) {
-            list.add(Component.translatable("playerex.item.reduction", String.format("%.2f", getReduction())));
+            if (PlayerEXUtil.isArmor(itemStack)) {
+                list.add(Component.translatable("playerex.item.reduction", String.format("%.2f", getReduction())));
+            }
         }
     }
 }
