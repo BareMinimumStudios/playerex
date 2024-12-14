@@ -92,11 +92,11 @@
     "playerex.ui.nameplate.level": "<Lv. %s>",
     "playerex.ui.menu.playerex.attributes": [
         {
-            "text": "✎ ",
+            "text": "★ ",
             "color": "#F0C25E"
         },
         {
-            "text": "PlayerEX Attributes",
+            "text": "PlayerEX",
             "color": "white"
         }
     ],
