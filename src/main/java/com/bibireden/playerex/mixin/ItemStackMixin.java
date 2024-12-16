@@ -10,13 +10,10 @@ import com.google.common.collect.Multimap;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -115,7 +112,7 @@ abstract class ItemStackMixin {
         HashMultimap<Attribute, AttributeModifier> hashmap = HashMultimap.create(cir.getReturnValue());
         if (PlayerEX.CONFIG.getWeaponLevelingSettings().getEnabled() && PlayerEXUtil.isWeapon(stack)) {
             PlayerEXUtil.addToModifier(hashmap, Attributes.ATTACK_DAMAGE, getLevel() * PlayerEX.CONFIG.getWeaponLevelingSettings().getDamagePerLevel());
-            if (stack.is(TagKey.create(Registries.ITEM, ResourceLocation.tryBuild("c", "bows")))) {
+            if (hashmap.containsKey(EntityAttributes_RangedWeapon.DAMAGE.attribute)) {
                 PlayerEXUtil.addToModifier(hashmap, EntityAttributes_RangedWeapon.DAMAGE.attribute, getLevel() * PlayerEX.CONFIG.getWeaponLevelingSettings().getDamagePerLevel());
             }
         }

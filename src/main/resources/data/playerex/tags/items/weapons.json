@@ -6,6 +6,14 @@
             "required": false
         },
         {
+            "id": "#fabric:swords",
+            "required": false
+        },
+        {
+            "id": "#c:weapons",
+            "required": false
+        },
+        {
             "id": "#c:axes",
             "required": false
         },
@@ -15,6 +23,10 @@
         },
         {
             "id": "#c:bows",
+            "required": false
+        },
+        {
+            "id": "#fabric:bows",
             "required": false
         },
         "#minecraft:swords",
