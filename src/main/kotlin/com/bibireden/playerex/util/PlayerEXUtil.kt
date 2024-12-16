@@ -111,7 +111,7 @@ object PlayerEXUtil {
 
     @JvmStatic
     fun isArmor(stack: ItemStack): Boolean {
-        return (stack.item is ArmorItem || stack.item.defaultInstance.`is`(PlayerEXTags.ARMOR)) && !stack.item.defaultInstance.`is`(PlayerEXTags.ARMOR_BLACKLIST)
+        return (stack.item is ArmorItem || stack.`is`(PlayerEXTags.ARMOR)) && !stack.`is`(PlayerEXTags.ARMOR_BLACKLIST)
     }
 
     @JvmStatic
