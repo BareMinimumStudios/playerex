@@ -111,9 +111,7 @@ object PlayerEXUtil {
 
     @JvmStatic
     fun isArmor(stack: ItemStack): Boolean {
-        return BuiltInRegistries.ITEM.stream().filter {
-            (it is ArmorItem || it.defaultInstance.`is`(PlayerEXTags.ARMOR)) && !it.defaultInstance.`is`(PlayerEXTags.ARMOR_BLACKLIST)
-        }.anyMatch { stack.`is`(it) };
+        return (stack.item is ArmorItem || stack.item.defaultInstance.`is`(PlayerEXTags.ARMOR)) && !stack.item.defaultInstance.`is`(PlayerEXTags.ARMOR_BLACKLIST)
     }
 
     @JvmStatic
