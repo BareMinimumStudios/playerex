@@ -14,4 +14,7 @@ object PlayerEXTags {
 
     @JvmField
     val ARMOR: TagKey<Item> = TagKey.create(Registries.ITEM, PlayerEX.id("armor"))
+
+    @JvmField
+    val ARMOR_BLACKLIST: TagKey<Item> = TagKey.create(Registries.ITEM, PlayerEX.id("armor_blacklist"))
 }

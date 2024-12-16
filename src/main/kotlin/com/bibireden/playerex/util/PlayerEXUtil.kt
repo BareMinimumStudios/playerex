@@ -6,9 +6,11 @@ import com.bibireden.playerex.api.PlayerEXTags
 import com.bibireden.playerex.ext.level
 import com.bibireden.playerex.ext.xp
 import com.google.common.collect.Multimap
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.ArmorItem
 import net.minecraft.world.item.ItemStack
 import net.objecthunter.exp4j.Expression
 import net.objecthunter.exp4j.ExpressionBuilder
@@ -109,7 +111,9 @@ object PlayerEXUtil {
 
     @JvmStatic
     fun isArmor(stack: ItemStack): Boolean {
-        return stack.`is`(PlayerEXTags.ARMOR)
+        return BuiltInRegistries.ITEM.stream().filter {
+            (it is ArmorItem || it.defaultInstance.`is`(PlayerEXTags.ARMOR)) && !it.defaultInstance.`is`(PlayerEXTags.ARMOR_BLACKLIST)
+        }.anyMatch { stack.`is`(it) };
     }
 
     @JvmStatic
