@@ -6,12 +6,14 @@ import com.bibireden.playerex.api.PlayerEXTags
 import com.bibireden.playerex.ext.level
 import com.bibireden.playerex.ext.xp
 import com.google.common.collect.Multimap
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ArmorItem
+import net.minecraft.world.item.BowItem
+import net.minecraft.world.item.CrossbowItem
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.SwordItem
 import net.objecthunter.exp4j.Expression
 import net.objecthunter.exp4j.ExpressionBuilder
 import net.objecthunter.exp4j.function.Function
@@ -106,7 +108,7 @@ object PlayerEXUtil {
 
     @JvmStatic
     fun isWeapon(stack: ItemStack): Boolean {
-        return stack.`is`(PlayerEXTags.WEAPONS)
+        return stack.item is BowItem || stack.item is CrossbowItem || stack.item is SwordItem || stack.`is`(PlayerEXTags.WEAPONS)
     }
 
     @JvmStatic
