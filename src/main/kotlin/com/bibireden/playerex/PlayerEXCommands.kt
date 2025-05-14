@@ -134,7 +134,7 @@ object PlayerEXCommands {
         if (PlayerEXUtil.isArmor(item!!)) {
             item.xp = 0
             item.level = level
-            ctx.source.sendSuccess({ Component.translatable("playerex.command.set_armor.success")}, true)
+            ctx.source.sendSuccess({ Component.translatable("playerex.command.set_armor.success", level)}, true)
             return 1
         }
         ctx.source.sendFailure(Component.translatable("playerex.command.set_armor.failure"))
@@ -161,7 +161,7 @@ object PlayerEXCommands {
         if (PlayerEXUtil.isWeapon(item!!)) {
             item.xp = 0
             item.level = level
-            ctx.source.sendSuccess({ Component.translatable("playerex.command.set_weapon.success")}, true)
+            ctx.source.sendSuccess({ Component.translatable("playerex.command.set_weapon.success", level)}, true)
             return 1
         }
         ctx.source.sendFailure(Component.translatable("playerex.command.set_weapon.failure"))
