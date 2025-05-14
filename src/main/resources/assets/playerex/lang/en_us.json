@@ -190,6 +190,14 @@
         {"text": " does not have enough points to refund!", "color": "white"}
     ],
     "playerex.command.refund_attribute_unskilled": "%s has not been skilled for player %s!",
+    "playerex.command.set_weapon.success": "Successfully set weapon level!",
+    "playerex.command.set_weapon.failure": "You are not currently holding a weapon!",
+    "playerex.command.reset_weapon.success": "Successfully reset weapon level!",
+    "playerex.command.reset_weapon.failure": "You are not currently holding a weapon!",
+    "playerex.command.set_armor.success": "Successfully set armor level!",
+    "playerex.command.set_armor.failure": "You are not currently holding any armor!",
+    "playerex.command.reset_armor.success": "Successfully reset armor level!",
+    "playerex.command.reset_armor.failure": "You are not currently holding any armor!",
 
     "text.config.playerex-config.title": "PlayerEX Config",
     "text.config.playerex-config.section.client_options": "Client Options",

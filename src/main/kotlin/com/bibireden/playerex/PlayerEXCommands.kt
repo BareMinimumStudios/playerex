@@ -7,6 +7,9 @@ import com.bibireden.playerex.api.attribute.PlayerEXAttributes
 import com.bibireden.playerex.api.attribute.TradeSkillAttributes
 import com.bibireden.playerex.components.PlayerEXComponents
 import com.bibireden.playerex.ext.component
+import com.bibireden.playerex.ext.level
+import com.bibireden.playerex.ext.xp
+import com.bibireden.playerex.util.PlayerEXUtil
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.builder.RequiredArgumentBuilder
@@ -92,11 +95,78 @@ object PlayerEXCommands {
                         )
                     )
                 )
+            ).then(Commands.literal("armor")
+                .then(Commands.literal("level")
+                    .then(Commands.literal("reset").executes(::executeArmorLevelReset))
+                    .then(Commands.literal("set").then(amountArgument.executes(::executeArmorLevelSet)))
+
+                )
+            )
+            .then(Commands.literal("weapon")
+                .then(Commands.literal("level")
+                    .then(Commands.literal("reset").executes(::executeWeaponLevelReset))
+                    .then(Commands.literal("set").then(amountArgument.executes(::executeWeaponLevelSet)))
+
+                )
             )
         )
     }
 
     private fun isOp(source: CommandSourceStack) = source.hasPermission(2)
+
+    private fun executeArmorLevelReset(ctx: Context): Int {
+        val player = ctx.source.player
+        val item = player?.mainHandItem
+        if (PlayerEXUtil.isArmor(item!!)) {
+            item.xp = 0
+            item.level = 0
+            ctx.source.sendSuccess({ Component.translatable("playerex.command.reset_armor.success")}, true)
+            return 1
+        }
+        ctx.source.sendFailure(Component.translatable("playerex.command.reset_armor.failure"))
+        return -1
+    }
+
+    private fun executeArmorLevelSet(ctx: Context): Int {
+        val level = IntegerArgumentType.getInteger(ctx, "amount")
+        val player = ctx.source.player
+        val item = player?.mainHandItem
+        if (PlayerEXUtil.isArmor(item!!)) {
+            item.xp = 0
+            item.level = level
+            ctx.source.sendSuccess({ Component.translatable("playerex.command.set_armor.success")}, true)
+            return 1
+        }
+        ctx.source.sendFailure(Component.translatable("playerex.command.set_armor.failure"))
+        return -1
+    }
+
+    private fun executeWeaponLevelReset(ctx: Context): Int {
+        val player = ctx.source.player
+        val item = player?.mainHandItem
+        if (PlayerEXUtil.isWeapon(item!!)) {
+            item.xp = 0
+            item.level = 0
+            ctx.source.sendSuccess({ Component.translatable("playerex.command.reset_weapon.success")}, true)
+            return 1
+        }
+        ctx.source.sendFailure(Component.translatable("playerex.command.reset_weapon.failure"))
+        return -1
+    }
+
+    private fun executeWeaponLevelSet(ctx: Context): Int {
+        val level = IntegerArgumentType.getInteger(ctx, "amount")
+        val player = ctx.source.player
+        val item = player?.mainHandItem
+        if (PlayerEXUtil.isWeapon(item!!)) {
+            item.xp = 0
+            item.level = level
+            ctx.source.sendSuccess({ Component.translatable("playerex.command.set_weapon.success")}, true)
+            return 1
+        }
+        ctx.source.sendFailure(Component.translatable("playerex.command.set_weapon.failure"))
+        return -1
+    }
 
     private fun executeLevelGetCommand(ctx: Context): Int {
         val player = EntityArgument.getPlayer(ctx, "player")
