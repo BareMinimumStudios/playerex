@@ -250,5 +250,6 @@
     "text.config.playerex-config.option.armorLevelingSettings.xpFromHostile": "XP from Hostile Mobs",
     "text.config.playerex-config.option.armorLevelingSettings.xpFromMiniboss": "XP from Minibosses (unused)",
     "text.config.playerex-config.option.armorLevelingSettings.xpFromBoss": "XP from Bosses",
-    "text.config.playerex-config.option.armorLevelingSettings.maxLevel": "Maximum Level"
+    "text.config.playerex-config.option.armorLevelingSettings.maxLevel": "Maximum Level",
+    "text.config.playerex-config.option.armorLevelingSettings.destroyCurseOfBinding": "Break items with Curse of Binding"
 }

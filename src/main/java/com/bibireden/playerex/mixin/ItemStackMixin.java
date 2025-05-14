@@ -25,6 +25,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -80,8 +81,12 @@ abstract class ItemStackMixin {
 
     @Inject(method = "hurtAndBreak(ILnet/minecraft/world/entity/LivingEntity;Ljava/util/function/Consumer;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;shrink(I)V"), cancellable = true)
     public <T extends LivingEntity> void preventBreak(int amount, T entity, Consumer<T> onBroken, CallbackInfo ci) {
-        if (!PlayerEX.CONFIG.getFeatureSettings().getItemBreakingEnabled()) return;
         ItemStack stack = (ItemStack) (Object) this;
+        if (!PlayerEX.CONFIG.getFeatureSettings().getItemBreakingEnabled()
+            || (PlayerEXUtil.isArmor(stack)
+                && PlayerEX.CONFIG.getArmorLevelingSettings().getDestroyCurseOfBinding()
+                && EnchantmentHelper.hasBindingCurse(stack)
+        )) return;
         if (stack.getItemHolder().is(PlayerEXTags.UNBREAKABLE_ITEMS)) {
             if (!PlayerEXUtil.isBroken(stack)) {
                 CompoundTag tag = stack.getOrCreateTag();
