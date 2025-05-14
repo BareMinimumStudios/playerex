@@ -85,7 +85,7 @@
     "attribute.name.playerex.smithing": "Smithing",
     "attribute.name.playerex.farming": "Farming",
 
-    "playerex.broken": "Broken",
+    "playerex.broken": "Broken (%s/%s times)",
 
     "playerex.item.level": [
         {"text": "Level: ", "color": "#6EBAE5"},

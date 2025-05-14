@@ -4,6 +4,7 @@ import com.bibireden.data_attributes.api.item.ItemFields;
 import com.bibireden.playerex.PlayerEX;
 import com.bibireden.playerex.api.PlayerEXTags;
 import com.bibireden.playerex.config.PlayerEXConfigModel;
+import com.bibireden.playerex.ext.ItemStackKt;
 import com.bibireden.playerex.util.PlayerEXUtil;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
@@ -85,6 +86,9 @@ abstract class ItemStackMixin {
         if (stack.getItemHolder().is(PlayerEXTags.UNBREAKABLE_ITEMS)) {
             if (!PlayerEXUtil.isBroken(stack)) {
                 CompoundTag tag = stack.getOrCreateTag();
+                var timesBroken = ItemStackKt.getTimesBroken(stack);
+                ItemStackKt.setTimesBroken(stack, timesBroken + 1);
+                if (ItemStackKt.getTimesBroken(stack) > PlayerEX.CONFIG.getFeatureSettings().getTimesItemCanBreak()) return;
                 tag.putBoolean("broken", true);
                 stack.setTag(tag);
             }
@@ -240,8 +244,10 @@ abstract class ItemStackMixin {
         ItemStack itemStack = (ItemStack) (Object) this;
         if (PlayerEXUtil.isBroken(itemStack)) {
             list.add(
-                    Component.translatable("playerex.broken")
-                            .withStyle(ChatFormatting.RED)
+                    Component.translatable("playerex.broken",
+                                    ItemStackKt.getTimesBroken(itemStack),
+                                    PlayerEX.CONFIG.getFeatureSettings().getTimesItemCanBreak()
+                            ).withStyle(ChatFormatting.RED)
                             .withStyle(ChatFormatting.BOLD)
             );
         }

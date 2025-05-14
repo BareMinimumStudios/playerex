@@ -9,3 +9,7 @@ var ItemStack.level: Int
 var ItemStack.xp: Int
     get() = this.orCreateTag.getInt("Experience")
     set(value) = this.orCreateTag.putInt("Experience", value)
+
+var ItemStack.timesBroken: Int
+    get() = this.orCreateTag.getInt("TimesBroken")
+    set(value) = this.orCreateTag.putInt("TimesBroken", value)
