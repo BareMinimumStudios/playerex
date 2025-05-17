@@ -87,6 +87,9 @@
 
     "playerex.broken": "Broken",
 
+    "playerex.armor.broke": "Your armor, %s, broke!",
+    "playerex.item.broke": "Your item, %s, broke!",
+
     "playerex.item.level": [
         {"text": "Level: ", "color": "#6EBAE5"},
         {"index": 0, "color": "gold"},

@@ -86,6 +86,13 @@ abstract class ItemStackMixin {
             if (!PlayerEXUtil.isBroken(stack)) {
                 CompoundTag tag = stack.getOrCreateTag();
                 tag.putBoolean("broken", true);
+                if (PlayerEX.CONFIG.getFeatureSettings().getMessageOnItemBreak()) {
+                    if (PlayerEXUtil.isArmor(stack)) {
+                        entity.sendSystemMessage(Component.translatable("playerex.armor.broke", stack.getDisplayName()).withStyle(ChatFormatting.RED));
+                    } else {
+                        entity.sendSystemMessage(Component.translatable("playerex.item.broke", stack.getDisplayName()).withStyle(ChatFormatting.RED));
+                    }
+                }
                 stack.setTag(tag);
             }
             ci.cancel();

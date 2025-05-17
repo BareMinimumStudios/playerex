@@ -125,6 +125,10 @@ class PlayerEXConfigModel {
 
         @Sync(SyncMode.OVERRIDE_CLIENT)
         @JvmField
+        var messageOnItemBreak: Boolean = true,
+
+        @Sync(SyncMode.OVERRIDE_CLIENT)
+        @JvmField
         var disableUI: Boolean = false
     )
 
