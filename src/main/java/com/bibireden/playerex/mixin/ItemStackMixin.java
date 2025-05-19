@@ -26,6 +26,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -81,8 +82,12 @@ abstract class ItemStackMixin {
 
     @Inject(method = "hurtAndBreak(ILnet/minecraft/world/entity/LivingEntity;Ljava/util/function/Consumer;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;shrink(I)V"), cancellable = true)
     public <T extends LivingEntity> void preventBreak(int amount, T entity, Consumer<T> onBroken, CallbackInfo ci) {
-        if (!PlayerEX.CONFIG.getFeatureSettings().getItemBreakingEnabled()) return;
         ItemStack stack = (ItemStack) (Object) this;
+        if (!PlayerEX.CONFIG.getFeatureSettings().getItemBreakingEnabled()
+            || (PlayerEXUtil.isArmor(stack)
+                && PlayerEX.CONFIG.getArmorLevelingSettings().getDestroyCurseOfBinding()
+                && EnchantmentHelper.hasBindingCurse(stack)
+        )) return;
         if (stack.getItemHolder().is(PlayerEXTags.UNBREAKABLE_ITEMS)) {
             if (!PlayerEXUtil.isBroken(stack)) {
                 CompoundTag tag = stack.getOrCreateTag();
@@ -90,6 +95,13 @@ abstract class ItemStackMixin {
                 ItemStackKt.setTimesBroken(stack, timesBroken + 1);
                 if (ItemStackKt.getTimesBroken(stack) > PlayerEX.CONFIG.getFeatureSettings().getTimesItemCanBreak()) return;
                 tag.putBoolean("broken", true);
+                if (PlayerEX.CONFIG.getFeatureSettings().getMessageOnItemBreak()) {
+                    if (PlayerEXUtil.isArmor(stack)) {
+                        entity.sendSystemMessage(Component.translatable("playerex.armor.broke", stack.getDisplayName()).withStyle(ChatFormatting.RED));
+                    } else {
+                        entity.sendSystemMessage(Component.translatable("playerex.item.broke", stack.getDisplayName()).withStyle(ChatFormatting.RED));
+                    }
+                }
                 stack.setTag(tag);
             }
             ci.cancel();

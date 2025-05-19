@@ -87,6 +87,9 @@
 
     "playerex.broken": "Broken (%s/%s times)",
 
+    "playerex.armor.broke": "Your armor, %s, broke!",
+    "playerex.item.broke": "Your item, %s, broke!",
+
     "playerex.item.level": [
         {"text": "Level: ", "color": "#6EBAE5"},
         {"index": 0, "color": "gold"},
@@ -190,6 +193,34 @@
         {"text": " does not have enough points to refund!", "color": "white"}
     ],
     "playerex.command.refund_attribute_unskilled": "%s has not been skilled for player %s!",
+    "playerex.command.set_weapon.success": [
+        {"text": "❤ ", "color": "#F53E3E"},
+        {"text": "Successfully set ", "color": "white"},
+        {"text": "item level ", "color": "#6EBAE5"},
+        {"text": "to ", "color": "white"},
+        {"index": 0, "color": "#6EBAE5"}
+    ],
+    "playerex.command.set_weapon.failure": "You are not currently holding a weapon!",
+    "playerex.command.reset_weapon.success": [
+        {"text": "❤ ", "color": "#F53E3E"},
+        {"text": "Successfully reset ", "color": "white"},
+        {"text": "item level ", "color": "#6EBAE5"}
+    ],
+    "playerex.command.reset_weapon.failure": "You are not currently holding a weapon!",
+    "playerex.command.set_armor.success": [
+        {"text": "❤ ", "color": "#F53E3E"},
+        {"text": "Successfully set ", "color": "white"},
+        {"text": "armor level ", "color": "gold"},
+        {"text": "to ", "color": "white"},
+        {"index": 0, "color": "gold"}
+    ],
+    "playerex.command.set_armor.failure": "You are not currently holding any armor!",
+    "playerex.command.reset_armor.success": [
+        {"text": "❤ ", "color": "#F53E3E"},
+        {"text": "Successfully reset ", "color": "white"},
+        {"text": "armor level", "color": "gold"}
+    ],
+    "playerex.command.reset_armor.failure": "You are not currently holding any armor!",
 
     "text.config.playerex-config.title": "PlayerEX Config",
     "text.config.playerex-config.section.client_options": "Client Options",
@@ -250,5 +281,6 @@
     "text.config.playerex-config.option.armorLevelingSettings.xpFromHostile": "XP from Hostile Mobs",
     "text.config.playerex-config.option.armorLevelingSettings.xpFromMiniboss": "XP from Minibosses (unused)",
     "text.config.playerex-config.option.armorLevelingSettings.xpFromBoss": "XP from Bosses",
-    "text.config.playerex-config.option.armorLevelingSettings.maxLevel": "Maximum Level"
+    "text.config.playerex-config.option.armorLevelingSettings.maxLevel": "Maximum Level",
+    "text.config.playerex-config.option.armorLevelingSettings.destroyCurseOfBinding": "Break items with Curse of Binding"
 }

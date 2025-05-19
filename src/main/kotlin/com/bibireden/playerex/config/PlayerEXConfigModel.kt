@@ -67,6 +67,10 @@ class PlayerEXConfigModel {
         @Sync(SyncMode.OVERRIDE_CLIENT)
         @JvmField
         var maxLevel: Int = 500,
+
+        @Sync(SyncMode.OVERRIDE_CLIENT)
+        @JvmField
+        var destroyCurseOfBinding: Boolean = true,
     )
 
     data class WeaponXpSettings(
@@ -126,6 +130,10 @@ class PlayerEXConfigModel {
         @Sync(SyncMode.OVERRIDE_CLIENT)
         @JvmField
         var timesItemCanBreak: Int = 3,
+      
+        @Sync(SyncMode.OVERRIDE_CLIENT)
+        @JvmField
+        var messageOnItemBreak: Boolean = true,
 
         @Sync(SyncMode.OVERRIDE_CLIENT)
         @JvmField
