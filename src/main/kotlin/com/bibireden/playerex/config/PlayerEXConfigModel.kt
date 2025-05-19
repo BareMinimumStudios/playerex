@@ -67,6 +67,10 @@ class PlayerEXConfigModel {
         @Sync(SyncMode.OVERRIDE_CLIENT)
         @JvmField
         var maxLevel: Int = 500,
+
+        @Sync(SyncMode.OVERRIDE_CLIENT)
+        @JvmField
+        var destroyCurseOfBinding: Boolean = true,
     )
 
     data class WeaponXpSettings(
