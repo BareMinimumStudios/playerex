@@ -129,6 +129,10 @@ class PlayerEXConfigModel {
 
         @Sync(SyncMode.OVERRIDE_CLIENT)
         @JvmField
+        var timesItemCanBreak: Int = 3,
+      
+        @Sync(SyncMode.OVERRIDE_CLIENT)
+        @JvmField
         var messageOnItemBreak: Boolean = true,
 
         @Sync(SyncMode.OVERRIDE_CLIENT)
