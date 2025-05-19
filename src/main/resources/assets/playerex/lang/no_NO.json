@@ -527,6 +527,8 @@
     "text.config.playerex-config.category.featureSettings": "Feature Options",
     "text.config.playerex-config.option.featureSettings.resetOnDeath": "Reset on Death",
     "text.config.playerex-config.option.featureSettings.itemBreakingEnabled": "Item Breaking Enabled",
+    "text.config.playerex-config.option.featureSettings.timesItemCanBreak": "Times Item Can Break",
+    "text.config.playerex-config.option.featureSettings.messageOnItemBreak": "Message When Item Breaks",
     "text.config.playerex-config.option.featureSettings.disableUI": "Disable UI",
     "text.config.playerex-config.category.lifecycleSettings": "Lifecycle Options",
     "text.config.playerex-config.option.lifecycleSettings.healthRegeneration": "Health Regeneration",
