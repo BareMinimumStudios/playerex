@@ -92,7 +92,9 @@ abstract class ItemStackMixin {
             if (!PlayerEXUtil.isBroken(stack)) {
                 CompoundTag tag = stack.getOrCreateTag();
                 var timesBroken = ItemStackKt.getTimesBroken(stack);
-                ItemStackKt.setTimesBroken(stack, timesBroken + 1);
+                if (!PlayerEX.CONFIG.getFeatureSettings().getInfiniteItemBreakingEnabled()) {
+                    ItemStackKt.setTimesBroken(stack, timesBroken + 1);
+                }
                 if (ItemStackKt.getTimesBroken(stack) > PlayerEX.CONFIG.getFeatureSettings().getTimesItemCanBreak()) return;
                 tag.putBoolean("broken", true);
                 if (PlayerEX.CONFIG.getFeatureSettings().getMessageOnItemBreak()) {
@@ -255,13 +257,21 @@ abstract class ItemStackMixin {
     ) {
         ItemStack itemStack = (ItemStack) (Object) this;
         if (PlayerEXUtil.isBroken(itemStack)) {
-            list.add(
-                    Component.translatable("playerex.broken",
-                                    ItemStackKt.getTimesBroken(itemStack),
-                                    PlayerEX.CONFIG.getFeatureSettings().getTimesItemCanBreak()
-                            ).withStyle(ChatFormatting.RED)
-                            .withStyle(ChatFormatting.BOLD)
-            );
+            if (PlayerEX.CONFIG.getFeatureSettings().getInfiniteItemBreakingEnabled()) {
+                list.add(
+                        Component.translatable("playerex.broken")
+                                .withStyle(ChatFormatting.RED)
+                                .withStyle(ChatFormatting.BOLD)
+                );
+            } else {
+                list.add(
+                        Component.translatable("playerex.broken.numbered",
+                                        ItemStackKt.getTimesBroken(itemStack),
+                                        PlayerEX.CONFIG.getFeatureSettings().getTimesItemCanBreak()
+                                ).withStyle(ChatFormatting.RED)
+                                .withStyle(ChatFormatting.BOLD)
+                );
+            }
         }
     }
 
