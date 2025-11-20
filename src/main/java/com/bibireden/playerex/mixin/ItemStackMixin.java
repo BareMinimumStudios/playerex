@@ -268,13 +268,13 @@ abstract class ItemStackMixin {
     @Unique
     private int getLevel() {
         ItemStack itemStack = (ItemStack) (Object) this;
-        return itemStack.getOrCreateTag().getInt("Level");
+        return itemStack.hasTag() ? itemStack.getTag().getInt("Level") : 0;
     }
 
     @Unique
     private int getXp() {
         ItemStack itemStack = (ItemStack) (Object) this;
-        return itemStack.getOrCreateTag().getInt("Experience");
+        return itemStack.hasTag() ? itemStack.getTag().getInt("Experience") : 0;
     }
 
     @Unique

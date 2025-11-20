@@ -49,7 +49,7 @@
 		"sources": "https://github.com/BareMinimumStudios/playerex",
 		"issues": "https://github.com/BareMinimumStudios/playerex/issues"
 	},
-	"license": "MIT",
+	"license": "BML",
 	"icon": "assets/playerex/icon.png",
 	"environment": "*",
 	"entrypoints": {

@@ -1,22 +1,71 @@
-MIT License
+The Bare Minimum License (BML) v1.0
+-----------------------------------
+"This license does the bare minimum to protect you, but at least it does something."
 
-Copyright (c) 2022 CleverNucleus
-Copyright (c) 2024 Bare Minimum Studios
+Copyright (c) 2025 Bare Minimum Studios
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This Work may include both code (software, scripts, binaries) and assets
+(artwork, textures, models, sounds, music, documentation). The following
+terms apply:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. Attribution
+   You must keep this copyright notice and license text in all copies or
+   substantial portions of the Work.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+2. Code Permissions
+   You may freely use, copy, modify, merge, publish, distribute,
+   sublicense, and/or sell the code portions of this Work, provided that
+   you comply with the Anti-Reposting clause below.
+
+3. Asset Restrictions
+   Assets included in this Work (artwork, textures, models, sounds,
+   music, documentation) may only be used as part of this Work. They may
+   not be extracted, republished, modified, mirrored, or redistributed
+   separately without the express written permission of the copyright
+   holder.
+
+   Exception: Non-commercial community uses such as screenshots,
+   gameplay videos, reviews, thumbnails, commentary, and fan art are
+   permitted, provided they include attribution where reasonable and do
+   not claim to be official works.
+
+4. Anti-Reposting
+   You may not redistribute this Work in substantially unmodified form on
+   third-party modding platforms, websites, or repositories (including but not
+   limited to CurseForge, Modrinth, 9Minecraft, and their mirrors) unless you
+   are the copyright holder or have explicit written permission.
+
+   This restriction does not apply to derivative works, forks, or independent
+   projects that incorporate portions of the code under the terms of this License.
+
+5. Patent Protection
+   Each contributor grants a perpetual, worldwide, non-exclusive,
+   royalty-free, irrevocable patent license to make, use, and distribute
+   the code portions of this Work. If you initiate patent litigation
+   claiming that the Work infringes a patent, your rights under this
+   License terminate immediately.
+
+6. Contributions
+   By submitting code, assets, or other materials to this Work, you agree
+   that your contributions are licensed under the Bare Minimum License.
+
+7. Modpacks
+   You may include this Work in publicly distributed modpacks provided you
+   comply with Attribution (Section 1) and Anti-Reposting (Section 4).
+   Modpacks may not extract or reuse assets outside of this Work.
+
+8. Trademarks & Naming
+   You may not use the original project name, branding, or trademarks in a
+   way that suggests your fork, port, or derivative is the official version.
+   Reasonable descriptive uses (e.g., "Fork of <Project>", "<Project>: Director’s
+   Cut", or "Unofficial <Project> Port") are permitted, provided they clearly
+   distinguish your project from the original.
+
+9. Warranty Disclaimer
+   THE WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL
+   THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR
+   OTHER LIABILITY, WHETHER IN CONTRACT, TORT, OR OTHERWISE, ARISING FROM,
+   OUT OF, OR IN CONNECTION WITH THE WORK OR THE USE OR OTHER DEALINGS IN
+   THE WORK.

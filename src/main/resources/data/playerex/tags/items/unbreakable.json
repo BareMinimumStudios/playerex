@@ -21,30 +21,57 @@
       "id": "#c:bows",
       "required": false
     },
-    "minecraft:leather_helmet",
-    "minecraft:leather_chestplate",
-    "minecraft:leather_leggings",
-    "minecraft:leather_boots",
-    "minecraft:chainmail_helmet",
-    "minecraft:chainmail_chestplate",
-    "minecraft:chainmail_leggings",
-    "minecraft:chainmail_boots",
-    "minecraft:iron_helmet",
-    "minecraft:iron_chestplate",
-    "minecraft:iron_leggings",
-    "minecraft:iron_boots",
-    "minecraft:golden_helmet",
-    "minecraft:golden_chestplate",
-    "minecraft:golden_leggings",
-    "minecraft:golden_boots",
-    "minecraft:diamond_helmet",
-    "minecraft:diamond_chestplate",
-    "minecraft:diamond_leggings",
-    "minecraft:diamond_boots",
-    "minecraft:netherite_helmet",
-    "minecraft:netherite_chestplate",
-    "minecraft:netherite_leggings",
-    "minecraft:netherite_boots",
-    "minecraft:turtle_helmet"
+    {
+      "id": "#c:helmet",
+      "required": false
+    },
+    {
+      "id": "#c:chestplate",
+      "required": false
+    },
+    {
+      "id": "#c:leggings",
+      "required": false
+    },
+    {
+      "id": "#c:boots",
+      "required": false
+    },
+    {
+      "id": "#c:armors",
+      "required": false
+    },
+    {
+      "id": "#fabric:helmets",
+      "required": false
+    },
+    {
+      "id": "#fabric:chestplates",
+      "required": false
+    },
+    {
+      "id": "#fabric:leggings",
+      "required": false
+    },
+    {
+      "id": "#fabric:boots",
+      "required": false
+    },
+    {
+      "id": "#ad_astra:space_suit_items",
+      "required": false
+    },
+    {
+      "id": "#rpg_series:tier_1_armors",
+      "required": false
+    },
+    {
+      "id": "#rpg_series:tier_2_armors",
+      "required": false
+    },
+    {
+      "id": "#rpg_series:tier_3_armors",
+      "required": false
+    }
   ]
 }

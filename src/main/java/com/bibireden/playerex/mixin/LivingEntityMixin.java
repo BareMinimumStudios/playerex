@@ -80,7 +80,7 @@ public abstract class LivingEntityMixin {
         LivingEntity self = (LivingEntity) (Object) this;
         var total = 0d;
         for (ItemStack slot : self.getArmorSlots()) {
-            total += Math.min(slot.getOrCreateTag().getInt("Level") * PlayerEX.CONFIG.getArmorLevelingSettings().getReductionPerLevel(), PlayerEX.CONFIG.getArmorLevelingSettings().getMaxReduction());
+            total += Math.min((slot.hasTag() ? slot.getTag().getInt("Level") : 0) * PlayerEX.CONFIG.getArmorLevelingSettings().getReductionPerLevel(), PlayerEX.CONFIG.getArmorLevelingSettings().getMaxReduction());
         }
         // 400 because 4 slots then percentage to decimal
         total /= 400;
