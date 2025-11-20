@@ -30,7 +30,7 @@ object DamageFactory {
             DataAttributesAPI.getValue(PlayerEXAttributes.WITHER_RESISTANCE, living).map {
                 if (source.`is`(DamageTypes.WITHER) && living.isInvertedHealAndHarm) return@map 0.0F
                 if (source.`is`(DamageTypes.INDIRECT_MAGIC) && source.directEntity is ThrownPotion && living.isInvertedHealAndHarm) return@map damage
-                (damage * 1 - it).toFloat()
+                (damage * (1 - it)).toFloat()
             }.orElse(damage)
         })
     }

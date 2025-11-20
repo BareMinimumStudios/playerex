@@ -40,6 +40,38 @@
     {
       "id": "#c:armors",
       "required": false
+    },
+    {
+      "id": "#fabric:helmets",
+      "required": false
+    },
+    {
+      "id": "#fabric:chestplates",
+      "required": false
+    },
+    {
+      "id": "#fabric:leggings",
+      "required": false
+    },
+    {
+      "id": "#fabric:boots",
+      "required": false
+    },
+    {
+      "id": "#ad_astra:space_suit_items",
+      "required": false
+    },
+    {
+      "id": "#rpg_series:tier_1_armors",
+      "required": false
+    },
+    {
+      "id": "#rpg_series:tier_2_armors",
+      "required": false
+    },
+    {
+      "id": "#rpg_series:tier_3_armors",
+      "required": false
     }
   ]
 }

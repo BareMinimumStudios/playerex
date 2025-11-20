@@ -104,6 +104,8 @@ class PlayerEXScreen : BaseUIModelScreen<FlowLayout>(FlowLayout::class.java, Dat
 
         content.clearChildren()
         content.child(pages[to].second)
+
+        this.onLevelUpdated(player.level.toInt())
     }
 
     private fun updateLevelUpButton() {
