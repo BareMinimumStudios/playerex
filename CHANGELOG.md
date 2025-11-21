@@ -1,3 +1,2 @@
 ## Fixes 🍋
-- Fixed fill recipe and other tag issues.
-- Fixed wither resistance.
+- Fixed fill recipe and other tag issues (again).
