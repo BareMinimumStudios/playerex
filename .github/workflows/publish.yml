@@ -103,8 +103,8 @@ jobs:
           modrinth-id: ${{ env.MODRINTH_PROJECT_ID }}
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
           files: build/release/*-fabric-1.21.1.jar
-          name: ${{ needs.build.outputs.version }}-fabric
-          version: ${{ needs.build.outputs.version }}-fabric
+          name: ${{ needs.build.outputs.version }}+${{ env.MINECRAFT_VERSION }}-fabric
+          version: ${{ needs.build.outputs.version }}+${{ env.MINECRAFT_VERSION }}-fabric
           version-type: release
           changelog-file: build/release/RELEASE-NOTES.md
           loaders: fabric
@@ -148,8 +148,8 @@ jobs:
           curseforge-id: ${{ env.CURSEFORGE_PROJECT_ID }}
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           files: build/release/*-fabric-1.21.1.jar
-          name: ${{ needs.build.outputs.version }}-fabric
-          version: ${{ needs.build.outputs.version }}-fabric
+          name: ${{ needs.build.outputs.version }}+${{ env.MINECRAFT_VERSION }}-fabric
+          version: ${{ needs.build.outputs.version }}+${{ env.MINECRAFT_VERSION }}-fabric
           version-type: release
           changelog-file: build/release/RELEASE-NOTES.md
           loaders: fabric
@@ -193,8 +193,8 @@ jobs:
           modrinth-id: ${{ env.MODRINTH_PROJECT_ID }}
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
           files: build/release/*-neoforge-1.21.1.jar
-          name: ${{ needs.build.outputs.version }}-neoforge
-          version: ${{ needs.build.outputs.version }}-neoforge
+          name: ${{ needs.build.outputs.version }}+${{ env.MINECRAFT_VERSION }}-neoforge
+          version: ${{ needs.build.outputs.version }}+${{ env.MINECRAFT_VERSION }}-neoforge
           version-type: release
           changelog-file: build/release/RELEASE-NOTES.md
           loaders: neoforge
@@ -237,8 +237,8 @@ jobs:
           curseforge-id: ${{ env.CURSEFORGE_PROJECT_ID }}
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           files: build/release/*-neoforge-1.21.1.jar
-          name: ${{ needs.build.outputs.version }}-neoforge
-          version: ${{ needs.build.outputs.version }}-neoforge
+          name: ${{ needs.build.outputs.version }}+${{ env.MINECRAFT_VERSION }}-neoforge
+          version: ${{ needs.build.outputs.version }}+${{ env.MINECRAFT_VERSION }}-neoforge
           version-type: release
           changelog-file: build/release/RELEASE-NOTES.md
           loaders: neoforge

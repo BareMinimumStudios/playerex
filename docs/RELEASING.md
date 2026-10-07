@@ -29,7 +29,7 @@ Add these repository or organization Actions secrets:
 
 Publishing starts when a matching tag is pushed, or when an authorized maintainer runs the publish workflow manually. For this version, the tag is **`v5.0.0`**. A mismatched tag or missing dated changelog section stops the build before upload.
 
-Modrinth and CurseForge receive separate Fabric and NeoForge files. Their version identifiers are `5.0.0-fabric` and `5.0.0-neoforge`, following the loader-specific publishing convention in the dependency projects; the installed mod version remains `5.0.0`. Both are marked **release**, for Minecraft 1.21.1, Java 21, client and server.
+Modrinth and CurseForge receive separate Fabric and NeoForge files. Their version identifiers are `5.0.0+1.21.1-fabric` and `5.0.0+1.21.1-neoforge`, including the Minecraft version and loader; the installed mod version remains `5.0.0`. Both are marked **release**, for Minecraft 1.21.1, Java 21, client and server.
 
 Data Attributes, Fzzy Config and the loader's language/runtime dependencies are marked required. Remnant is marked embedded because PlayerEx already includes its public JAR. Players should not install a second copy just to satisfy the dependency listing.
 
