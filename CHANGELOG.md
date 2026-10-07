@@ -7,6 +7,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- Loader-specific optional integrations in Modrinth and CurseForge publishing metadata.
 - Inventory-button screenshot in the README and marketplace descriptions.
 - Character-screen screenshots in the README and marketplace descriptions, with Attributes as the main image and Combat Stats and Spell Schools below it.
 
@@ -16,6 +17,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
+- Chopped character-screen crest decoration caused by splitting its stonework across the expanded header.
+- NeoForge client startup failure caused by static event handlers on Kotlin object subscribers.
 - Fresh GitHub builds failing while preparing NeoForge's patched Minecraft files. Disable Gradle configuration caching and parallel project execution for the current Cloche toolchain.
 
 ## [5.0.0] - 2026-10-07

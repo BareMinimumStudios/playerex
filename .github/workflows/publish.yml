@@ -116,6 +116,12 @@ jobs:
             data_attributes(required){modrinth:KCGxOJsE}{curseforge:955929}
             fzzy_config(required){modrinth:fzzy-config}{curseforge:fzzy-config}
             remnant(embedded){modrinth:oLPaySSb}{curseforge:1019391}
+            ranged_weapon_api(optional){modrinth:AqaIIO6D}{curseforge:ranged-weapon-api}
+            more_rpg_classes(optional){modrinth:Wkc3lwHo}{curseforge:more-rpg-library}
+            spell_power(optional){modrinth:8ooWzSQP}{curseforge:spell-power}
+            spell_engine(optional){modrinth:XvoWJaA2}{curseforge:spell-engine}
+            manaattributes(optional){modrinth:1uXUV3Qn}{curseforge:mana-attributes}
+            trinkets(optional){modrinth:5aaWibi9}{curseforge:trinkets}
           java: ${{ env.JAVA_VERSION }}
           retry-attempts: 3
           fail-mode: fail
@@ -161,6 +167,12 @@ jobs:
             data_attributes(required){modrinth:KCGxOJsE}{curseforge:955929}
             fzzy_config(required){modrinth:fzzy-config}{curseforge:fzzy-config}
             remnant(embedded){modrinth:oLPaySSb}{curseforge:1019391}
+            ranged_weapon_api(optional){modrinth:AqaIIO6D}{curseforge:ranged-weapon-api}
+            more_rpg_classes(optional){modrinth:Wkc3lwHo}{curseforge:more-rpg-library}
+            spell_power(optional){modrinth:8ooWzSQP}{curseforge:spell-power}
+            spell_engine(optional){modrinth:XvoWJaA2}{curseforge:spell-engine}
+            manaattributes(optional){modrinth:1uXUV3Qn}{curseforge:mana-attributes}
+            trinkets(optional){modrinth:5aaWibi9}{curseforge:trinkets}
           java: ${{ env.JAVA_VERSION }}
           retry-attempts: 3
           fail-mode: fail
@@ -205,6 +217,11 @@ jobs:
             data_attributes(required){modrinth:KCGxOJsE}{curseforge:955929}
             fzzy_config(required){modrinth:fzzy-config}{curseforge:fzzy-config}
             remnant(embedded){modrinth:oLPaySSb}{curseforge:1019391}
+            ranged_weapon_api(optional){modrinth:AqaIIO6D}{curseforge:ranged-weapon-api}
+            more_rpg_classes(optional){modrinth:Wkc3lwHo}{curseforge:more-rpg-library}
+            spell_power(optional){modrinth:8ooWzSQP}{curseforge:spell-power}
+            spell_engine(optional){modrinth:XvoWJaA2}{curseforge:spell-engine}
+            curios(optional){modrinth:vvuO3ImH}{curseforge:curios}
           java: ${{ env.JAVA_VERSION }}
           retry-attempts: 3
           fail-mode: fail
@@ -249,6 +266,11 @@ jobs:
             data_attributes(required){modrinth:KCGxOJsE}{curseforge:955929}
             fzzy_config(required){modrinth:fzzy-config}{curseforge:fzzy-config}
             remnant(embedded){modrinth:oLPaySSb}{curseforge:1019391}
+            ranged_weapon_api(optional){modrinth:AqaIIO6D}{curseforge:ranged-weapon-api}
+            more_rpg_classes(optional){modrinth:Wkc3lwHo}{curseforge:more-rpg-library}
+            spell_power(optional){modrinth:8ooWzSQP}{curseforge:spell-power}
+            spell_engine(optional){modrinth:XvoWJaA2}{curseforge:spell-engine}
+            curios(optional){modrinth:vvuO3ImH}{curseforge:curios}
           java: ${{ env.JAVA_VERSION }}
           retry-attempts: 3
           fail-mode: fail

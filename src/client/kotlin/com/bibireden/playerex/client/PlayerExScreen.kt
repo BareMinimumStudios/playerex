@@ -218,11 +218,17 @@ class PlayerExScreen : Screen(tr("title")) {
     /** Expand blank header sections and rails while keeping the crest and corner details intact. */
     private fun frame(g: GuiGraphics) {
         g.fill(5, 25, PANEL_WIDTH - 5, panelHeight - 5, 0xF0181C1B.toInt())
-        slice(g, 0, 0, 72, 50, 0, 0, 72, 50)
-        slice(g, PANEL_WIDTH / 2 - 16, 0, 32, 50, 72, 0, 32, 50)
-        slice(g, PANEL_WIDTH - 72, 0, 72, 50, 104, 0, 72, 50)
-        slice(g, 72, 0, PANEL_WIDTH / 2 - 88, 28, 48, 0, 1, 28)
-        slice(g, PANEL_WIDTH / 2 + 16, 0, PANEL_WIDTH / 2 - 88, 28, 120, 0, 1, 28)
+        // The crest's diagonal stonework extends beyond the shield itself.
+        // Keep source columns 56..119 together; stretch only the plain header rails.
+        val capWidth = 56
+        val crestWidth = 64
+        val crestLeft = (PANEL_WIDTH - crestWidth) / 2
+        val railWidth = crestLeft - capWidth
+        slice(g, 0, 0, capWidth, 50, 0, 0, capWidth, 50)
+        slice(g, capWidth, 0, railWidth, 28, 48, 0, 1, 28)
+        slice(g, crestLeft, 0, crestWidth, 50, capWidth, 0, crestWidth, 50)
+        slice(g, crestLeft + crestWidth, 0, railWidth, 28, 128, 0, 1, 28)
+        slice(g, PANEL_WIDTH - capWidth, 0, capWidth, 50, 120, 0, capWidth, 50)
         slice(g, 0, 50, 6, panelHeight - 58, 0, 50, 6, 146)
         slice(g, PANEL_WIDTH - 6, 50, 6, panelHeight - 58, 170, 50, 6, 146)
         slice(g, 0, panelHeight - 8, 6, 8, 0, 196, 6, 8)

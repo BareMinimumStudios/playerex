@@ -37,6 +37,14 @@ For a partial failure, run the workflow again at the **same tag/commit** and cho
 
 The GitHub release contains both JARs and the current changelog section. GitHub also provides source downloads for the tagged commit. Local source delivery should exclude build caches, run worlds, private instructions and temporary tests.
 
+## Releasing from Minecraft branches
+
+A tag uses the source and workflow at its tagged commit. It does not run every branch's publishing workflow. Create the release tag on the intended Minecraft branch; for a manual publish, explicitly select that branch or tag in the workflow's Run workflow menu.
+
+After an already published release, bump `mod_version` (for example, from `5.0.0` to `5.0.1`), move the relevant Unreleased notes into a dated `[5.0.1]` section, and tag that commit `v5.0.1`. The validation script requires the tag, installed version and changelog to agree. The 1.21.1 workflow publishes `5.0.1+1.21.1-fabric` and `5.0.1+1.21.1-neoforge`. Use a new version/tag for a hotfix so existing release files are not silently replaced.
+
+Publishing marks Ranged Weapon API, More RPG Library, Spell Power and Spell Engine optional on both loaders. Fabric additionally lists Mana Attributes and Trinkets; NeoForge lists Curios. These are project relationships, not pinned Fabric artifact IDs, so use each optional project's matching Minecraft/loader file. Optional publishing metadata does not install or bundle those mods into PlayerEx.
+
 ## Changelog and descriptions
 
 Keep future notes under `[Unreleased]`. Before a release, move them into `## [version] - YYYY-MM-DD`, using only the relevant Added, Changed, Deprecated, Removed, Fixed or Security sections. `scripts/release.py` extracts that release alone for every destination.
