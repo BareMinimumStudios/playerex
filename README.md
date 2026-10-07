@@ -204,4 +204,11 @@ For development and pack maintenance:
 - [Changelog](CHANGELOG.md)
 - [Release and publishing guide](docs/RELEASING.md)
 
+## Sponsor
+
+[![Sponsor Banner](https://www.bisecthosting.com/partners/custom-banners/db76a74a-a111-4660-98b7-5a75c15a5951.png)](https://bisecthosting.com/bareminimum)
+
+Use code **`bareminimum`** to get **25% off your first month**.
+
+
 The port uses loader-native attachments, vanilla item components and server-authoritative transactions. It does not restore the old CCA/Endec save format or owo networking. Dedicated-server and resource checks have passed on both loaders; connected-client rendering and the full player lifecycle matrix remain separate verification work.
