@@ -1,0 +1,42 @@
+{
+  "entries": {
+    "minecraft:player": {
+      "playerex:spell_power_fire": {
+        "value": 0.0
+      },
+      "playerex:spell_power_frost": {
+        "value": 0.0
+      },
+      "playerex:spell_power_arcane": {
+        "value": 0.0
+      },
+      "playerex:spell_power_healing": {
+        "value": 0.0
+      },
+      "playerex:spell_power_lightning": {
+        "value": 0.0
+      },
+      "playerex:spell_power_soul": {
+        "value": 0.0
+      },
+      "playerex:spell_power_water": {
+        "value": 0.0
+      },
+      "playerex:spell_power_earth": {
+        "value": 0.0
+      },
+      "playerex:spell_power_air": {
+        "value": 0.0
+      },
+      "playerex:spell_power_nature": {
+        "value": 0.0
+      },
+      "playerex:spell_critical_chance_factor": {
+        "value": 0.0
+      },
+      "playerex:spell_critical_damage_factor": {
+        "value": 0.0
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "com.bibireden.playerex.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "FabricPlayerCombatMixin",
+    "SpellManaCostMixin",
+    "SpellManaAmmoMixin",
+    "SpellManaExecutionMixin",
+    "SpellManaDeliveryMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "plugin": "com.bibireden.playerex.mixin.FabricOptionalMixinPlugin"
+}

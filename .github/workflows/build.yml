@@ -1,0 +1,49 @@
+name: build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - "1.21.1"
+      - "1.21.1/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Java 21 / Minecraft 1.21.1
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Java 21
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
+
+      - name: Build
+        run: ./gradlew clean build --stacktrace
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: playerex-1.21.1-build
+          path: |
+            build/libs/PlayerEx-*-fabric-1.21.1.jar
+            build/libs/PlayerEx-*-neoforge-1.21.1.jar
+          if-no-files-found: error
+          retention-days: 14

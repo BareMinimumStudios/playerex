@@ -1,3 +1,0 @@
-files:
-  - source: /src/main/resources/assets/playerex/lang/en_us.json
-    translation: /src/main/resources/assets/playerex/lang/%locale_with_underscore%.json

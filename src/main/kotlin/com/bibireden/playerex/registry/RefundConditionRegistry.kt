@@ -1,16 +1,18 @@
 package com.bibireden.playerex.registry
-
-import com.bibireden.playerex.components.player.IPlayerDataComponent
+import com.bibireden.playerex.state.PlayerExState
 import net.minecraft.world.entity.player.Player
 
-typealias RefundCondition = (IPlayerDataComponent, Player) -> Double
-
+typealias RefundCondition = (PlayerExState, Player) -> Double
 object RefundConditionRegistry {
-    private val entries: MutableList<RefundCondition> = mutableListOf()
-
-    /** Registers a [RefundCondition]. */
-    fun register(condition: RefundCondition) = this.entries.add(condition)
-
-    /** Provides immutable access to the entire registry. */
-    fun get() = this.entries.toList()
+    @Volatile private var entries: List<RefundCondition> = emptyList()
+    @JvmStatic @Synchronized fun register(condition: RefundCondition) { entries = entries + condition }
+    @JvmStatic fun get(): List<RefundCondition> = entries.toList()
+    fun additionalCapacity(state: PlayerExState, player: Player): Long {
+        var capacity = 0L
+        for (condition in entries) {
+            val value = condition(state, player)
+            if (value.isFinite() && value > 0) capacity = (capacity + value.coerceAtMost(Int.MAX_VALUE.toDouble()).toLong()).coerceAtMost(Int.MAX_VALUE.toLong())
+        }
+        return capacity
+    }
 }

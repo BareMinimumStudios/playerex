@@ -1,90 +1,93 @@
 {
-	"entries": {
-		"minecraft:player": {
-			"playerex:level": {
-				"value": 0.0
-			},
-			"playerex:constitution": {
-				"value": 0.0
-			},
-			"playerex:strength": {
-				"value": 0.0
-			},
-			"playerex:dexterity": {
-				"value": 0.0
-			},
-			"playerex:intelligence": {
-				"value": 0.0
-			},
-			"playerex:luckiness": {
-				"value": 0.0
-			},
-			"playerex:evasion": {
-				"value": 0.0
-			},
-			"playerex:lifesteal": {
-				"value": 0.0
-			},
-			"playerex:focus": {
-				"value": 0.0
-			},
-			"playerex:health_regeneration": {
-				"value": 0.0
-			},
-			"playerex:heal_amplification": {
-				"value": 0.0
-			},
-			"playerex:melee_crit_damage": {
-				"value": 0.0
-			},
-			"playerex:melee_crit_chance": {
-				"value": 0.0
-			},
-			"playerex:ranged_crit_damage": {
-				"value": 0.0
-			},
-			"playerex:ranged_crit_chance": {
-				"value": 0.0
-			},
-			"playerex:fire_resistance": {
-				"value": 0.0
-			},
-			"playerex:freeze_resistance": {
-				"value": 0.0
-			},
-			"playerex:lightning_resistance": {
-				"value": 0.0
-			},
-			"playerex:poison_resistance": {
-				"value": 0.0
-			},
-			"playerex:wither_resistance": {
-				"value": 0.0
-			},
-			"playerex:breaking_speed": {
-				"value": 1.0
-			},
-			"playerex:enchanting": {
-				"value": 0.0
-			},
-			"playerex:logging": {
-				"value": 0.0
-			},
-			"playerex:alchemy": {
-				"value": 0.0
-			},
-			"playerex:fishing": {
-				"value": 0.0
-			},
-			"playerex:mining": {
-				"value": 0.0
-			},
-			"playerex:smithing": {
-				"value": 0.0
-			},
-			"playerex:farming": {
-				"value": 0.0
-			}
-		}
-	}
+  "entries": {
+    "minecraft:player": {
+      "playerex:level": {
+        "value": 0.0
+      },
+      "playerex:constitution": {
+        "value": 0.0
+      },
+      "playerex:strength": {
+        "value": 0.0
+      },
+      "playerex:dexterity": {
+        "value": 0.0
+      },
+      "playerex:intelligence": {
+        "value": 0.0
+      },
+      "playerex:luckiness": {
+        "value": 0.0
+      },
+      "playerex:evasion": {
+        "value": 0.0
+      },
+      "playerex:lifesteal": {
+        "value": 0.0
+      },
+      "playerex:focus": {
+        "value": 0.0
+      },
+      "playerex:health_regeneration": {
+        "value": 0.0
+      },
+      "playerex:heal_amplification": {
+        "value": 0.0
+      },
+      "playerex:melee_crit_damage": {
+        "value": 0.0
+      },
+      "playerex:melee_crit_chance": {
+        "value": 0.0
+      },
+      "playerex:ranged_crit_damage": {
+        "value": 0.0
+      },
+      "playerex:ranged_crit_chance": {
+        "value": 0.0
+      },
+      "playerex:fire_resistance": {
+        "value": 0.0
+      },
+      "playerex:freeze_resistance": {
+        "value": 0.0
+      },
+      "playerex:lightning_resistance": {
+        "value": 0.0
+      },
+      "playerex:poison_resistance": {
+        "value": 0.0
+      },
+      "playerex:wither_resistance": {
+        "value": 0.0
+      },
+      "playerex:breaking_speed": {
+        "value": 1.0
+      },
+      "playerex:enchanting": {
+        "value": 0.0
+      },
+      "playerex:logging": {
+        "value": 0.0
+      },
+      "playerex:alchemy": {
+        "value": 0.0
+      },
+      "playerex:fishing": {
+        "value": 0.0
+      },
+      "playerex:mining": {
+        "value": 0.0
+      },
+      "playerex:smithing": {
+        "value": 0.0
+      },
+      "playerex:farming": {
+        "value": 0.0
+      },
+      "playerex:dropped_experience_multiplier": {
+        "value": 1.0
+      }
+    }
+  }
 }

@@ -1,0 +1,7 @@
+{
+  "required": true,
+  "package": "com.bibireden.playerex.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": ["NeoForgePlayerCombatMixin"],
+  "injectors": {"defaultRequire": 1}
+}

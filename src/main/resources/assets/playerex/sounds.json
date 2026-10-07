@@ -1,14 +1,26 @@
 {
-    "level_up": {
-        "subtitle": "sound.playerex.level_up",
-        "sounds": [ "playerex:level_up" ]
-    },
-    "spend": {
-        "subtitle": "sound.playerex.spend",
-        "sounds": [ "playerex:spend" ]
-    },
-    "refund": {
-        "subtitle": "sound.playerex.refund",
-        "sounds": [ "playerex:refund" ]
-    }
+  "level_up": {
+    "subtitle": "sound.playerex.level_up",
+    "sounds": [
+      "playerex:level_up"
+    ]
+  },
+  "spend": {
+    "subtitle": "sound.playerex.spend",
+    "sounds": [
+      "playerex:spend"
+    ]
+  },
+  "refund": {
+    "subtitle": "sound.playerex.refund",
+    "sounds": [
+      "playerex:refund"
+    ]
+  },
+  "potion_use": {
+    "subtitle": "sound.playerex.potion_use",
+    "sounds": [
+      "playerex:potion_use"
+    ]
+  }
 }

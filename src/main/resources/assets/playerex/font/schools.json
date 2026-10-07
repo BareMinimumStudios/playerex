@@ -1,0 +1,13 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "playerex:font/schools.png",
+      "height": 9,
+      "ascent": 8,
+      "chars": [
+        "\ue100\ue101\ue102\ue103\ue104\ue105\ue106\ue107\ue108\ue109"
+      ]
+    }
+  ]
+}

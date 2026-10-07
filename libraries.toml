@@ -1,0 +1,32 @@
+[versions]
+cloche = "0.19.13"
+kotlin = "2.4.10"
+parchment = "2024.11.17"
+fabric-language-kotlin = "1.13.7+kotlin.2.2.21"
+neoforge-language-kotlin = "5.11.0"
+fabric-loader = "0.19.3"
+neoforge-loader = "21.1.26"
+fabric-api = "0.116.15"
+fzzy-fabric = "0.7.7+1.21"
+fzzy-neoforge = "0.7.7+1.21+neoforge"
+mixin-extras = "0.5.3"
+crunch = "2.0.3"
+remnant = "3.0.0"
+data-attributes = "3.0.0"
+
+[plugins]
+cloche = { id = "earth.terrarium.cloche", version.ref = "cloche" }
+
+[libraries]
+fabric-language-kotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "fabric-language-kotlin" }
+neoforge-language-kotlin = { module = "thedarkcolour:kotlinforforge-neoforge", version.ref = "neoforge-language-kotlin" }
+fzzy-config-fabric = { module = "me.fzzyhmstrs:fzzy_config", version.ref = "fzzy-fabric" }
+fzzy-config-neoforge = { module = "me.fzzyhmstrs:fzzy_config", version.ref = "fzzy-neoforge" }
+mixinextras = { module = "io.github.llamalad7:mixinextras-common", version.ref = "mixin-extras" }
+crunch = { module = "com.github.Redempt:Crunch", version.ref = "crunch" }
+remnant-fabric = { module = "maven.modrinth:oLPaySSb", version = "7AYXvK88" }
+remnant-neoforge = { module = "maven.modrinth:oLPaySSb", version = "Twla1z8f" }
+
+# Public Modrinth version IDs pin the exact loader artifacts.
+data-attributes-fabric = { module = "maven.modrinth:KCGxOJsE", version = "tyrHzydP" }
+data-attributes-neoforge = { module = "maven.modrinth:KCGxOJsE", version = "hLnhUxoL" }

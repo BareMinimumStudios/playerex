@@ -1,0 +1,72 @@
+{
+  "minecraft:generic.armor": {
+    "relativeWeighting": 65,
+    "additionChance": 70,
+    "additionMin": 1,
+    "additionMax": 10,
+    "additionIncrement": 1,
+    "multiplierMin": 0.05,
+    "multiplierMax": 0.5,
+    "multiplierIncrement": 0.01
+  },
+  "minecraft:generic.armor_toughness": {
+    "relativeWeighting": 45,
+    "additionChance": 50,
+    "additionMin": 0.5,
+    "additionMax": 5,
+    "additionIncrement": 0.5,
+    "multiplierMin": 0.05,
+    "multiplierMax": 0.5,
+    "multiplierIncrement": 0.01
+  },
+  "minecraft:generic.attack_damage": {
+    "relativeWeighting": 50,
+    "additionChance": 50,
+    "additionMin": 0.25,
+    "additionMax": 4,
+    "additionIncrement": 0.25,
+    "multiplierMin": 0.05,
+    "multiplierMax": 0.5,
+    "multiplierIncrement": 0.01
+  },
+  "minecraft:generic.attack_speed": {
+    "relativeWeighting": 20,
+    "additionChance": 50,
+    "additionMin": 0.1,
+    "additionMax": 2,
+    "additionIncrement": 0.1,
+    "multiplierMin": 0.05,
+    "multiplierMax": 0.5,
+    "multiplierIncrement": 0.01
+  },
+  "minecraft:generic.knockback_resistance": {
+    "relativeWeighting": 70,
+    "additionChance": 100,
+    "additionMin": 0.01,
+    "additionMax": 1,
+    "additionIncrement": 0.01,
+    "multiplierMin": 0.01,
+    "multiplierMax": 0.5,
+    "multiplierIncrement": 0.01
+  },
+  "minecraft:generic.luck": {
+    "relativeWeighting": 10,
+    "additionChance": 70,
+    "additionMin": 0.2,
+    "additionMax": 2,
+    "additionIncrement": 0.2,
+    "multiplierMin": 0.05,
+    "multiplierMax": 0.5,
+    "multiplierIncrement": 0.01
+  },
+  "minecraft:generic.movement_speed": {
+    "relativeWeighting": 15,
+    "additionChance": 30,
+    "additionMin": 0.002,
+    "additionMax": 0.1,
+    "additionIncrement": 0.001,
+    "multiplierMin": 0.05,
+    "multiplierMax": 0.5,
+    "multiplierIncrement": 0.01
+  }
+}

@@ -1,112 +1,193 @@
-![logo](https://cdn.modrinth.com/data/cached_images/f8dd730cf295dc3a449337df81cc47e010eddf3e.png)
+![PlayerEx](https://cdn.modrinth.com/data/cached_images/f8dd730cf295dc3a449337df81cc47e010eddf3e.png)
 
-<p style="text-align: center"><b><i>Forge when?</i></b></p>
+[![Modrinth](https://img.shields.io/badge/Modrinth-Download-1BD96A?style=for-the-badge&labelColor=292A27)](https://modrinth.com/mod/playerex-dc)
+[![CurseForge](https://img.shields.io/badge/CurseForge-Download-F16436?style=for-the-badge&labelColor=292A27)](https://www.curseforge.com/minecraft/mc-mods/playerex-dc)
+[![Source](https://img.shields.io/badge/GitHub-Source-F2D36B?style=for-the-badge&logo=github&labelColor=292A27)](https://github.com/BareMinimumStudios/playerex)
+[![Guide](https://img.shields.io/badge/Read_the-Guide-F2D36B?style=for-the-badge&labelColor=292A27)](https://github.com/BareMinimumStudios/playerex#how-it-works)
+[![Issues](https://img.shields.io/badge/Report_an-Issue-D99569?style=for-the-badge&labelColor=292A27)](https://github.com/BareMinimumStudios/playerex/issues)
+[![Discord](https://img.shields.io/badge/Discord-Community-5865F2?style=for-the-badge&logo=discord&labelColor=292A27)](https://discord.gg/pcRw79hwey)
 
-<br>
+![Minecraft 1.21.1](https://img.shields.io/badge/Minecraft-1.21.1-A8AD91?style=flat-square&labelColor=292A27)
+![Fabric](https://img.shields.io/badge/Loader-Fabric-CAB99A?style=flat-square&labelColor=292A27)
+![NeoForge](https://img.shields.io/badge/Loader-NeoForge-E39957?style=flat-square&labelColor=292A27)
+![Client and server](https://img.shields.io/badge/Environment-Client_%26_Server-A8AD91?style=flat-square&labelColor=292A27)
 
-<p style="text-align: center">
-    <img src="https://img.shields.io/badge/MIT-MIT?style=for-the-badge&label=LICENCE&labelColor=582b11&color=a48350&link=https%3A%2F%2Fgithub.com%2FBareMinimumStudios%2Fplayerex%2Fblob%2F1.20.1%2Fmain%2FLICENSEe">
-    <img src="https://img.shields.io/github/stars/BareMinimumStudios/playerex?style=for-the-badge&logo=github&color=faa526&link=https%3A%2F%2Fgithub.com%2FBareMinimumStudios%2Fplayerex%2Fstargazers">
-    <img src="https://img.shields.io/github/forks/BareMinimumStudios/playerex?style=for-the-badge&logo=github&color=fa9256&link=https%3A%2F%2Fgithub.com%2FBareMinimumStudios%2Fplayerex%2Fforks">
-    <img src="https://img.shields.io/github/issues/BareMinimumStudios/playerex?style=for-the-badge&logo=github&label=ISSUES&link=https%3A%2F%2Fgithub.com%2FBareMinimumStudios%2Fplayerex%2Fissues">  
-</p>
+# PlayerEx
 
-<p style="text-align: center">
-    <img alt="fabric" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/fabric_vector.svg">
-    <img alt="quilt" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/quilt_vector.svg">
-</p>
+Your character should grow with the time you spend playing. PlayerEx brings RPG progression to Minecraft: earn levels, choose where your skill points go, and keep improving the equipment you take into a fight.
 
-<p style="text-align: center">
-    <img alt="forge" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/forge_vector.svg">
-</p>
-<p style="text-align: center">(though more assembly is required, see further below)</p>
+This **Minecraft 1.21.1** version runs on **Fabric and NeoForge**. It carries forward PlayerEx: Director's Cut, with **WizardEx and RelicEx content built in**, a new character screen, and support for the magic and accessory mods you choose to install.
 
-<p style="text-align: center">
-    <a href="https://bareminimumstudios.github.io/Bare-Minimum-Docs/">
-        <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/documentation/generic_vector.svg">
-    </a>
-    <a href="https://github.com/BareMinimumStudios/playerex">
-        <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/github_vector.svg">
-    </a>
-    <img alt="java" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/built-with/java_vector.svg">
-    <img alt="gradle" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/built-with/gradle_vector.svg">
-    <a href="https://discord.gg/pcRw79hwey">
-        <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/social/discord-plural_vector.svg">
-    </a>
-</p>
+**WizardEx and RelicEx are deprecated as standalone addons.** Their features are now built into PlayerEx 5.0.0. Do not install the old addon JARs alongside this release.
 
-<br>
+**PlayerEx 5.0.0 is the Minecraft 1.21.1 release.** Use matching PlayerEx versions on the server and clients, and keep backups when updating an existing world.
 
-_________________
+## How it works
 
-<br>
+Open the character screen with **P**, or click its tab beside your inventory. Collect vanilla experience, then spend your XP levels to raise your separate **PlayerEx level**. Each level gives **one skill point by default**, which you can put into your attributes. Level costs and the number of points awarded are configurable.
 
-![PlayerEX Screen](https://i.imgur.com/cLFiVeD.png)
+You decide how to build your character. Put points into Constitution if you want more health and armor, lean into Strength for melee damage, or develop Intelligence and individual spell schools for a magic-focused setup. You can mix attributes freely; there is no class selection that locks you into one path.
 
-### Preamble 📝
+Changing your mind is part of the process. Refund points let you take owned allocations back and spend those skill points elsewhere. Refund points are separate from skill points, so rebuilding a character has its own cost.
 
-PlayerEX is a fundamentally rewritten mod based on the work of **CleverNucleus's [PlayerEx](https://modrinth.com/mod/playerex)**. The mod provides RPG-themed attributes to the game and a configurable leveling system.
+## Six attributes, plenty of room to experiment
 
-### Content 📦
+The default relationships give each primary attribute a different role:
 
-With higher-level, highly configurable attribute modification provided by **[Data Attributes: Directors Cut](https://www.curseforge.com/minecraft/mc-mods/data-attributes-directors-cut)**, PlayerEX integrates skill and refundable points to spend through the non-intrusive, extendable, and modern screen, which can be activated by a hotkey (default is `-`).
+| Attribute | What it helps with |
+| --- | --- |
+| **Constitution** | Maximum health, armor, oxygen bonuses and poison resistance. With compatible magic attributes installed, it also contributes to magic resistance. |
+| **Strength** | Melee attack damage, melee critical damage, knockback resistance and block-breaking speed. |
+| **Dexterity** | Attack speed and ranged critical damage, plus ranged damage and haste when Ranged Weapon API is installed. |
+| **Intelligence** | Experience dropped by defeated entities, Wither resistance and compatible spell haste, critical damage and school power. |
+| **Luckiness** | Luck, evasion and critical chance for melee, ranged and compatible spell combat. |
+| **Focus** | Passive health regeneration, healing amplification, and Fire, Freeze and Lightning resistance. |
 
-### Extras 🎬
+These are the supplied defaults. **Data Attributes** lets pack authors change the relationships, limits and scaling. Some bonuses use diminishing returns, so a percentage stat may grow more slowly as you invest more points.
 
-- **[EXHud](https://modrinth.com/mod/exhud-directors-cut)**, which provides an optional, opinionated and highly-configurable UI complimentary for PlayerEX, and has compatibility with other mods, such as [**Thermoo**](https://modrinth.com/mod/thermoo), and [**AppleSkin**](https://modrinth.com/mod/appleskin).
+Focus regeneration is passive, but it starts small. With the default relationships, one Focus point gives **0.015 health per second**. It is gradual recovery, rather than an instant replacement for food or healing items.
 
-- **[RelicEX](https://modrinth.com/mod/relicex-directors-cut)**, which adds relics, tomes, different ways to obtain level, skill, and refund points.
+## A character screen that shows the whole build
 
-- **[WizardEX](https://modrinth.com/mod/wizardex-directors-cut)**, which provides a layer between this mod and **[Wizards](https://modrinth.com/mod/wizards)** and other mods that use **[Spell Power Attributes](https://modrinth.com/mod/spell-power)**.
+The screen has three pages:
 
-### Wiki 📑
+- **Attributes:** spend and refund points, check regeneration and resistances, and see your current health and oxygen.
+- **Combat Stats:** inspect melee and ranged bonuses, defenses, reach, breaking speed and other useful values.
+- **Spell Schools:** invest in available schools and check spell power, spell criticals and, on supported Fabric setups, mana.
 
-To learn more about the mod, you can go **[here!](https://bareminimumstudios.github.io/Bare-Minimum-Docs/)**
+The pages use the supplied stone frame, gold icons, ivy and themed resource bars. Tooltips explain the values, while the bottom of the screen keeps your level and next-level XP cost close to the leveling controls.
 
-### Developers 💻
+### Attributes
 
-Ah, my favorite people. You will get some more information on how to mod PlayerEX once the release is stable. For now, know that you will be getting:
+Your main character page: choose your attributes, manage skill points and check health, oxygen and resistances.
 
-- A way to implement attribute modification (and target any attribute you want and apply functions to them) into a registry.
-- Override **any** registered attribute.
-- Apply **any** attribute to **any** `LivingEntity` (primarily for the player).
-- Attach to a screen using `owo-lib`.
-- And much more...
+[![PlayerEx Attributes page with allocation controls, vitality, resistances and resource bars](docs/images/playerex-attributes.png)](docs/images/playerex-attributes.png)
 
-### For Forge Users 🪨
+| Combat Stats | Spell Schools |
+| :---: | :---: |
+| [![PlayerEx Combat Stats page showing melee, ranged, defense and utility values](docs/images/playerex-combat-stats.png)](docs/images/playerex-combat-stats.png) | [![PlayerEx Spell Schools page showing ten magic schools and spell critical values](docs/images/playerex-spell-schools.png)](docs/images/playerex-spell-schools.png) |
+| Check your combat bonuses and defenses. | Allocate school points and inspect available spell power. |
 
-Howdy, I know you have all been **dying** for a forge release. This will come in due time. For now, the mod has been rewritten for fabric, but due to its compatible and improved nature, there is a way you can play it!
+Click a screenshot to view it at full size.
 
-*Refer to the **Usage Guide** on [**Sinytra Connector**](https://modrinth.com/mod/connector) to get started.*
 
-> There is no guarantee that it will work for Forge completely, and support **can not** be provided until an actual release of a forge mod is created.
+## Equipment grows with you
 
-### Contributors 🆘
+Weapons and equipped armor can gain experience from kills and improve as they level. Weapons gain damage bonuses; armor gains armor and configurable damage reduction. Their leveling rules are separate, so a pack can change or disable one without changing the other.
 
-### The People Who Made This A Reality
+Item tooltips show the equipment's level and progress. You can choose a compact display, expand details with Shift, and adjust tooltip colors in the client settings. Relic rarity colors help you tell different tiers apart at a glance.
 
-- The studio
-- The wispforest team 💖
-- One guy's modpack
-- Literally **YOU**
-- And most importantly, **CleverNucleus**
+Eligible items can survive reaching zero durability as **broken equipment**. A broken item shows an **X** in the inventory and stops providing its normal combat benefits until repaired. The number of times an item can survive breaking, infinite preservation and break notifications are configurable. Eligibility is controlled by item tags; preservation is not automatically applied to every item from every mod.
 
-### Translators (legacy, `<=3.*`)
+## Relics and useful finds
 
-- [gyular](https://github.com/gyular) - Korean translation.
-- [Hertz](https://github.com/elhertz) - Spanish translation.
-- [MrTYZzik](https://github.com/MrTYZzik) - Russian translation.
-- [Orygeunik](https://github.com/Orygeunik) - Russian translation improvements.
-- [NianGuu](https://github.com/NianGuu) - Simplified Chinese
-- [sky_bai](https://github.com/a1640727878) - Simplified Chinese (older releases)
+RelicEx content is included in PlayerEx. There is no separate RelicEx addon to install for this version.
 
-### A Thanks To Our Sponsor
+Find **rings, amulets, head relics and chest relics** with randomly rolled attribute bonuses. Relics have **seven rarity tiers** and can carry **one to five distinct attributes**. Their rolls stay with the item, so an existing relic does not reroll when you equip it again or change the loot settings.
 
----
+Rings and amulets use **Trinkets on Fabric** or **Curios on NeoForge**. Head and chest relics can also transfer their bonuses to matching armor in an anvil. Infusion costs no XP, consumes the relic and preserves the target armor's existing components. Armor that is already infused cannot receive another infusion. Relic armor uses native rendering with armor-trim support.
 
-</br>
+The loot pool also includes:
 
-<p><img src="https://i.imgur.com/V38aMzY.png" alt="Sponsor Banner"/></p>
-<p style="text-align: center">
-    <i><b>Use code &quot;BAREMINIMUM&quot; to get 15% off your first month!</b></i>
-</p>
+- **Tomes:** grant a PlayerEx level without spending vanilla XP.
+- **Lesser and Greater Orbs of Regret:** add refund points so you can reconsider your allocations.
+- **Dragon Stones:** reset progression after a confirmation use.
+- **Relic Shards:** turn unwanted relic equipment into a source of experience through smelting and shard use.
+- **Small, Medium and Large Health Potions:** automatically heal from your inventory, restoring 4, 6 or 8 health respectively. They are consumed automatically, even at full health, so keep them stored until you want to use them.
+
+Chest loot, mob drops, rarity weights and dimension rules are configurable. Pack authors can control how often these items appear and where players are likely to find them.
+
+## Magic, with room for more schools
+
+WizardEx progression is also built in. Add **Spell Power Attributes** and compatible spell content to connect your character's development to magic.
+
+PlayerEx supports **Fire, Frost, Arcane, Healing, Lightning and Soul**, plus **Water, Earth, Air and Nature** through **More RPG Library**. Available schools have their own allocation controls and icons. Intelligence contributes to available school power, while other attributes help shape spell criticals and related bonuses.
+
+Only schools supplied by your installed mods become available. PlayerEx supplies progression and compatibility; the libraries and spell-content mods provide their spells, casting rules and external attributes. If you remove an optional school provider, saved allocations remain available for refunds.
+
+### Mana and rune substitution on Fabric
+
+With **Spell Engine** and **Mana Attributes** installed on Fabric, eligible spells can use mana when you do not have enough of their required consumable runes. Existing runes are preferred, and eligible More RPG rune stones are supported too. Ordinary reagents and arrows are not replaced with mana.
+
+Mana Attributes supplies the mana pool, regeneration and its HUD. PlayerEx handles the connection to eligible Spell Engine costs. The **minimum automatic mana cost is 20**, with stronger or repeated spell launches costing more. Set enough mana capacity through your gear or configuration: installing the integration alone does not guarantee that a fresh character can afford a cast.
+
+**Mana integration is Fabric-only.** The NeoForge version still supports compatible spell attributes and school progression, but does not include this mana backend.
+
+## Installation
+
+Use **Minecraft 1.21.1** and **Java 21**, then install the PlayerEx file for your loader on the server and each client.
+
+Required dependencies:
+
+- **Both loaders:** [Data Attributes](https://modrinth.com/mod/dataattributes) **3.0.0 or newer** and Fzzy Config. The build targets Fzzy Config **0.7.7** for the appropriate loader.
+- **Fabric:** Fabric API **0.116.15 or newer** and Fabric Language Kotlin **1.13.7+kotlin.2.2.21 or newer**.
+- **NeoForge:** KotlinForForge **5.11.0 or newer**.
+
+**[Remnant 3.0.0](https://modrinth.com/mod/remnant) is required and already bundled inside PlayerEx as a separate nested JAR.** It does not need a separate download. Crunch is bundled too.
+
+Optional integrations depend on the features you want:
+
+- [Spell Power Attributes](https://modrinth.com/mod/spell-power): magic attributes and school progression.
+- [More RPG Library](https://modrinth.com/mod/more-rpg-library): additional schools and RPG attributes.
+- [Spell Engine](https://modrinth.com/mod/spell-engine): spell integration and eligible Fabric rune substitution.
+- [Mana Attributes](https://modrinth.com/mod/mana-attributes): the Fabric mana system.
+- [Trinkets](https://modrinth.com/mod/trinkets) or [Curios](https://modrinth.com/project/vvuO3ImH): ring and amulet slots on Fabric or NeoForge respectively.
+- [Critical Strike](https://modrinth.com/mod/critical-strike): compatible critical-hit handling.
+- [Ranged Weapon API](https://modrinth.com/mod/ranged-weapon-api): ranged attributes.
+
+Install the 1.21.1 versions and their own required dependencies. This port supports Fabric and NeoForge directly; legacy Forge and Quilt are not listed as supported loaders for this build.
+
+## Make it fit your pack
+
+Configure player and equipment level costs, skill points per level, death resets, item break behavior, loot chances and more. Data Attributes controls attribute relationships and scaling; PlayerEx's grouped configuration handles its gameplay settings.
+
+Gameplay rules belong to the server. Tooltip presentation, sound volumes and other display preferences belong to the client. Operators can use commands to inspect or adjust progression, including:
+
+```text
+/playerex level get <player>
+/playerex level add <player> [amount]
+/playerex skill <id> add <player> [amount]
+/playerex refund add <player> [amount]
+/playerex reset <player> [retain]
+```
+
+These commands require **operator permission level 2**. Administrative level and skill grants do not charge the target's XP or skill points. The optional reset value is the percentage of progression to retain.
+
+## Coming from 1.20.1?
+
+The 1.21.1 port uses a new save system. **Old 1.20.1 PlayerEx progression, configuration files and legacy RelicEx item data are not automatically imported.** Plan a fresh setup or your own migration rather than expecting an old world to carry those values across unchanged.
+
+Earlier 1.21.1 development saves use the current attachment and item-component formats. Read the version's changelog before updating, and use matching mod files on both sides of a multiplayer connection.
+
+## Credits and support
+
+PlayerEx builds on **CleverNucleus's original PlayerEx** and the work of the **PlayerEx: Director's Cut contributors**. This version also carries forward WizardEx and RelicEx content. Thanks to the original authors, translators, artists and everyone helping test the port.
+
+Found a problem? Include your PlayerEx version, loader, relevant mod list and latest log in an issue. A clear screenshot or short recording helps with interface and rendering bugs.
+
+PlayerEx uses **BML-1.0**. See the [license](https://github.com/BareMinimumStudios/playerex/blob/main/LICENSE) and the preserved third-party license files in the source repository.
+
+## Development
+
+Current release: **5.0.0**.
+
+Use **Java 21** and the included Gradle wrapper:
+
+```powershell
+.\gradlew.bat clean build --warning-mode all
+```
+
+The build compiles Fabric and NeoForge, runs the shared tests and checks that every language entry is a valid vanilla string before packaging. Production JARs are written to `build/libs/`.
+
+The project uses **Gradle 9.8.0**, **Cloche 0.19.13**, **Kotlin Gradle plugin 2.4.10** and **Kotlin compiler/core 2.2.20**. Loader-specific dependencies and metadata are declared in `libraries.toml` and `build.gradle.kts`. The build downloads the published Data Attributes and Remnant artifacts from Modrinth Maven. Exact loader-specific version IDs are pinned in `libraries.toml`; a private Maven repository or local dependency build is not needed. Remnant's upstream license is retained under `src/main/resources/META-INF/licenses/`.
+
+For development and pack maintenance:
+
+- [Full command reference](docs/COMMANDS.md)
+- [Compatibility and integrations](docs/COMPATIBILITY.md)
+- [Save compatibility](docs/SAVE_COMPATIBILITY.md)
+- [Feature audit and remaining verification](docs/FEATURE_PARITY.md)
+- [Changelog](CHANGELOG.md)
+- [Release and publishing guide](docs/RELEASING.md)
+
+The port uses loader-native attachments, vanilla item components and server-authoritative transactions. It does not restore the old CCA/Endec save format or owo networking. Dedicated-server and resource checks have passed on both loaders; connected-client rendering and the full player lifecycle matrix remain separate verification work.

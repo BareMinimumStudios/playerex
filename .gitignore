@@ -1,43 +1,42 @@
-# gradle
-
+# Gradle / build output
 .gradle/
 build/
 out/
 classes/
 
-# eclipse
+# Kotlin
+.kotlin/
 
-*.launch
-
-# idea
-
+# IDEs
 .idea/
 *.iml
 *.ipr
 *.iws
-
-# vscode
-
+*.launch
 .settings/
 .vscode/
 bin/
 .classpath
 .project
 
-# macos
-
-*.DS_Store
-
-# fabric
-
+# Minecraft development runtime
 run/
+run-*/
 
-# java
-
+# Java crash/profiling output
 hs_err_*.log
 replay_*.log
 *.hprof
 *.jfr
 
-# kt
-.kotlin
+# OS
+.DS_Store
+Thumbs.db
+
+# Local workspace instructions
+/AGENTS.md
+
+# Local development diagnostics
+/*.log
+/TESTING_ALPHA*.md
+/itemstack-api.txt

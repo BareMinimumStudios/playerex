@@ -1,0 +1,154 @@
+{
+  "entries": {
+    "playerex:intelligence": {
+      "spell_power:fire": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.25
+      },
+      "spell_power:frost": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.25
+      },
+      "spell_power:arcane": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.25
+      },
+      "spell_power:healing": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.25
+      },
+      "spell_power:lightning": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.25
+      },
+      "spell_power:soul": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.25
+      },
+      "spell_power:water": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.25
+      },
+      "spell_power:earth": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.25
+      },
+      "spell_power:air": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.25
+      },
+      "spell_power:nature": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.25
+      }
+    },
+    "playerex:spell_power_fire": {
+      "spell_power:fire": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.5
+      }
+    },
+    "playerex:spell_power_frost": {
+      "spell_power:frost": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.5
+      }
+    },
+    "playerex:spell_power_arcane": {
+      "spell_power:arcane": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.5
+      }
+    },
+    "playerex:spell_power_healing": {
+      "spell_power:healing": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.5
+      }
+    },
+    "playerex:spell_power_lightning": {
+      "spell_power:lightning": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.5
+      }
+    },
+    "playerex:spell_power_soul": {
+      "spell_power:soul": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.5
+      }
+    },
+    "playerex:spell_power_water": {
+      "spell_power:water": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.5
+      }
+    },
+    "playerex:spell_power_earth": {
+      "spell_power:earth": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.5
+      }
+    },
+    "playerex:spell_power_air": {
+      "spell_power:air": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.5
+      }
+    },
+    "playerex:spell_power_nature": {
+      "spell_power:nature": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.5
+      }
+    },
+    "playerex:luckiness": {
+      "playerex:spell_critical_chance_factor": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.02
+      }
+    },
+    "playerex:dexterity": {
+      "playerex:spell_critical_damage_factor": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 0.005
+      }
+    },
+    "playerex:spell_critical_chance_factor": {
+      "spell_power:critical_chance": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 100.0
+      }
+    },
+    "playerex:spell_critical_damage_factor": {
+      "spell_power:critical_damage": {
+        "enabled": true,
+        "behavior": "Add",
+        "value": 1000.0
+      }
+    }
+  }
+}

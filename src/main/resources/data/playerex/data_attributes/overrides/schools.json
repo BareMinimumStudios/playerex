@@ -1,0 +1,80 @@
+{
+  "entries": {
+    "playerex:spell_power_fire": {
+      "enabled": true,
+      "min": 0.0,
+      "max": 2147483647.0,
+      "formula": "Flat"
+    },
+    "playerex:spell_power_frost": {
+      "enabled": true,
+      "min": 0.0,
+      "max": 2147483647.0,
+      "formula": "Flat"
+    },
+    "playerex:spell_power_arcane": {
+      "enabled": true,
+      "min": 0.0,
+      "max": 2147483647.0,
+      "formula": "Flat"
+    },
+    "playerex:spell_power_healing": {
+      "enabled": true,
+      "min": 0.0,
+      "max": 2147483647.0,
+      "formula": "Flat"
+    },
+    "playerex:spell_power_lightning": {
+      "enabled": true,
+      "min": 0.0,
+      "max": 2147483647.0,
+      "formula": "Flat"
+    },
+    "playerex:spell_power_soul": {
+      "enabled": true,
+      "min": 0.0,
+      "max": 2147483647.0,
+      "formula": "Flat"
+    },
+    "playerex:spell_power_water": {
+      "enabled": true,
+      "min": 0.0,
+      "max": 2147483647.0,
+      "formula": "Flat"
+    },
+    "playerex:spell_power_earth": {
+      "enabled": true,
+      "min": 0.0,
+      "max": 2147483647.0,
+      "formula": "Flat"
+    },
+    "playerex:spell_power_air": {
+      "enabled": true,
+      "min": 0.0,
+      "max": 2147483647.0,
+      "formula": "Flat"
+    },
+    "playerex:spell_power_nature": {
+      "enabled": true,
+      "min": 0.0,
+      "max": 2147483647.0,
+      "formula": "Flat"
+    },
+    "playerex:spell_critical_chance_factor": {
+      "enabled": true,
+      "min": 0.0,
+      "max": 1.0,
+      "smoothness": 0.01,
+      "formula": "Diminished",
+      "format": "Percentage"
+    },
+    "playerex:spell_critical_damage_factor": {
+      "enabled": true,
+      "min": 0.0,
+      "max": 1.0,
+      "smoothness": 0.001,
+      "formula": "Diminished",
+      "format": "Percentage"
+    }
+  }
+}

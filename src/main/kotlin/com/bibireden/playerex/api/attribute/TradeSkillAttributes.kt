@@ -1,35 +1,14 @@
 package com.bibireden.playerex.api.attribute
+import com.bibireden.playerex.PlayerEX
 
-import com.bibireden.playerex.api.attribute.PlayerEXAttributes.register
-import com.bibireden.playerex.ext.id
-import net.minecraft.resources.ResourceLocation
-
+/** Original passive trade attributes; the original mod supplied no automatic trade XP rules. */
 object TradeSkillAttributes {
-    @JvmField
-    val IDS: Set<ResourceLocation>
-    
-    @JvmField
-    val MINING = register("mining", 0.0, 0.0, 100.0);
-
-    @JvmField
-    val ENCHANTING = register("enchanting", 0.0, 0.0, 100.0);
-
-    @JvmField
-    val ALCHEMY = register("alchemy", 0.0, 0.0, 100.0);
-
-    @JvmField
-    val FISHING = register("fishing", 0.0, 0.0, 100.0);
-
-    @JvmField
-    val LOGGING = register("logging", 0.0, 0.0, 100.0);
-
-    @JvmField
-    val SMITHING = register("smithing", 0.0, 0.0, 100.0);
-
-    @JvmField
-    val FARMING = register("farming", 0.0, 0.0, 100.0);
-
-    init {
-        IDS = setOf(MINING.id, ALCHEMY.id, FISHING.id, FARMING.id, LOGGING.id, ENCHANTING.id, ENCHANTING.id)
-    }
+    @JvmField val MINING_ID = PlayerEX.id("mining")
+    @JvmField val ENCHANTING_ID = PlayerEX.id("enchanting")
+    @JvmField val ALCHEMY_ID = PlayerEX.id("alchemy")
+    @JvmField val FISHING_ID = PlayerEX.id("fishing")
+    @JvmField val LOGGING_ID = PlayerEX.id("logging")
+    @JvmField val SMITHING_ID = PlayerEX.id("smithing")
+    @JvmField val FARMING_ID = PlayerEX.id("farming")
+    @JvmField val IDS = setOf(MINING_ID, ENCHANTING_ID, ALCHEMY_ID, FISHING_ID, LOGGING_ID, SMITHING_ID, FARMING_ID)
 }
