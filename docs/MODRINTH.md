@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/main/docs/branding/playerex-dc-banner.png" alt="PlayerEx DC" width="900">
+  <img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/branding/playerex-dc-banner.png" alt="PlayerEx DC" width="900">
 </p>
 
 <p align="center">
@@ -10,9 +10,9 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/BareMinimumStudios/playerex#how-it-works"><img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/main/docs/branding/button-guide.png" alt="Read the guide" width="224" height="64"></a>
-  <a href="https://www.curseforge.com/minecraft/mc-mods/playerex-dc"><img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/main/docs/branding/button-curseforge.png" alt="Download on CurseForge" width="224" height="64"></a>
-  <a href="https://modrinth.com/mod/playerex-dc"><img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/main/docs/branding/button-modrinth.png" alt="Download on Modrinth" width="224" height="64"></a>
+  <a href="https://github.com/BareMinimumStudios/playerex#how-it-works"><img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/branding/button-guide.png" alt="Read the guide" width="224" height="64"></a>
+  <a href="https://www.curseforge.com/minecraft/mc-mods/playerex-dc"><img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/branding/button-curseforge.png" alt="Download on CurseForge" width="224" height="64"></a>
+  <a href="https://modrinth.com/mod/playerex-dc"><img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/branding/button-modrinth.png" alt="Download on Modrinth" width="224" height="64"></a>
 </p>
 
 <p align="center">
@@ -38,7 +38,7 @@ Open the character screen with **P**, or click its tab beside your inventory. Co
 
 Click the gold button beside your inventory to open the character screen. Hover over it to see the PlayerEx tooltip, or press **P** to open the screen directly.
 
-[![The PlayerEx inventory button and its hover tooltip](https://raw.githubusercontent.com/BareMinimumStudios/playerex/main/docs/images/playerex-inventory-button.png)](https://raw.githubusercontent.com/BareMinimumStudios/playerex/main/docs/images/playerex-inventory-button.png)
+[![The PlayerEx inventory button and its hover tooltip](https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/images/playerex-inventory-button.png)](https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/images/playerex-inventory-button.png)
 
 You decide how to build your character. Put points into Constitution if you want more health and armor, lean into Strength for melee damage, or develop Intelligence and individual spell schools for a magic-focused setup. You can mix attributes freely; there is no class selection that locks you into one path.
 
@@ -75,11 +75,11 @@ The pages use the supplied stone frame, gold icons, ivy and themed resource bars
 
 Your main character page: choose your attributes, manage skill points and check health, oxygen and resistances.
 
-[![PlayerEx Attributes page with allocation controls, vitality, resistances and resource bars](https://raw.githubusercontent.com/BareMinimumStudios/playerex/main/docs/images/playerex-attributes.png)](https://raw.githubusercontent.com/BareMinimumStudios/playerex/main/docs/images/playerex-attributes.png)
+[![PlayerEx Attributes page with allocation controls, vitality, resistances and resource bars](https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/images/playerex-attributes.png)](https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/images/playerex-attributes.png)
 
 | Combat Stats | Spell Schools |
 | :---: | :---: |
-| [![PlayerEx Combat Stats page showing melee, ranged, defense and utility values](https://raw.githubusercontent.com/BareMinimumStudios/playerex/main/docs/images/playerex-combat-stats.png)](https://raw.githubusercontent.com/BareMinimumStudios/playerex/main/docs/images/playerex-combat-stats.png) | [![PlayerEx Spell Schools page showing ten magic schools and spell critical values](https://raw.githubusercontent.com/BareMinimumStudios/playerex/main/docs/images/playerex-spell-schools.png)](https://raw.githubusercontent.com/BareMinimumStudios/playerex/main/docs/images/playerex-spell-schools.png) |
+| [![PlayerEx Combat Stats page showing melee, ranged, defense and utility values](https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/images/playerex-combat-stats.png)](https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/images/playerex-combat-stats.png) | [![PlayerEx Spell Schools page showing ten magic schools and spell critical values](https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/images/playerex-spell-schools.png)](https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/images/playerex-spell-schools.png) |
 | Check your combat bonuses and defenses. | Allocate school points and inspect available spell power. |
 
 Click a screenshot to view it at full size.

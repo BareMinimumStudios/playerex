@@ -41,8 +41,8 @@ The GitHub release contains both JARs and the current changelog section. GitHub 
 
 Keep future notes under `[Unreleased]`. Before a release, move them into `## [version] - YYYY-MM-DD`, using only the relevant Added, Changed, Deprecated, Removed, Fixed or Security sections. `scripts/release.py` extracts that release alone for every destination.
 
-`README.md` is the GitHub overview. `docs/PROJECT_DESCRIPTION.md` is the shared player-facing description; `docs/MODRINTH.md` and `docs/CURSEFORGE.md` provide ready-to-paste copies. Keep all three aligned with the README. They use ordinary Markdown and clickable image buttons.
+`README.md` is the GitHub overview. `docs/MODRINTH.md` and `docs/CURSEFORGE.md` provide ready-to-paste marketplace descriptions. Keep both aligned with the player-facing content in the README. They use ordinary Markdown and clickable image buttons.
 
-Screenshots live in `docs/images/`. Attributes is the main image; Combat Stats and Spell Schools appear smaller below it. The README uses repository-relative links. Marketplace descriptions use raw GitHub URLs, so upload `docs/images/` and `docs/branding/` to the repository's `main` branch before pasting the descriptions online. Keep the image filenames stable so those links continue to work.
+Screenshots live in `docs/images/`. Attributes is the main image; Combat Stats and Spell Schools appear smaller below it. The README uses repository-relative links. Marketplace descriptions use raw GitHub URLs targeting `1.21.1`, where the images are currently published. Keep `docs/images/` and `docs/branding/` on that branch and keep their filenames stable. If the release later moves to `main`, update the image URLs only after the assets exist there.
 
 Standalone WizardEx and RelicEx are deprecated: their content is included in PlayerEx 5.0.0. Keep that notice in the project descriptions and release notes so users know to remove the old addon JARs when setting up this port.
