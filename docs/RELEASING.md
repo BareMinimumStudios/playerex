@@ -8,6 +8,8 @@ Use Java 21 and the included wrapper. Run `./gradlew clean build --warning-mode 
 
 The release script checks the version, dated changelog section, loader metadata, required dependencies, vanilla language files and the exact bytes of the public nested Remnant JAR. It also rejects test probes and shaded Remnant classes. It stages only the two production JARs, SHA-256 checksums and the current release notes under `build/release/`.
 
+Keep configuration caching and parallel project execution disabled in `gradle.properties`. The current Cloche NeoForge patcher resolves dependencies during task execution; enabling configuration caching can make a fresh runner fail with an exclusive-lock error. Gradle's normal build cache remains enabled.
+
 The build resolves public dependencies through Modrinth Maven. `libraries.toml` pins Data Attributes 3.0.0 to `tyrHzydP` (Fabric) and `hLnhUxoL` (NeoForge), and Remnant 3.0.0 to `7AYXvK88` (Fabric) and `Twla1z8f` (NeoForge). When updating Remnant, update the expected SHA-512 values in `scripts/release.py` from the public Modrinth version metadata as well. A dependency update needs a build and runtime check on both loaders.
 
 Before calling a build ready, check the GUI, tooltips, armor and connected-player lifecycle in-game. Compilation and a dedicated-server test cannot verify those client behaviors.
@@ -41,6 +43,6 @@ Keep future notes under `[Unreleased]`. Before a release, move them into `## [ve
 
 `README.md` is the GitHub overview. `docs/PROJECT_DESCRIPTION.md` is the shared player-facing description; `docs/MODRINTH.md` and `docs/CURSEFORGE.md` provide ready-to-paste copies. Keep all three aligned with the README. They use ordinary Markdown and clickable image buttons.
 
-Screenshots live in `docs/images/`. Attributes is the main image; Combat Stats and Spell Schools appear smaller below it. The README uses repository-relative links. Marketplace descriptions use raw GitHub URLs, so upload `docs/images/` to the repository's `main` branch before pasting the descriptions online. Keep the image filenames stable so those links continue to work.
+Screenshots live in `docs/images/`. Attributes is the main image; Combat Stats and Spell Schools appear smaller below it. The README uses repository-relative links. Marketplace descriptions use raw GitHub URLs, so upload `docs/images/` and `docs/branding/` to the repository's `main` branch before pasting the descriptions online. Keep the image filenames stable so those links continue to work.
 
 Standalone WizardEx and RelicEx are deprecated: their content is included in PlayerEx 5.0.0. Keep that notice in the project descriptions and release notes so users know to remove the old addon JARs when setting up this port.

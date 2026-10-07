@@ -7,7 +7,16 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- Inventory-button screenshot in the README and marketplace descriptions.
 - Character-screen screenshots in the README and marketplace descriptions, with Attributes as the main image and Combat Stats and Spell Schools below it.
+
+### Changed
+
+- Consistent guide/download buttons and PlayerEx DC branding, with the original book style, a transparent banner and a shared 256×256 game/social icon.
+
+### Fixed
+
+- Fresh GitHub builds failing while preparing NeoForge's patched Minecraft files. Disable Gradle configuration caching and parallel project execution for the current Cloche toolchain.
 
 ## [5.0.0] - 2026-10-07
 

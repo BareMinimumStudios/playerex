@@ -1,16 +1,24 @@
-![PlayerEx](https://cdn.modrinth.com/data/cached_images/f8dd730cf295dc3a449337df81cc47e010eddf3e.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/main/docs/branding/playerex-dc-banner.png" alt="PlayerEx DC" width="900">
+</p>
 
-[![Modrinth](https://img.shields.io/badge/Modrinth-Download-1BD96A?style=for-the-badge&labelColor=292A27)](https://modrinth.com/mod/playerex-dc)
-[![CurseForge](https://img.shields.io/badge/CurseForge-Download-F16436?style=for-the-badge&labelColor=292A27)](https://www.curseforge.com/minecraft/mc-mods/playerex-dc)
-[![Source](https://img.shields.io/badge/GitHub-Source-F2D36B?style=for-the-badge&logo=github&labelColor=292A27)](https://github.com/BareMinimumStudios/playerex)
-[![Guide](https://img.shields.io/badge/Read_the-Guide-F2D36B?style=for-the-badge&labelColor=292A27)](https://github.com/BareMinimumStudios/playerex#how-it-works)
-[![Issues](https://img.shields.io/badge/Report_an-Issue-D99569?style=for-the-badge&labelColor=292A27)](https://github.com/BareMinimumStudios/playerex/issues)
-[![Discord](https://img.shields.io/badge/Discord-Community-5865F2?style=for-the-badge&logo=discord&labelColor=292A27)](https://discord.gg/pcRw79hwey)
+<p align="center">
+  <a href="https://github.com/BareMinimumStudios/playerex/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-BML_1.0-F2D36B?style=for-the-badge&amp;labelColor=292A27" alt="License: BML 1.0"></a>
+  <a href="https://github.com/BareMinimumStudios/playerex/stargazers"><img src="https://img.shields.io/github/stars/BareMinimumStudios/playerex?style=for-the-badge&amp;labelColor=292A27&amp;color=F2D36B" alt="GitHub stars"></a>
+  <a href="https://github.com/BareMinimumStudios/playerex/network/members"><img src="https://img.shields.io/github/forks/BareMinimumStudios/playerex?style=for-the-badge&amp;labelColor=292A27&amp;color=F2D36B" alt="GitHub forks"></a>
+  <a href="https://github.com/BareMinimumStudios/playerex/issues"><img src="https://img.shields.io/github/issues/BareMinimumStudios/playerex?style=for-the-badge&amp;labelColor=292A27&amp;color=F2D36B" alt="Report an issue"></a>
+</p>
 
-![Minecraft 1.21.1](https://img.shields.io/badge/Minecraft-1.21.1-A8AD91?style=flat-square&labelColor=292A27)
-![Fabric](https://img.shields.io/badge/Loader-Fabric-CAB99A?style=flat-square&labelColor=292A27)
-![NeoForge](https://img.shields.io/badge/Loader-NeoForge-E39957?style=flat-square&labelColor=292A27)
-![Client and server](https://img.shields.io/badge/Environment-Client_%26_Server-A8AD91?style=flat-square&labelColor=292A27)
+<p align="center">
+  <a href="https://github.com/BareMinimumStudios/playerex#how-it-works"><img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/main/docs/branding/button-guide.png" alt="Read the guide" width="224" height="64"></a>
+  <a href="https://www.curseforge.com/minecraft/mc-mods/playerex-dc"><img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/main/docs/branding/button-curseforge.png" alt="Download on CurseForge" width="224" height="64"></a>
+  <a href="https://modrinth.com/mod/playerex-dc"><img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/main/docs/branding/button-modrinth.png" alt="Download on Modrinth" width="224" height="64"></a>
+</p>
+
+<p align="center">
+  <strong>Minecraft 1.21.1 · Fabric + NeoForge · Java 21 · Client &amp; Server</strong><br>
+  <a href="https://github.com/BareMinimumStudios/playerex">Source code</a> · <a href="https://discord.gg/pcRw79hwey">Discord community</a>
+</p>
 
 # PlayerEx
 
@@ -25,6 +33,12 @@ This **Minecraft 1.21.1** version runs on **Fabric and NeoForge**. It carries fo
 ## How it works
 
 Open the character screen with **P**, or click its tab beside your inventory. Collect vanilla experience, then spend your XP levels to raise your separate **PlayerEx level**. Each level gives **one skill point by default**, which you can put into your attributes. Level costs and the number of points awarded are configurable.
+
+### Open PlayerEx from your inventory
+
+Click the gold button beside your inventory to open the character screen. Hover over it to see the PlayerEx tooltip, or press **P** to open the screen directly.
+
+[![The PlayerEx inventory button and its hover tooltip](https://raw.githubusercontent.com/BareMinimumStudios/playerex/main/docs/images/playerex-inventory-button.png)](https://raw.githubusercontent.com/BareMinimumStudios/playerex/main/docs/images/playerex-inventory-button.png)
 
 You decide how to build your character. Put points into Constitution if you want more health and armor, lean into Strength for melee damage, or develop Intelligence and individual spell schools for a magic-focused setup. You can mix attributes freely; there is no class selection that locks you into one path.
 
