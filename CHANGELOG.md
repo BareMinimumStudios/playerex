@@ -5,6 +5,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [5.0.1] - 2026-10-07
+
 ### Added
 
 - Loader-specific optional integrations in Modrinth and CurseForge publishing metadata.
