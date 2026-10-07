@@ -180,3 +180,10 @@ PlayerEx builds on **CleverNucleus's original PlayerEx** and the work of the **P
 Found a problem? Include your PlayerEx version, loader, relevant mod list and latest log in an issue. A clear screenshot or short recording helps with interface and rendering bugs.
 
 PlayerEx uses **BML-1.0**. See the [license](https://github.com/BareMinimumStudios/playerex/blob/main/LICENSE) and the preserved third-party license files in the source repository.
+
+## Sponsor
+
+[![Sponsor Banner](https://www.bisecthosting.com/partners/custom-banners/db76a74a-a111-4660-98b7-5a75c15a5951.png)](https://bisecthosting.com/bareminimum)
+
+Use code **`bareminimum`** to get **25% off your first month**.
+
