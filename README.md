@@ -193,7 +193,7 @@ Use **Java 21** and the included Gradle wrapper:
 
 The build compiles Fabric and NeoForge, runs the shared tests and checks that every language entry is a valid vanilla string before packaging. Production JARs are written to `build/libs/`.
 
-The project uses **Gradle 9.8.0**, **Cloche 0.19.13**, **Kotlin Gradle plugin 2.4.10** and **Kotlin compiler/core 2.2.20**. Loader-specific dependencies and metadata are declared in `libraries.toml` and `build.gradle.kts`. The build downloads the published Data Attributes and Remnant artifacts from Modrinth Maven. Exact loader-specific version IDs are pinned in `libraries.toml`; a private Maven repository or local dependency build is not needed. Remnant's upstream license is retained under `src/main/resources/META-INF/licenses/`.
+The project uses **Gradle 9.9.1**, **Cloche 0.19.13**, **Kotlin Gradle plugin 2.4.10** and **Kotlin compiler/core 2.2.20**. Loader-specific dependencies and metadata are declared in `libraries.toml` and `build.gradle.kts`. The build downloads the published Data Attributes and Remnant artifacts from Modrinth Maven. Exact loader-specific version IDs are pinned in `libraries.toml`; a private Maven repository or local dependency build is not needed. Remnant's upstream license is retained under `src/main/resources/META-INF/licenses/`.
 
 For development and pack maintenance:
 

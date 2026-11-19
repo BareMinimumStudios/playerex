@@ -5,6 +5,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Updated the Gradle wrapper from 9.8.0 to 9.9.1, with refreshed launcher scripts and the official distribution checksum.
+
 ## [5.0.1] - 2026-10-07
 
 ### Added
