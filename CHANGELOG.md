@@ -5,9 +5,28 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [5.1.0] - 2026-11-21
+
+### Added
+
+- Optional NeoForge-only Iron's Spells compatibility, with nine separately allocated schools and configurable native Intelligence, Focus and school-power bonuses.
+- Separate RPG Series and Iron's school pages. Only available systems get a magic tab; Attributes remains the default page.
+- Optional server-enforced Iron's spell-level requirements, per-school point thresholds, spell exemptions, scroll handling and creative bypass. Restrictions default off.
+- Configurable dimension-unlocked level caps on both loaders. A visited dimension can unlock a higher cap permanently, with in-game editing, modded dimension IDs and a global-cap unlock option.
+
 ### Changed
 
+- Player state saves and Remnant snapshots retain visited dimensions using an optional field that loads older saves without a reset. The NeoForge network protocol is now 4; clients and servers must update together.
+- NeoForge publishing metadata lists Iron's Spells as optional. Iron's and its dependencies are not bundled.
 - Updated the Gradle wrapper from 9.8.0 to 9.9.1, with refreshed launcher scripts and the official distribution checksum.
+
+### Fixed
+
+- Register PlayerEx base attributes in NeoForge's default player supplier so Pufferfish's Skills can validate attribute rewards ([#84](https://github.com/BareMinimumStudios/playerex/issues/84)).
+- Avoid missing-school attribute warnings when an optional magic provider is not installed.
+- Use loader-specific durability hooks so Fabric starts correctly and preserved broken items continue working across NeoForge durability layouts.
+- Apply Fabric death resets after persistent attachments are copied, preventing initialization order from restoring pre-death progression.
+- Match Iron's school page to the RPG page's panel size and reduce unused space.
 
 ## [5.0.1] - 2026-10-07
 

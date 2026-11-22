@@ -63,8 +63,12 @@ internal object AttributePresentation {
 
     fun displayed(entity: LivingEntity, id: ResourceLocation, current: Double? = value(entity, id)): String {
         if (current == null) return "—"
+        if (id.namespace == "irons_spellbooks" && id.path.endsWith("_spell_power")) return number(current * 100) + "%"
         return when (id.toString()) {
             "playerex:health_regeneration" -> number(current * 20 / com.bibireden.playerex.config.PlayerExConfigState.current().healthRegenerationLifecycle.interval) + " hp/s"
+            "irons_spellbooks:max_mana" -> number(current)
+            "irons_spellbooks:mana_regen", "irons_spellbooks:spell_power", "irons_spellbooks:summon_damage" -> number(current * 100) + "%"
+            "irons_spellbooks:cooldown_reduction", "irons_spellbooks:cast_time_reduction" -> number((current - 1.0) * 100) + "%"
             "spell_power:critical_chance" -> number((current - 100.0).coerceIn(0.0, 100.0)) + "%"
             "spell_power:critical_damage", "spell_power:haste" -> number(current) + "%"
             "minecraft:generic.attack_speed" -> number(current) + "/s"

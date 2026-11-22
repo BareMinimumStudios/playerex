@@ -47,7 +47,11 @@ object PlayerExFabricEntrypoint : ModInitializer {
             PlayerAttributeReconciler.reconcileOnLogin(handler.player)
             PlayerStateService.sync(handler.player)
         }
-        ServerPlayerEvents.AFTER_RESPAWN.register { _, newPlayer, alive ->
+        // Fabric copies persistent attachments in its default respawn phase.
+        // Reset and reconcile only after that copy, regardless of mod initialization order.
+        val progressionPhase = PlayerEX.id("after_attachment_copy")
+        ServerPlayerEvents.AFTER_RESPAWN.addPhaseOrdering(net.fabricmc.fabric.api.event.Event.DEFAULT_PHASE, progressionPhase)
+        ServerPlayerEvents.AFTER_RESPAWN.register(progressionPhase) { _, newPlayer, alive ->
             com.bibireden.playerex.progression.PlayerProgression.respawn(newPlayer, alive)
         }
     }

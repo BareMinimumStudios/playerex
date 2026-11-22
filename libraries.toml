@@ -13,6 +13,7 @@ mixin-extras = "0.5.3"
 crunch = "2.0.3"
 remnant = "3.0.0"
 data-attributes = "3.0.0"
+irons-spells = "1.21.1-3.16.4"
 
 [plugins]
 cloche = { id = "earth.terrarium.cloche", version.ref = "cloche" }
@@ -30,3 +31,5 @@ remnant-neoforge = { module = "maven.modrinth:oLPaySSb", version = "Twla1z8f" }
 # Public Modrinth version IDs pin the exact loader artifacts.
 data-attributes-fabric = { module = "maven.modrinth:KCGxOJsE", version = "tyrHzydP" }
 data-attributes-neoforge = { module = "maven.modrinth:KCGxOJsE", version = "hLnhUxoL" }
+
+irons-spells-neoforge = { module = "maven.modrinth:irons-spells-n-spellbooks", version = "Gzh2DpBL" }

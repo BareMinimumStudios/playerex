@@ -115,3 +115,45 @@ The release now resolves Data Attributes 3.0.0 and Remnant 3.0.0 from their publ
 Both-loader dedicated-server probes passed with the public dependencies: vanilla language loading, the Data Attributes presentation API and Focus 1 giving 0.015 hp/s, Remnant registration/cache/offline lookup/NBT save-load, commands and permissions, equipment/relic behavior, retained non-default configuration values and the missing-Luck regression. NeoForge config loading is queued during common setup to avoid concurrent use of Fzzy's shared JSON5 parser. These tests use disposable fixtures; they do not replace connected-client rendering or lifecycle checks.
 
 Standalone WizardEx and RelicEx are deprecated because their features are built into PlayerEx 5.0.0. Their legacy addon binaries are not required or supported by this port.
+
+## 5.1.0 integrations and dimension caps
+
+The optional NeoForge Iron's adapter compiles against the published 1.21.1-3.16.4 API without adding a runtime or nested dependency. Nine native school powers, primary-attribute bonus maps and server-side spell-level gates are implemented. Native casting, learning, cooldown and mana behavior remain owned by Iron's. Unknown addon schools are not restricted. The GUI exposes separate conditional RPG Series and Iron's pages.
+
+Both loaders save dimension visits and use the highest configured unlocked cap, bounded by the global level maximum. Level transactions, grant items, operator grants and client buttons use this cap. Death and reset items retain visits. Old save/offline codecs and save/network round trips were checked against production classes. Rule tests cover thresholds, invalid settings, numeric bounds, dimension ordering, unlisted dimensions and uncapped rules. Live NeoForge client layout, casting requirements and dimension transfers were subsequently checked in isolated background clients; results are recorded below.
+
+## Background in-game verification — 2026-11-21
+
+These checks used the packaged 5.1.0 NeoForge JAR in real Minecraft 1.21.1 clients with integrated servers and isolated worlds. Test-only code drove game APIs, real PlayerEx allocation packets and Iron's native cast initiation; the test worlds, harness and window-hiding agent remain outside the repository and release artifacts. Game framebuffer images were inspected without desktop capture, mouse input or keyboard input.
+
+| Installed magic backends | Expected total tabs | Result |
+| --- | --- | --- |
+| Neither | 2: Combat Stats, Attributes | Passed |
+| RPG Series only | 3, including RPG Spell Schools | Passed |
+| Iron's only | 3, including Iron's Spell Schools | Passed |
+| Both | 4, with separate RPG and Iron's pages | Passed |
+
+Attributes opened by default, tab hitboxes fit the viewport, and each available page rendered. The visual checks used a 1280×900 hidden OpenGL window at GUI scale 3, with Iron's using the same 328-unit panel height as the RPG school page without its optional mana bar. Vanilla tutorial toasts can temporarily cover the top-right area of a fresh test world; they are not part of PlayerEx.
+
+The no-backend case ran on NeoForge 21.1.26. The optional-backend cases used a test-only NeoForge 21.1.265 override for the installed libraries' requirements, while loading the production PlayerEx JAR compiled against 21.1.26. Iron's version was 1.21.1-3.16.4; optional libraries included Spell Engine 1.10.9, Spell Power 1.6.0, More RPG Library 2.8.2, Curios 9.6.0, GeckoLib 4.9.3, Iron's Lib 2.4.0 and Player Animator 2.0.4.
+
+Verified in the running game:
+
+- Real client-to-server allocation requests updated owned points.
+- An Overworld cap of 10 blocked further grants. Entering the Nether unlocked 20, allowed further leveling and still blocked grants above 20. Returning home retained the unlock.
+- Visiting the End with its configured -1 rule unlocked the global maximum and retained that unlock on returning home.
+- Real sword break/repair checks preserved the broken item and restored usability after repair on both tested NeoForge durability layouts.
+- Configured death reset removed levels while retaining dimension unlocks. Saved Nether visits and cap 20 survived reopening the world in a fresh integrated-server session in all four configurations.
+- Iron's level-two Firebolt was denied without sufficient school points, without spending mana. Ten Fire points allowed native casting and produced the native cast event. Refunding the points restored the restriction immediately.
+- Native Intelligence maximum-mana, Focus regeneration and Fire school-power changes matched configured amounts.
+- Spellbook, sword and configured scroll requirements worked. Scroll exemption, creative bypass and disabling requirements restored casting access after live config changes.
+- Disabling Iron's compatibility removed its native bonuses after the queued server reconciliation. Re-enabling it restored the expected amount without stacking.
+
+The live checks exposed noisy warnings for optional school attributes when their provider was absent; that expected case now skips the warning. The initial development launch also lacked its non-mod Crunch runtime library; validation therefore used the production JAR, whose nested Crunch loaded correctly.
+
+A separate hidden Fabric development client also passed its available tabs, live allocation packets, dimension caps, death reset, and saved-world restart checks. This run used the source development environment rather than a standalone packaged Fabric installation. It exposed loader-specific durability descriptors and an initialization-order dependency in Fabric respawn handling: durability hooks now live in each loader's mixins, and Fabric progression runs after attachment copying. Real sword break/repair checks passed on Fabric after these fixes.
+
+These checks do not certify dedicated-server multiplayer or every optional mod version. Both loader builds, the shared rule tests, production metadata/resource checks, old-save codec checks and save/network round trips also pass; mixed-version clients remain unsupported.
+### Issue #84: Pufferfish's Skills attribute rewards
+
+A hidden NeoForge 21.1.267 client with Pufferfish's Skills 0.19.2 and the packaged PlayerEx fix verified that `playerex:strength` appears in the default player supplier. A minimal valid datapack retaining the reporter's exact `health+2` reward loaded successfully, unlocking its skill added 2 Strength, and PlayerEx reconciliation retained that bonus. The reporter's full ZIP also references skill definitions absent from its definitions file, so the complete ZIP is not represented as a valid skill tree in this test.

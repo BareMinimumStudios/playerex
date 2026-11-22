@@ -9,9 +9,14 @@ internal object SpellSchoolSymbols {
     private val font = PlayerEX.id("schools")
     private val glyphs = listOf("fire", "frost", "arcane", "healing", "lightning", "soul", "water", "earth", "air", "nature")
         .mapIndexed { index, name -> name to Component.literal((0xE100 + index).toChar().toString()).withStyle { it.withFont(font).withColor(0xFFFFFF) } }.toMap()
+    private fun ironIcon(school: String): Component? = glyphs[when (school) {
+        "ice" -> "frost"; "holy" -> "healing"; "ender", "evocation" -> "arcane"
+        "blood" -> "healing"; "eldritch" -> "soul"; else -> school
+    }]?.copy()?.withStyle { if (school == "blood") it.withColor(0xD84A59) else it }
     fun icon(attribute: ResourceLocation): Component? = when (attribute.namespace) {
         "spell_power" -> glyphs[attribute.path]
-        "playerex" -> glyphs[attribute.path.removePrefix("spell_power_")]
+        "playerex" -> if (attribute.path.startsWith("iron_school_")) ironIcon(attribute.path.removePrefix("iron_school_")) else glyphs[attribute.path.removePrefix("spell_power_")]
+        "irons_spellbooks" -> ironIcon(attribute.path.removeSuffix("_spell_power"))
         else -> null
     }
 }

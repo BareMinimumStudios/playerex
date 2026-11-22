@@ -28,6 +28,19 @@ class PlayerExConfig : Config(PlayerEX.id("config")) {
     @me.fzzyhmstrs.fzzy_config.config.ConfigGroup.Pop
     var disableUI: Boolean = false
 
+    @Translatable.Name("Dimension-unlocked level caps")
+    val dimensionCapsGroup = me.fzzyhmstrs.fzzy_config.config.ConfigGroup("dimensionCaps", true)
+    @Translatable.Name("Enable dimension level caps")
+    @Translatable.Desc("Use visited dimensions to unlock higher PlayerEx levels. Returning home or dying does not remove an unlock. Existing levels are never reduced.")
+    var dimensionCapsEnabled: Boolean = false
+    @Translatable.Name("Starting level cap")
+    @Translatable.Desc("Cap before any dimension rule unlocks a higher value. The global Data Attributes level maximum still applies.")
+    var startingDimensionCap: Int = 10
+    @Translatable.Name("Dimension level caps")
+    @Translatable.Desc("Dimension ID -> unlocked maximum level. Example: minecraft:overworld=10, minecraft:the_nether=20. Use -1 to unlock the global maximum. Unlisted dimensions leave the cap unchanged. Config edits re-evaluate saved visits.")
+    @me.fzzyhmstrs.fzzy_config.config.ConfigGroup.Pop
+    var dimensionLevelCaps: Map<String, Int> = mapOf("minecraft:overworld" to 10, "minecraft:the_nether" to 20, "minecraft:the_end" to -1)
+
     @Translatable.Name("Weapon leveling")
     val weaponsGroup = me.fzzyhmstrs.fzzy_config.config.ConfigGroup("weapons", true)
     @Translatable.Name("Enable weapon leveling")
@@ -80,7 +93,7 @@ class PlayerExConfig : Config(PlayerEX.id("config")) {
     @Translatable.Name("Item breaking and repair")
     val breakageGroup = me.fzzyhmstrs.fzzy_config.config.ConfigGroup("breakage", true)
     @Translatable.Name("Preserve eligible broken items")
-    @Translatable.Desc("Items in playerex:unbreakable_items remain unusable at zero durability until repaired, while allowed preserved breaks remain.")
+    @Translatable.Desc("Items in playerex:unbreakable remain unusable at zero durability until repaired, while allowed preserved breaks remain.")
     var itemBreakingEnabled: Boolean = true
     @Translatable.Name("Unlimited preserved breaks")
     var infiniteItemBreaking: Boolean = false
@@ -167,6 +180,9 @@ class PlayerExConfig : Config(PlayerEX.id("config")) {
     var itemXpFromBoss: Int = 100
 
     fun toSnapshot(): PlayerExConfigSnapshot = PlayerExConfigSnapshot(
+        dimensionCapsEnabled = dimensionCapsEnabled,
+        startingDimensionCap = startingDimensionCap,
+        dimensionLevelCaps = dimensionLevelCaps.toMap(),
         relicDimensionRulesEnabled = relicDimensionRulesEnabled,
         relicDimensionRules = relicDimensionRules,
         relicChestsHaveLoot = relicChestsHaveLoot,

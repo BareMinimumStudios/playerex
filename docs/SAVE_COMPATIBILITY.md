@@ -1,10 +1,10 @@
 # Save compatibility
 
-Back up worlds before updating versions. This port preserves its 1.21.1 attachment/component schemas; it does not import 1.20.1 CCA/Endec progression or legacy PlayerEx/RelicEx item NBT.
+Back up worlds before updating versions. This update extends its 1.21.1 player attachment with an optional field; it does not import 1.20.1 CCA/Endec progression or legacy PlayerEx/RelicEx item NBT.
 
 ## Player and chunk state
 
-Canonical server-owned player fields are `level`, `skill_points`, `refundable_points`, `allocations`, and `level_up_notified`. Allocations are integer counts keyed by attribute resource ID. Runtime modifiers are transient and rebuilt from saved counts. `level` defaults to 0 for earlier development saves. Payload protocol remains **3**; 5.0.0 changes no codec or packet shape.
+Canonical server-owned player fields are `level`, `skill_points`, `refundable_points`, `allocations`, and `level_up_notified`. Allocations are integer counts keyed by attribute resource ID. Runtime modifiers are transient and rebuilt from saved counts. `level` defaults to 0 for earlier development saves. Version 5.1.0 adds optional `visited_dimensions` (a distinct dimension-ID list, capped at 1024). Older saves default to an empty list. The client state packet now includes this list, and the NeoForge payload protocol is **4**. Update clients and server together; mixed 5.0.x/5.1.x networking is unsupported.
 
 Chunk fields are `negation_factor` and `last_recovery_game_time`. Recovery uses server game time and is lazy; zero means no active recovery anchor. No wall-clock interpretation or per-chunk ticking component is introduced.
 
@@ -20,10 +20,10 @@ Vanilla owns Health NBT. PlayerEx captures loaded health transiently and restore
 
 `playerex:relic` contains rarity 0–6 and one to five distinct attribute rolls (ID, finite nonnegative amount bounded to 1000000, multiply flag). Missing state rolls once server-side. Unknown optional IDs remain saved but inactive. Stack copies, supported anvil infusion and repair preserve components. Crafting repair is rejected where it would discard relic rolls.
 
-Ten school allocations and admin trade allocations use the existing allocation map; no new persistent field is added. Reset retention keeps whole points, truncating fractional level/allocation counts and rounding skill/refund counters.
+RPG Series school allocations, nine NeoForge Iron's school allocations (`playerex:iron_school_*`) and admin trade allocations use the existing allocation map. Iron's points remain saved if the mod or integration is disabled. The independent visited-dimension list survives progression resets and reset-on-death. Reset retention keeps whole points, truncating fractional level/allocation counts and rounding skill/refund counters.
 
 ## External state
 
-Remnant owns the offline ledger and its existing snapshot codec. Mana Attributes owns Fabric mana persistence; PlayerEx only tracks transient casting reservations. Delayed/interrupted casting across disconnect/restart still needs connected-client verification. NeoForge mana integration is intentionally absent.
+Remnant owns the offline ledger and a snapshot codec extended with optional `visited_dimensions`, defaulting to an empty list for older entries. Mana Attributes owns Fabric mana persistence; PlayerEx only tracks transient casting reservations. Delayed/interrupted casting across disconnect/restart still needs connected-client verification. On NeoForge, Iron's Spells owns its own mana and casting state; PlayerEx adjusts native attributes without copying that state.
 
 Gameplay config retains existing flat keys; Fzzy display groups do not serialize. Client palette migration replaces only the complete original stock palette and preserves custom colors. Do not delete existing configs to install 5.0.0.

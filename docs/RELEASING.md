@@ -1,6 +1,6 @@
 # Preparing a release
 
-PlayerEx builds both Minecraft 1.21.1 loaders from the same source. The public version is **5.0.0**; the mod metadata has no alpha, beta or Minecraft suffix.
+PlayerEx builds both Minecraft 1.21.1 loaders from the same source. The public version is **5.1.0**; the mod metadata has no alpha, beta or Minecraft suffix.
 
 ## Before publishing
 
@@ -27,9 +27,9 @@ Add these repository or organization Actions secrets:
 
 `GITHUB_TOKEN` is supplied by GitHub. No token belongs in source files.
 
-Publishing starts when a matching tag is pushed, or when an authorized maintainer runs the publish workflow manually. For this version, the tag is **`v5.0.0`**. A mismatched tag or missing dated changelog section stops the build before upload.
+Publishing starts when a matching tag is pushed, or when an authorized maintainer runs the publish workflow manually. For this version, the tag is **`v5.1.0`**. A mismatched tag or missing dated changelog section stops the build before upload.
 
-Modrinth and CurseForge receive separate Fabric and NeoForge files. Their version identifiers are `5.0.0+1.21.1-fabric` and `5.0.0+1.21.1-neoforge`, including the Minecraft version and loader; the installed mod version remains `5.0.0`. Both are marked **release**, for Minecraft 1.21.1, Java 21, client and server.
+Modrinth and CurseForge receive separate Fabric and NeoForge files. Their version identifiers are `5.1.0+1.21.1-fabric` and `5.1.0+1.21.1-neoforge`, including the Minecraft version and loader; the installed mod version remains `5.1.0`. Both are marked **release**, for Minecraft 1.21.1, Java 21, client and server.
 
 Data Attributes, Fzzy Config and the loader's language/runtime dependencies are marked required. Remnant is marked embedded because PlayerEx already includes its public JAR. Players should not install a second copy just to satisfy the dependency listing.
 

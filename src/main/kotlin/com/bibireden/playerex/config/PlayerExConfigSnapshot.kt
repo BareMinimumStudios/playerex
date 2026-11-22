@@ -4,6 +4,9 @@ import com.bibireden.playerex.math.FormulaEngine
 
 /** Loader-neutral values consumed by common code. Fzzy classes stay in loader source sets. */
 data class PlayerExConfigSnapshot(
+    val dimensionCapsEnabled: Boolean = false,
+    val startingDimensionCap: Int = 10,
+    val dimensionLevelCaps: Map<String, Int> = mapOf("minecraft:overworld" to 10, "minecraft:the_nether" to 20, "minecraft:the_end" to -1),
     val relicDimensionRulesEnabled: Boolean = true,
     val relicDimensionRules: Map<String, List<Int>> = mapOf("minecraft:overworld" to listOf(100, 100, 80, 50, 30, 15, 5, 1), "minecraft:the_nether" to listOf(100, 50, 70, 90, 80, 60, 30, 10), "minecraft:the_end" to listOf(100, 10, 30, 60, 90, 100, 80, 50)),
     val relicChestsHaveLoot: Boolean = true,
@@ -54,6 +57,8 @@ data class PlayerExConfigSnapshot(
     val armorFormula: String = FormulaEngine.DEFAULT_ITEM_FORMULA
 ) {
     fun normalized(): PlayerExConfigSnapshot = copy(
+        startingDimensionCap = startingDimensionCap.coerceAtLeast(0),
+        dimensionLevelCaps = dimensionLevelCaps.filterKeys { net.minecraft.resources.ResourceLocation.tryParse(it) != null }.mapValues { it.value.coerceAtLeast(-1) },
         relicDimensionRules = relicDimensionRules.filter { (id, values) -> net.minecraft.resources.ResourceLocation.tryParse(id) != null && values.size == 8 }.mapValues { (_, values) -> listOf(values[0].coerceIn(0, 200)) + values.drop(1).map { it.coerceIn(0, 100) } },
         relicChestChance = relicChestChance.coerceIn(0, 100),
         relicChestLesserOrbChance = relicChestLesserOrbChance.coerceIn(0, 100),

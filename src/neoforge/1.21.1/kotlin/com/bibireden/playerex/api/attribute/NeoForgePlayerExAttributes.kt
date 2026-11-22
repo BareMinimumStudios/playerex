@@ -15,12 +15,22 @@ object NeoForgePlayerExAttributes {
     )
 
     init {
-        for (definition in PlayerEXAttributes.DEFINITIONS) {
+        for (definition in (PlayerEXAttributes.DEFINITIONS + PlayerEXAttributes.IRON_DEFINITIONS)) {
             registrar.register(definition.id.path, Supplier<RangedAttribute>(definition::create))
         }
     }
 
     fun init(modBus: IEventBus) {
         registrar.register(modBus)
+        modBus.addListener { event: net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent ->
+            // Other mods validate rewards against the default player supplier before datapacks
+            // add per-entity instances. Register our baseline there through NeoForge's API.
+            val definitions = PlayerEXAttributes.DEFINITIONS +
+                if (net.neoforged.fml.ModList.get().isLoaded("irons_spellbooks")) PlayerEXAttributes.IRON_DEFINITIONS else emptyList()
+            definitions.forEach { definition ->
+                val holder = BuiltInRegistries.ATTRIBUTE.wrapAsHolder(BuiltInRegistries.ATTRIBUTE.get(definition.id)!!)
+                if (!event.has(net.minecraft.world.entity.EntityType.PLAYER, holder)) event.add(net.minecraft.world.entity.EntityType.PLAYER, holder)
+            }
+        }
     }
 }

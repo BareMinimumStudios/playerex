@@ -44,14 +44,27 @@ object PlayerEXAttributes {
 
     // Spell Power and More RPG Library register these magic-school attributes.
     @JvmField
-    val SPELL_SCHOOL_IDS: Map<ResourceLocation, ResourceLocation> =
+    val RPG_SCHOOL_IDS: Map<ResourceLocation, ResourceLocation> =
         listOf("fire", "frost", "arcane", "healing", "lightning", "soul", "water", "earth", "air", "nature")
             .associate { id("spell_power_$it") to ResourceLocation.fromNamespaceAndPath("spell_power", it) }
+
+    @JvmField
+    val IRON_SCHOOL_IDS: Map<ResourceLocation, ResourceLocation> =
+        com.bibireden.playerex.compat.magic.IronMagicRules.schools.associate {
+            id("iron_school_$it") to ResourceLocation.fromNamespaceAndPath("irons_spellbooks", "${it}_spell_power")
+        }
+    @JvmField
+    val SPELL_SCHOOL_IDS = RPG_SCHOOL_IDS + IRON_SCHOOL_IDS
+    @JvmField
+    val IRON_DEFINITIONS = IRON_SCHOOL_IDS.keys.map { Definition(it, 0.0, 0.0, 100.0) }
 
     @JvmField
     val ALLOCATION_ATTRIBUTE_IDS = PRIMARY_ATTRIBUTE_IDS + SPELL_SCHOOL_IDS.keys
 
     fun schoolAvailable(player: net.minecraft.world.entity.player.Player, allocation: ResourceLocation): Boolean {
+        val magic = com.bibireden.playerex.compat.magic.MagicIntegration
+        if (allocation in IRON_SCHOOL_IDS && !magic.ironEnabled()) return false
+        if (allocation in RPG_SCHOOL_IDS && !magic.rpgEnabled()) return false
         val powerId = SPELL_SCHOOL_IDS[allocation] ?: return false
         val power = BuiltInRegistries.ATTRIBUTE.get(powerId) ?: return false
         return player.getAttribute(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(power)) != null
@@ -83,7 +96,7 @@ object PlayerEXAttributes {
         Definition(id("ranged_crit_chance"), 0.0, 0.0, 1.0),
         Definition(id("ranged_crit_damage"), 0.0, 0.0, 1.0),
         Definition(id("dropped_experience_multiplier"), 1.0, 0.0, 1024.0)
-    ) + SPELL_SCHOOL_IDS.keys.map { Definition(it, 0.0, 0.0, Int.MAX_VALUE.toDouble()) } + TradeSkillAttributes.IDS.map { Definition(it, 0.0, 0.0, 100.0) }
+    ) + RPG_SCHOOL_IDS.keys.map { Definition(it, 0.0, 0.0, Int.MAX_VALUE.toDouble()) } + TradeSkillAttributes.IDS.map { Definition(it, 0.0, 0.0, 100.0) }
 
     /** Resolves a registered PlayerEx ranged attribute after loader registry setup. */
     @JvmStatic

@@ -221,6 +221,7 @@ jobs:
             more_rpg_classes(optional){modrinth:Wkc3lwHo}{curseforge:more-rpg-library}
             spell_power(optional){modrinth:8ooWzSQP}{curseforge:spell-power}
             spell_engine(optional){modrinth:XvoWJaA2}{curseforge:spell-engine}
+            irons_spellbooks(optional){modrinth:irons-spells-n-spellbooks}{curseforge:irons-spells-n-spellbooks}
             curios(optional){modrinth:vvuO3ImH}{curseforge:curios}
           java: ${{ env.JAVA_VERSION }}
           retry-attempts: 3
@@ -270,6 +271,7 @@ jobs:
             more_rpg_classes(optional){modrinth:Wkc3lwHo}{curseforge:more-rpg-library}
             spell_power(optional){modrinth:8ooWzSQP}{curseforge:spell-power}
             spell_engine(optional){modrinth:XvoWJaA2}{curseforge:spell-engine}
+            irons_spellbooks(optional){modrinth:irons-spells-n-spellbooks}{curseforge:irons-spells-n-spellbooks}
             curios(optional){modrinth:vvuO3ImH}{curseforge:curios}
           java: ${{ env.JAVA_VERSION }}
           retry-attempts: 3

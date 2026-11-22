@@ -7,7 +7,8 @@
     "SpellManaCostMixin",
     "SpellManaAmmoMixin",
     "SpellManaExecutionMixin",
-    "SpellManaDeliveryMixin"
+    "SpellManaDeliveryMixin",
+    "FabricDurabilityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

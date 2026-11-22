@@ -80,7 +80,7 @@ object RelicUtilityItems {
                             true
                         }
                     } else {
-                        PlayerStateService.set(player, PlayerExState.EMPTY, false)
+                        PlayerStateService.set(player, PlayerExState(visitedDimensions = PlayerStateService.get(player).visitedDimensions), false)
                         PlayerAttributeReconciler.reconcile(player)
                         player.health = player.health.coerceAtMost(player.maxHealth)
                         PlayerStateService.sync(player)

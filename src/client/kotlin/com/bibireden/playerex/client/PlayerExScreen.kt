@@ -20,7 +20,7 @@ import kotlin.math.min
 
 class PlayerExScreen : Screen(tr("title")) {
     private enum class Page(val key: String, val icon: String) {
-        COMBAT("combat", "icon_swords"), ATTRIBUTES("attributes", "icon_helix"), SPELLS("spells", "icon_bandage")
+        COMBAT("combat", "icon_swords"), ATTRIBUTES("attributes", "icon_helix"), SPELLS("rpg_spells", "icon_bandage"), IRON("irons_spells", "icon_eye")
     }
     private enum class Control { TEXT, CLOSE, LEVEL, INVENTORY }
     private var displayedCost = 0
@@ -33,10 +33,16 @@ class PlayerExScreen : Screen(tr("title")) {
     private val primary = PlayerEXAttributes.PRIMARY_ATTRIBUTE_IDS.toList()
     private var allocationTargets = primary
     private var mana: ManaPresentation.Value? = null
-    private val panelHeight: Int get() = if (page == Page.SPELLS) (if (ManaPresentation.available) 352 else 328) else 288
-    private fun availableSchools() = minecraft?.player?.let { player ->
-        PlayerEXAttributes.SPELL_SCHOOL_IDS.keys.filter { PlayerEXAttributes.schoolAvailable(player, it) }
+    private val magicPage: Boolean get() = page == Page.SPELLS || page == Page.IRON
+    private var activePages = emptyList<Page>()
+    private val panelHeight: Int get() = if (page == Page.IRON) 328 else if (page == Page.SPELLS) (if (ManaPresentation.available) 352 else 328) else 288
+    private val allocationRowSpacing: Int get() = if (page == Page.IRON) 18 else if (magicPage) 16 else 22
+    private fun availableSchools(target: Page = page) = minecraft?.player?.let { player ->
+        val schools = if (target == Page.IRON) PlayerEXAttributes.IRON_SCHOOL_IDS else PlayerEXAttributes.RPG_SCHOOL_IDS
+        schools.keys.filter { PlayerEXAttributes.schoolAvailable(player, it) }
     } ?: emptyList()
+    private fun availablePages() = listOf(Page.COMBAT, Page.ATTRIBUTES) +
+        listOf(Page.SPELLS, Page.IRON).filter { availableSchools(it).isNotEmpty() }
     private val icons = listOf("icon_heart", "icon_arm", "icon_bow", "icon_helix", "icon_clover", "icon_eye")
     private val spend = mutableListOf<Button>()
     private val refunds = mutableListOf<Button>()
@@ -56,6 +62,8 @@ class PlayerExScreen : Screen(tr("title")) {
     private var attributeTooltip = emptyList<FormattedCharSequence>()
 
     override fun init() {
+        activePages = availablePages()
+        if (page !in activePages) page = Page.ATTRIBUTES
         scale = min(1f, min((width - 12) / (PANEL_WIDTH + 20f), (height - 12) / (panelHeight + 20f))).coerceAtLeast(0.25f)
         originX = ((width - PANEL_WIDTH * scale) / 2).toInt()
         originY = ((height - (panelHeight - 20) * scale) / 2).toInt()
@@ -63,8 +71,10 @@ class PlayerExScreen : Screen(tr("title")) {
         refunds.clear()
         tooltipId = null
         shownValues.clear()
-        Page.entries.forEachIndexed { i, tab ->
-            button(18 + i * 102, -18, 100, 19, tr(tab.key), tab.icon, "top_tab") {
+        val tabGap = 4
+        val tabWidth = (PANEL_WIDTH - 36 - tabGap * (activePages.size - 1)) / activePages.size
+        activePages.forEachIndexed { i, tab ->
+            button(18 + i * (tabWidth + tabGap), -18, tabWidth, 19, tr(tab.key), tab.icon, "top_tab") {
                 page = tab; tooltipId = null; rebuildWidgets()
             }.tooltip = Tooltip.create(tr(tab.key))
         }
@@ -73,13 +83,13 @@ class PlayerExScreen : Screen(tr("title")) {
         button(PANEL_WIDTH + 1, 63, 12, 21, tr("inventory"), control = Control.INVENTORY) {
             minecraft?.player?.let { minecraft?.setScreen(InventoryScreen(it)) }
         }.tooltip = Tooltip.create(tr("inventory"))
-        allocationTargets = if (page == Page.SPELLS) availableSchools() else primary
+        allocationTargets = if (magicPage) availableSchools() else primary
         if (page != Page.COMBAT) {
             button(139, 49, 25, 13, Component.literal("×$allocationAmount")) {
                 allocationAmount = nextAmount(allocationAmount); rebuildWidgets()
             }.tooltip = Tooltip.create(tr("amount_hint"))
             allocationTargets.forEachIndexed { i, id ->
-            val y = 80 + i * if (page == Page.SPELLS) 16 else 22
+            val y = 80 + i * allocationRowSpacing
             refunds += button(139, y - 2, 12, 13, Component.literal("−")) {
                 request { PlayerExClientRequests.refund(id, allocationAmount) }
             }.also { it.tooltip = Tooltip.create(tr("refund_hint")) }
@@ -112,7 +122,7 @@ class PlayerExScreen : Screen(tr("title")) {
                     assetSlice(g, background, lw - 6, 0, 6, lh, 30, 0, 6, 19, 36, 19)
                 } else texture(g, background, 0, 0, lw, lh, 19, 55)
             }
-            val selected = background == "top_tab" && icon == page.icon
+            val selected = background == "top_tab" && message.string == tr(page.key).string
             val color = if (control == Control.CLOSE) { if (isHoveredOrFocused) 0xFF7169 else 0xDC4942 }
                 else if (control == Control.LEVEL) { if (!active) 0xBDA15E else if (isHoveredOrFocused) 0xFFE577 else 0xF2D36B }
                 else if (!active) MUTED else if (isHoveredOrFocused || selected) GOLD else WHITE
@@ -161,7 +171,7 @@ class PlayerExScreen : Screen(tr("title")) {
         ticks++
         if (PlayerExConfigState.current().disableUI) { onClose(); return }
         if (minecraft?.player == null) onClose()
-        else if (page == Page.SPELLS && allocationTargets != availableSchools()) rebuildWidgets()
+        else if (activePages != availablePages() || (magicPage && allocationTargets != availableSchools())) rebuildWidgets()
         else updateButtons()
         mana = minecraft?.player?.let(ManaPresentation::value)
     }
@@ -177,9 +187,12 @@ class PlayerExScreen : Screen(tr("title")) {
                 refunds[i].active = ready && state.refundablePoints >= allocationAmount && count >= allocationAmount
             }
         }
-        levelButton.active = ready && state.level.toLong() + levelAmount <= (AttributePresentation.maximum(PlayerEXAttributes.LEVEL_ID) ?: 100.0) &&
+        levelButton.tooltip = Tooltip.create(if (PlayerExConfigState.current().dimensionCapsEnabled) tr("dimension_cap_hint", currentLevelCap()) else tr("level_hint"))
+        levelButton.active = ready && state.level.toLong() + levelAmount <= currentLevelCap() &&
             (minecraft?.player?.experienceLevel ?: 0) >= displayedCost
     }
+    private fun currentLevelCap(): Int = com.bibireden.playerex.progression.DimensionProgression.maximum(
+        ClientPlayerExState.current(), (AttributePresentation.maximum(PlayerEXAttributes.LEVEL_ID) ?: 100.0).toInt())
     private fun cost(): Int {
         val level = ClientPlayerExState.current().level
         val formula = PlayerExConfigState.current().levelFormula
@@ -204,16 +217,26 @@ class PlayerExScreen : Screen(tr("title")) {
         when (page) {
             Page.ATTRIBUTES -> attributes(g, mouseX, mouseY)
             Page.COMBAT -> combat(g, mouseX, mouseY)
-            Page.SPELLS -> spells(g, mouseX, mouseY)
+            Page.SPELLS, Page.IRON -> spells(g, mouseX, mouseY)
         }
         footer(g); g.pose().popPose()
         super.render(g, mouseX, mouseY, partialTick)
         hoveredAttribute?.let { id -> minecraft?.player?.let { player ->
             if (tooltipId != id || tooltipTick != ticks) {
-                tooltipId = id; tooltipTick = ticks; attributeTooltip = AttributePresentation.tooltip(player, id).flatMap { font.split(it, min(220, width - 24).coerceAtLeast(80)) }
+                tooltipId = id; tooltipTick = ticks; attributeTooltip = (AttributePresentation.tooltip(player, id) + schoolRequirementTooltip(id)).flatMap { font.split(it, min(220, width - 24).coerceAtLeast(80)) }
             }
             setTooltipForNextRenderPass(attributeTooltip)
         } }
+    }
+    private fun schoolRequirementTooltip(id: ResourceLocation): List<Component> {
+        if (id !in PlayerEXAttributes.IRON_SCHOOL_IDS) return emptyList()
+        val settings = com.bibireden.playerex.compat.magic.MagicIntegration.settings
+        if (!settings.restrictSpellLevels) return listOf(tr("iron_requirements_off"))
+        val points = ClientPlayerExState.current().allocations[id] ?: 0
+        val thresholds = settings.requirements("irons_spellbooks:" + id.path.removePrefix("iron_school_"))
+        val allowed = com.bibireden.playerex.compat.magic.IronMagicRules.allowedLevel(points, thresholds)
+        return listOf(tr("iron_unlocked_level", allowed)) +
+            if (allowed < thresholds.size) listOf(tr("iron_next_level", allowed + 1, thresholds[allowed])) else emptyList()
     }
     /** Expand blank header sections and rails while keeping the crest and corner details intact. */
     private fun frame(g: GuiGraphics) {
@@ -282,7 +305,7 @@ class PlayerExScreen : Screen(tr("title")) {
         text(g, tr("skill_points", state.skillPoints), 12, 48, WHITE)
         text(g, tr("refund_points", state.refundablePoints), 12, 59, MUTED)
         allocationTargets.forEachIndexed { i, allocation ->
-            val y = 80 + i * 16
+            val y = 80 + i * allocationRowSpacing
             SpellSchoolSymbols.icon(allocation)?.let { text(g, it, 12, y, WHITE) }
             text(g, AttributePresentation.name(allocation), 23, y, WHITE)
             val count = Component.literal((state.allocations[allocation] ?: 0).toString())
@@ -297,9 +320,13 @@ class PlayerExScreen : Screen(tr("title")) {
         allocationTargets.forEachIndexed { i, allocation ->
             stat(g, PlayerEXAttributes.SPELL_SCHOOL_IDS.getValue(allocation).toString(), 180, 69 + i * 14, mx, my)
         }
-        heading(g, "spell_criticals", "icon_clover", 180, 215)
-        SPELL_CRITICAL_STATS.forEachIndexed { i, id -> stat(g, id, 180, 236 + i * 14, mx, my) }
-        mana?.let { value ->
+        val secondaryHeadingY = if (page == Page.IRON) 192 else 215
+        val secondaryRowSpacing = if (page == Page.IRON) 12 else 14
+        heading(g, if (page == Page.IRON) "iron_magic_stats" else "spell_criticals", "icon_clover", 180, secondaryHeadingY)
+        (if (page == Page.IRON) IRON_MAGIC_STATS else SPELL_CRITICAL_STATS).forEachIndexed { i, id ->
+            stat(g, id, 180, secondaryHeadingY + 21 + i * secondaryRowSpacing, mx, my)
+        }
+        mana?.takeIf { page == Page.SPELLS }?.let { value ->
             centered(g, tr("mana", String.format(java.util.Locale.ROOT, "%.1f", value.current), String.format(java.util.Locale.ROOT, "%.1f", value.maximum)), 168, panelHeight - 67, WHITE)
             bar(g, 36, panelHeight - 55, 264, "progress_bar_blue", if (value.maximum > 0) (value.current / value.maximum).toDouble() else 0.0)
         }
@@ -334,7 +361,7 @@ class PlayerExScreen : Screen(tr("title")) {
     }
     private fun footer(g: GuiGraphics) {
         val state = ClientPlayerExState.current(); val xp = minecraft?.player?.experienceLevel ?: 0; val needed = displayedCost
-        val max = state.level >= (AttributePresentation.maximum(PlayerEXAttributes.LEVEL_ID) ?: 100.0)
+        val max = state.level >= currentLevelCap()
         assetSlice(g, "bottom_hud_disconnected", 9, panelHeight - 45, 44, 34, 0, 0, 44, 34, 159, 34)
         assetSlice(g, "bottom_hud_disconnected", 53, panelHeight - 45, PANEL_WIDTH - 93, 34, 90, 0, 1, 34, 159, 34)
         assetSlice(g, "bottom_hud_disconnected", PANEL_WIDTH - 40, panelHeight - 45, 16, 34, 143, 0, 16, 34, 159, 34)
@@ -348,7 +375,8 @@ class PlayerExScreen : Screen(tr("title")) {
             texture(g, "progress_bar_bottom", 55, panelHeight - 21, 243, 3, 92, 3)
             g.disableScissor()
         }
-        centered(g, if (max) tr("max_level") else tr("xp", xp, needed), PANEL_WIDTH / 2, panelHeight - 40, WHITE)
+        val capLabel = if (PlayerExConfigState.current().dimensionCapsEnabled) tr("dimension_cap", currentLevelCap()) else tr("max_level")
+        centered(g, if (max) capLabel else tr("xp", xp, needed), PANEL_WIDTH / 2, panelHeight - 40, WHITE)
     }
     private fun bar(g: GuiGraphics, x: Int, y: Int, w: Int, name: String, fraction: Double) {
         texture(g, "progress_bar_empty", x, y, w, 8, 122, 8)
@@ -410,6 +438,8 @@ class PlayerExScreen : Screen(tr("title")) {
         private val DEFENSE_STATS = listOf("minecraft:generic.armor", "minecraft:generic.armor_toughness", "minecraft:generic.knockback_resistance", "playerex:evasion", "spell_power:resistance.generic")
         private val RANGED_STATS = listOf("ranged_weapon:damage", "ranged_weapon:haste", "playerex:ranged_crit_damage", "playerex:ranged_crit_chance")
         private val MISCELLANEOUS_STATS = listOf("minecraft:player.entity_interaction_range", "minecraft:player.block_interaction_range", "playerex:breaking_speed", "playerex:lifesteal", "playerex:dropped_experience_multiplier")
+        private val IRON_MAGIC_STATS = listOf("irons_spellbooks:max_mana", "irons_spellbooks:mana_regen",
+            "irons_spellbooks:spell_power", "irons_spellbooks:cooldown_reduction", "irons_spellbooks:cast_time_reduction", "irons_spellbooks:summon_damage")
         private val SPELL_CRITICAL_STATS = listOf("spell_power:critical_chance", "spell_power:critical_damage", "spell_power:haste")
         private val AMOUNTS = listOf(1, 5, 10, 25)
         private fun tr(key: String, vararg args: Any): Component = Component.translatable("playerex.screen.$key", *args)

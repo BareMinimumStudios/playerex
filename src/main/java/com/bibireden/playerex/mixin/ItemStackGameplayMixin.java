@@ -4,8 +4,6 @@ import com.bibireden.playerex.item.ItemProgression;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.core.Holder;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -14,7 +12,6 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -22,49 +19,14 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Group;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackGameplayMixin {
     @Unique private static final EquipmentSlot[] PLAYEREX_EQUIPMENT_SLOTS = EquipmentSlot.values();
 
-    @Inject(method = "hurtAndBreak(ILnet/minecraft/server/level/ServerLevel;Lnet/minecraft/server/level/ServerPlayer;Ljava/util/function/Consumer;)V", at = @At("HEAD"), cancellable = true)
-    private void playerex$alreadyBroken(int amount, ServerLevel level, ServerPlayer player, Consumer<Item> onBreak, CallbackInfo ci) {
-        if (ItemProgression.isBroken((ItemStack) (Object) this)) ci.cancel();
-    }
-
-    @Group(name = "playerexDurabilityBreak", min = 1, max = 1)
-    @Inject(method = "hurtAndBreak(ILnet/minecraft/server/level/ServerLevel;Lnet/minecraft/server/level/ServerPlayer;Ljava/util/function/Consumer;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;shrink(I)V"), cancellable = true, require = 0)
-    private void playerex$preserveBroken(int amount, ServerLevel level, ServerPlayer player, Consumer<Item> onBreak, CallbackInfo ci) {
-        ItemStack stack = (ItemStack) (Object) this;
-        if (ItemProgression.preserveBroken(stack)) {
-            ItemProgression.notifyBroken(stack, player);
-            onBreak.accept(stack.getItem());
-            ci.cancel();
-        }
-    }
-
-    // Newer NeoForge 1.21.1 delegates durability to the LivingEntity overload.
-    // The group requires exactly one actual break-site hook across both layouts.
-    @Group(name = "playerexDurabilityBreak", min = 1, max = 1)
-    @Inject(method = "hurtAndBreak(ILnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/LivingEntity;Ljava/util/function/Consumer;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;shrink(I)V", remap = false), cancellable = true, require = 0, remap = false)
-    private void playerex$preserveBrokenEntity(int amount, ServerLevel level, net.minecraft.world.entity.LivingEntity entity, Consumer<Item> onBreak, CallbackInfo ci) {
-        ItemStack stack = (ItemStack) (Object) this;
-        if (ItemProgression.preserveBroken(stack)) {
-            ItemProgression.notifyBroken(stack, entity);
-            onBreak.accept(stack.getItem());
-            ci.cancel();
-        }
-    }
-
-    @Inject(method = "hurtAndBreak(ILnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/LivingEntity;Ljava/util/function/Consumer;)V", at = @At("HEAD"), cancellable = true, require = 0, remap = false)
-    private void playerex$alreadyBrokenEntity(int amount, ServerLevel level, net.minecraft.world.entity.LivingEntity entity, Consumer<Item> onBreak, CallbackInfo ci) {
-        if (ItemProgression.isBroken((ItemStack) (Object) this)) ci.cancel();
-    }
     @Inject(method = "setDamageValue(I)V", at = @At("HEAD"))
     private void playerex$repair(int damage, CallbackInfo ci) { ItemProgression.repair((ItemStack) (Object) this, damage); }
 

@@ -141,6 +141,8 @@ cloche {
         }
 
         dependencies {
+            // Public NeoForge API only: never bundled, required or added to runtime by PlayerEx.
+            compileOnly(libs.irons.spells.neoforge)
             include(libs.crunch)
             include(libs.remnant.neoforge)
             modImplementation(libs.remnant.neoforge)
@@ -167,6 +169,7 @@ cloche {
                     modId = "data_attributes"
                     version(libs.versions.data.attributes.get())
                 }
+                suggest("irons_spellbooks", libs.versions.irons.spells.get(), "Optional Iron's Spells school progression and attribute bonuses.")
                 suggest("critical_strike", "0", "PlayerEx can delegate critical-hit execution to Critical Strike when installed.")
                 suggest("spell_power", "0", "PlayerEx integrates Intelligence/Luckiness/Constitution with Spell Power attributes.")
                 suggest("spell_engine", "0", "PlayerEx can expose Spell Engine-aware progression without hard linkage.")

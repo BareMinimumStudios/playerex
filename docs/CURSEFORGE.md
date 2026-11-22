@@ -28,7 +28,7 @@ This **Minecraft 1.21.1** version runs on **Fabric and NeoForge**. It carries fo
 
 **WizardEx and RelicEx are deprecated as standalone addons.** Their features are now built into PlayerEx 5.0.0. Do not install the old addon JARs alongside this release.
 
-**PlayerEx 5.0.0 is the Minecraft 1.21.1 release.** Use matching PlayerEx versions on the server and clients, and keep backups when updating an existing world.
+**PlayerEx 5.1.0 is for Minecraft 1.21.1.** Use matching PlayerEx versions on the server and clients, and keep backups when updating an existing world.
 
 ## How it works
 
@@ -63,7 +63,7 @@ Focus regeneration is passive, but it starts small. With the default relationshi
 
 ## A character screen that shows the whole build
 
-The screen has three pages:
+Attributes and Combat Stats are always available. Magic pages appear for the installed, enabled systems:
 
 - **Attributes:** spend and refund points, check regeneration and resistances, and see your current health and oxygen.
 - **Combat Stats:** inspect melee and ranged bonuses, defenses, reach, breaking speed and other useful values.
@@ -119,13 +119,39 @@ PlayerEx supports **Fire, Frost, Arcane, Healing, Lightning and Soul**, plus **W
 
 Only schools supplied by your installed mods become available. PlayerEx supplies progression and compatibility; the libraries and spell-content mods provide their spells, casting rules and external attributes. If you remove an optional school provider, saved allocations remain available for refunds.
 
+### Iron's Spells on NeoForge
+
+**Iron's Spells 'n Spellbooks is optional and NeoForge-only.** With it installed, PlayerEx adds a separate school page for Fire, Ice, Lightning, Holy, Ender, Blood, Evocation, Nature and Eldritch. If RPG Series magic is also present, each system gets its own tab; if only one is present, only that magic tab appears. Attributes remains the main page.
+
+The server's **PlayerEx: Magic compatibility** config controls Intelligence and Focus bonuses to Iron's maximum mana, spell power, cast-time reduction, summon damage, mana regeneration and cooldown reduction. School allocations have separately configurable power bonuses. Iron's continues to own its mana, casting and cooldown systems.
+
+Optional spell-level requirements can make school investment necessary for higher-level spells. They are **off by default** to preserve existing characters' access. Enable them and edit each school's point thresholds in-game or in `config/playerex/magic.json5`. Defaults unlock spell levels 1–10 at 0, 10, 20, …, 90 allocated points. Scroll restrictions, creative bypass and spell exemptions are configurable. Requirements use owned points, so equipment cannot bypass them. Native Iron's learning, mana and cooldown checks still apply.
+
+The integration mode can show RPG Series, Iron's, both, or neither. This controls PlayerEx school access and Iron's bonuses; it does not disable another mod's spells. Existing RPG Series attribute relationships remain editable through Data Attributes. PlayerEx does not bundle Iron's or its dependencies.
+
 ### Mana and rune substitution on Fabric
 
 With **Spell Engine** and **Mana Attributes** installed on Fabric, eligible spells can use mana when you do not have enough of their required consumable runes. Existing runes are preferred, and eligible More RPG rune stones are supported too. Ordinary reagents and arrows are not replaced with mana.
 
 Mana Attributes supplies the mana pool, regeneration and its HUD. PlayerEx handles the connection to eligible Spell Engine costs. The **minimum automatic mana cost is 20**, with stronger or repeated spell launches costing more. Set enough mana capacity through your gear or configuration: installing the integration alone does not guarantee that a fresh character can afford a cast.
 
-**Mana integration is Fabric-only.** The NeoForge version still supports compatible spell attributes and school progression, but does not include this mana backend.
+**Mana Attributes integration is Fabric-only.** On NeoForge, the optional Iron's integration uses Iron's own mana system instead.
+
+## Unlock higher level caps by exploring
+
+The **Dimension-unlocked level caps** group is available in the server config on both loaders. It is off by default. Enable it and set a starting cap plus a dimension-to-level map, for example:
+
+```json
+{
+  "minecraft:overworld": 10,
+  "minecraft:the_nether": 20,
+  "minecraft:the_end": -1
+}
+```
+
+This is the value of `dimensionLevelCaps` in `config/playerex/config.json5`, and the same map is editable in-game. Visiting the Nether unlocks level 20 permanently, including after returning home, dying or reconnecting. `-1` unlocks the global Data Attributes level maximum; unlisted dimensions leave the cap unchanged. Add modded dimension IDs in the same way.
+
+Existing levels are never removed. Config edits re-evaluate the saved visits, so lowering a rule can prevent further leveling until a higher cap is unlocked. Older saves begin tracking visits with this update; dimensions visited before installing it must be visited again. Server and clients need matching PlayerEx versions.
 
 ## Installation
 

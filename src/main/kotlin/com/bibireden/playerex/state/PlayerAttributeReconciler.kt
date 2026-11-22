@@ -22,13 +22,16 @@ object PlayerAttributeReconciler {
                 player,
                 attributeId,
                 allocationModifierIds.getValue(attributeId),
-                state.allocations[attributeId] ?: 0
+                if (attributeId in PlayerEXAttributes.SPELL_SCHOOL_IDS && !PlayerEXAttributes.schoolAvailable(player, attributeId)) 0
+                else state.allocations[attributeId] ?: 0
             )
         }
+        com.bibireden.playerex.compat.magic.MagicIntegration.reconcile(player)
     }
 
     @JvmStatic
     fun reconcileOnLogin(player: ServerPlayer) {
+        com.bibireden.playerex.progression.DimensionProgression.recordVisit(player)
         reconcile(player)
         (player as LoadedPlayerHealth).`playerex$restoreLoadedHealth`()
     }
@@ -43,6 +46,7 @@ object PlayerAttributeReconciler {
         val holder = BuiltInRegistries.ATTRIBUTE.wrapAsHolder(attribute)
         val instance = player.getAttribute(holder)
         if (instance == null) {
+            if (attributeId in PlayerEXAttributes.SPELL_SCHOOL_IDS) return
             PlayerEX.LOGGER.warn(
                 "Player {} has no AttributeInstance for {}; PlayerEx could not reconcile it",
                 player.scoreboardName,

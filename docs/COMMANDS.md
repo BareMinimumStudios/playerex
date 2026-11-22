@@ -37,3 +37,7 @@ Examples:
 /playerex refund skill playerex:strength Poke 2
 /playerex reset Poke 50
 ```
+
+## Dimension-unlocked caps (5.1.0)
+
+When enabled, level queries show the player's currently unlocked dimension cap, and operator level grants respect it. Command grants still do not charge XP. School allocation IDs for the optional NeoForge Iron's integration use `playerex:iron_school_fire`, `playerex:iron_school_ice`, etc.; normal availability checks apply. Resetting progression retains dimension visits.

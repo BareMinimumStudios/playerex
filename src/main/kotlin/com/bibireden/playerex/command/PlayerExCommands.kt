@@ -34,7 +34,7 @@ object PlayerExCommands {
                 .then(Commands.literal("get").then(player().executes {
                     val target = EntityArgument.getPlayer(it, "player")
                     success(it, Component.translatable("playerex.command.level_get", target.name, PlayerStateService.get(target).level)
-                        .append("/${PlayerEXAttributes.get(PlayerEXAttributes.LEVEL_ID)?.maxValue?.toInt() ?: 0}"))
+                        .append("/${maximumLevel(target)}"))
                 }))
                 .then(Commands.literal("add").then(player().executes { level(it, 1) }
                     .then(amount().executes { level(it, IntegerArgumentType.getInteger(it, "amount")) }))))
@@ -59,9 +59,14 @@ object PlayerExCommands {
             .then(itemCommands("weapon", false)))
     }
 
+    private fun maximumLevel(player: net.minecraft.server.level.ServerPlayer): Int {
+        com.bibireden.playerex.progression.DimensionProgression.recordVisit(player)
+        return com.bibireden.playerex.progression.DimensionProgression.maximum(PlayerStateService.get(player),
+            PlayerEXAttributes.get(PlayerEXAttributes.LEVEL_ID)?.maxValue?.toInt() ?: 0)
+    }
     private fun level(context: Context, amount: Int): Int {
         val target = EntityArgument.getPlayer(context, "player")
-        val maximum = PlayerEXAttributes.get(PlayerEXAttributes.LEVEL_ID)?.maxValue?.toInt() ?: return rejected(context)
+        val maximum = maximumLevel(target)
         val actual = amount.coerceIn(0, (maximum - PlayerStateService.get(target).level).coerceAtLeast(0))
         if (!PlayerProgression.grantLevel(target, actual)) return rejected(context)
         success(context, Component.translatable("playerex.command.level_up", actual, target.name))

@@ -19,6 +19,6 @@ object RemnantCompat {
 
     private fun snapshot(player: Player): PlayerExOfflineSnapshot {
         val state = PlayerStateService.get(player)
-        return PlayerExOfflineSnapshot(state.level, state.skillPoints, state.refundablePoints, state.allocations)
+        return PlayerExOfflineSnapshot(state.level, state.skillPoints, state.refundablePoints, state.allocations, state.visitedDimensions)
     }
 }

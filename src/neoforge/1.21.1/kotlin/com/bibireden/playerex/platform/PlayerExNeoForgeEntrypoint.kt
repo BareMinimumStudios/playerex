@@ -45,6 +45,7 @@ class PlayerExNeoForgeEntrypoint(modBus: IEventBus) {
                 // Fzzy's JSON5 parser is shared; load after parallel mod construction.
                 Configs.init()
                 com.bibireden.playerex.compat.NeoForgeRelicCompat.register()
+                if (ModList.get().isLoaded("irons_spellbooks")) com.bibireden.playerex.compat.iron.NeoForgeIronSpells.register()
             }
         }
         val sounds = DeferredRegister.create(Registries.SOUND_EVENT, PlayerEX.MOD_ID)

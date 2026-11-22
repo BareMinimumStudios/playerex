@@ -46,10 +46,14 @@ def verify_jar(path, loader, version):
             raise ValueError(f"Invalid archive: {path}")
         if any("RelicProbe" in n or n.startswith("net/bms/remnant/") for n in names):
             raise ValueError(f"Test code or shaded Remnant in {path}")
+        adapter = "com/bibireden/playerex/compat/iron/NeoForgeIronSpells.class"
+        assert (adapter in names) == (loader == "neoforge"), "Iron adapter must be NeoForge-only"
+        assert not any(n.startswith("io/redspace/ironsspellbooks/") for n in names), "Iron classes must not be shaded"
         nested = []
         for name in names:
             if name.endswith(".jar"):
                 with zipfile.ZipFile(io.BytesIO(jar.read(name))) as dependency:
+                    assert not any(n.startswith("io/redspace/ironsspellbooks/") for n in dependency.namelist()), "Iron must not be bundled"
                     if "net/bms/remnant/api/PlayerLedger.class" in dependency.namelist():
                         nested.append(name)
         if len(nested) != 1:
@@ -61,6 +65,8 @@ def verify_jar(path, loader, version):
             if loader == "fabric":
                 metadata = json.loads(jar.read("fabric.mod.json"))
                 assert metadata["id"] == "playerex" and metadata["version"] == version
+                assert "irons_spellbooks" not in metadata.get("depends", {})
+                assert "irons_spellbooks" not in metadata.get("suggests", {})
                 assert metadata["depends"]["remnant"] == ">=3.0.0"
                 assert metadata["depends"]["data_attributes"] == ">=3.0.0"
                 assert nested[0] in [item["file"] for item in metadata["jars"]]
@@ -69,6 +75,8 @@ def verify_jar(path, loader, version):
                 metadata = tomllib.loads(jar.read("META-INF/neoforge.mods.toml").decode())
                 assert any(m["modId"] == "playerex" and m["version"] == version for m in metadata["mods"])
                 dependencies = {d["modId"]: d for d in metadata["dependencies"]["playerex"]}
+                assert dependencies["irons_spellbooks"]["type"] == "optional"
+                assert dependencies["irons_spellbooks"]["versionRange"] == "[1.21.1-3.16.4,)"
                 for name in ("remnant", "data_attributes"):
                     assert dependencies[name]["type"] == "required"
                     assert dependencies[name]["versionRange"] == "[3.0.0,)"

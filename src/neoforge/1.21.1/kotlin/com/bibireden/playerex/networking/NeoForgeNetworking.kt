@@ -16,7 +16,7 @@ object NeoForgeNetworking {
     }
 
     fun registerPayloads(event: RegisterPayloadHandlersEvent) {
-        val registrar = event.registrar("3")
+        val registrar = event.registrar("4")
 
         registrar.playToServer(
             AttributeMutationPayload.TYPE,

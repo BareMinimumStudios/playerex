@@ -17,9 +17,11 @@ data class PlayerExState(
     val skillPoints: Int = 0,
     val refundablePoints: Int = 0,
     val allocations: Map<ResourceLocation, Int> = emptyMap(),
-    val levelUpNotified: Boolean = false
+    val levelUpNotified: Boolean = false,
+    val visitedDimensions: List<ResourceLocation> = emptyList()
 ) {
     fun normalized(): PlayerExState = copy(
+        visitedDimensions = visitedDimensions.distinct().sortedBy { it.toString() }.take(MAX_DIMENSIONS),
         level = level.coerceAtLeast(0),
         skillPoints = skillPoints.coerceAtLeast(0),
         refundablePoints = refundablePoints.coerceAtLeast(0),
@@ -32,6 +34,7 @@ data class PlayerExState(
 
     companion object {
         const val MAX_ALLOCATIONS = 256
+        const val MAX_DIMENSIONS = 1024
         val EMPTY = PlayerExState()
 
         @JvmField
@@ -43,7 +46,8 @@ data class PlayerExState(
                 Codec.unboundedMap(ResourceLocation.CODEC, Codec.INT)
                     .optionalFieldOf("allocations", emptyMap())
                     .forGetter(PlayerExState::allocations),
-                Codec.BOOL.optionalFieldOf("level_up_notified", false).forGetter(PlayerExState::levelUpNotified)
+                Codec.BOOL.optionalFieldOf("level_up_notified", false).forGetter(PlayerExState::levelUpNotified),
+                ResourceLocation.CODEC.listOf().optionalFieldOf("visited_dimensions", emptyList()).forGetter(PlayerExState::visitedDimensions)
             ).apply(instance, ::PlayerExState)
         }.xmap(PlayerExState::normalized, PlayerExState::normalized)
 
@@ -64,6 +68,8 @@ data class PlayerExState(
                         buffer.writeVarInt(allocation)
                     }
                     buffer.writeBoolean(normalized.levelUpNotified)
+                    buffer.writeVarInt(normalized.visitedDimensions.size)
+                    normalized.visitedDimensions.forEach(buffer::writeResourceLocation)
                 }
 
                 override fun decode(buffer: RegistryFriendlyByteBuf): PlayerExState {
@@ -78,12 +84,17 @@ data class PlayerExState(
                         val allocation = buffer.readVarInt()
                         if (allocation > 0) allocations[id] = allocation
                     }
+                    val notified = buffer.readBoolean()
+                    val dimensionCount = buffer.readVarInt()
+                    require(dimensionCount in 0..MAX_DIMENSIONS) { "Invalid visited dimension count: $dimensionCount" }
+                    val dimensions = List(dimensionCount) { buffer.readResourceLocation() }
                     return PlayerExState(
                         level = level,
                         skillPoints = skillPoints,
                         refundablePoints = refundablePoints,
                         allocations = allocations,
-                        levelUpNotified = buffer.readBoolean()
+                        levelUpNotified = notified,
+                        visitedDimensions = dimensions
                     ).normalized()
                 }
             }

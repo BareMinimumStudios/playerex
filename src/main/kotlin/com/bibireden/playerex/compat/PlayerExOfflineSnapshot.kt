@@ -10,7 +10,8 @@ data class PlayerExOfflineSnapshot(
     val level: Int,
     val skillPoints: Int,
     val refundablePoints: Int,
-    val allocations: Map<ResourceLocation, Int>
+    val allocations: Map<ResourceLocation, Int>,
+    val visitedDimensions: List<ResourceLocation> = emptyList()
 ) {
     companion object {
         @JvmField
@@ -21,7 +22,8 @@ data class PlayerExOfflineSnapshot(
                 Codec.INT.optionalFieldOf("refundable_points", 0).forGetter(PlayerExOfflineSnapshot::refundablePoints),
                 Codec.unboundedMap(ResourceLocation.CODEC, Codec.INT)
                     .optionalFieldOf("allocations", emptyMap())
-                    .forGetter(PlayerExOfflineSnapshot::allocations)
+                    .forGetter(PlayerExOfflineSnapshot::allocations),
+                ResourceLocation.CODEC.listOf().optionalFieldOf("visited_dimensions", emptyList()).forGetter(PlayerExOfflineSnapshot::visitedDimensions)
             ).apply(instance, ::PlayerExOfflineSnapshot)
         }
     }

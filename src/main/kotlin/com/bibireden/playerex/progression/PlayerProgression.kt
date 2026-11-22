@@ -115,10 +115,11 @@ object PlayerProgression {
 
     private fun advanceLevel(player: ServerPlayer, amount: Int, chargeXp: Boolean): Boolean {
         if (amount <= 0) return false
+        DimensionProgression.recordVisit(player)
 
         val current = PlayerStateService.get(player)
         val levelAttribute = PlayerEXAttributes.get(PlayerEXAttributes.LEVEL_ID) ?: return false
-        val maxLevel = floor(levelAttribute.maxValue).toInt().coerceAtLeast(0)
+        val maxLevel = DimensionProgression.maximum(current, floor(levelAttribute.maxValue).toInt().coerceAtLeast(0))
         val targetLevel = current.level.toLong() + amount.toLong()
         if (targetLevel > maxLevel.toLong()) return false
 
@@ -147,8 +148,9 @@ object PlayerProgression {
     @JvmStatic
     fun checkLevelAvailability(player: ServerPlayer) {
         if (player.tickCount % 20 != 0) return
+        DimensionProgression.recordVisit(player)
         val current = PlayerStateService.get(player)
-        val max = PlayerEXAttributes.get(PlayerEXAttributes.LEVEL_ID)?.maxValue ?: return
+        val max = DimensionProgression.maximum(current, (PlayerEXAttributes.get(PlayerEXAttributes.LEVEL_ID)?.maxValue ?: return).toInt())
         val available = current.level < max && player.experienceLevel >=
             PlayerExConfigState.formulaEngine().levelCost((current.level + 1).toDouble())
         if (available == current.levelUpNotified) return
@@ -159,7 +161,7 @@ object PlayerProgression {
     @JvmStatic
     fun respawn(player: ServerPlayer, alive: Boolean) {
         if (!alive && PlayerExConfigState.current().resetOnDeath) {
-            PlayerStateService.set(player, PlayerExState.EMPTY, sync = false)
+            PlayerStateService.set(player, PlayerExState(visitedDimensions = PlayerStateService.get(player).visitedDimensions), sync = false)
         }
         PlayerAttributeReconciler.reconcile(player)
         PlayerStateService.sync(player)
