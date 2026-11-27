@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-BML_1.0-F2D36B?style=for-the-badge&amp;labelColor=292A27" alt="License: BML 1.0"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-BML_1.1-F2D36B?style=for-the-badge&amp;labelColor=292A27" alt="License: BML 1.1"></a>
   <a href="https://github.com/BareMinimumStudios/playerex/stargazers"><img src="https://img.shields.io/github/stars/BareMinimumStudios/playerex?style=for-the-badge&amp;labelColor=292A27&amp;color=F2D36B" alt="GitHub stars"></a>
   <a href="https://github.com/BareMinimumStudios/playerex/network/members"><img src="https://img.shields.io/github/forks/BareMinimumStudios/playerex?style=for-the-badge&amp;labelColor=292A27&amp;color=F2D36B" alt="GitHub forks"></a>
   <a href="https://github.com/BareMinimumStudios/playerex/issues"><img src="https://img.shields.io/github/issues/BareMinimumStudios/playerex?style=for-the-badge&amp;labelColor=292A27&amp;color=F2D36B" alt="Report an issue"></a>
@@ -213,7 +213,7 @@ PlayerEx builds on **CleverNucleus's original PlayerEx** and the work of the **P
 
 Found a problem? Include your PlayerEx version, loader, relevant mod list and latest log in an issue. A clear screenshot or short recording helps with interface and rendering bugs.
 
-PlayerEx uses **BML-1.0**. See the [license](https://github.com/BareMinimumStudios/playerex/blob/main/LICENSE) and the preserved third-party license files in the source repository.
+PlayerEx uses **BML-1.1**. See the [license](https://github.com/BareMinimumStudios/playerex/blob/1.21.1/LICENSE) and the preserved third-party license files in the source repository.
 
 ## Development
 

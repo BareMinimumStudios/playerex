@@ -37,7 +37,7 @@ cloche {
         modId = "playerex"
         name = "PlayerEx"
         description = "RPG-style player attributes, progression, and item leveling."
-        license = "BML-1.0"
+        license = "BML-1.1"
 
         author("bibireden")
         author("naomi")
