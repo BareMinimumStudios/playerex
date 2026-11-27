@@ -1,5 +1,8 @@
 package com.bibireden.playerex.client
 
+import com.bibireden.playerex.PlayerEX
+import java.util.function.BiConsumer
+import java.util.function.Consumer
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
@@ -8,17 +11,16 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.component.ItemAttributeModifiers
-import java.util.function.Consumer
 
 /** Client presentation only; never modifies item or player attributes. */
 object EquipmentTooltipPresentation {
     enum class Mode { Default, Vanilla, PlayerEX }
     @JvmStatic var holdShift = false
-    private val weaponLevel = com.bibireden.playerex.PlayerEX.id("item/weapon_level")
+    private val weaponLevel = PlayerEX.id("item/weapon_level")
     private var mode = Mode.Vanilla
     fun configure(candidate: Mode) { mode = candidate }
     @JvmStatic fun modifiers(source: List<Pair<Holder<Attribute>, AttributeModifier>>,
-        consumer: java.util.function.BiConsumer<Holder<Attribute>, AttributeModifier>) {
+        consumer: BiConsumer<Holder<Attribute>, AttributeModifier>) {
         val rows = source.toMutableList()
         var i = 0
         while (i < rows.size) {

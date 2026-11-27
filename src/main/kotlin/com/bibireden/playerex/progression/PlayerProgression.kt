@@ -1,6 +1,7 @@
 package com.bibireden.playerex.progression
 
 import com.bibireden.playerex.api.attribute.PlayerEXAttributes
+import com.bibireden.playerex.api.attribute.TradeSkillAttributes
 import com.bibireden.playerex.config.PlayerExConfigState
 import com.bibireden.playerex.math.ProgressionMath
 import com.bibireden.playerex.networking.PlayerExNotifications
@@ -9,16 +10,16 @@ import com.bibireden.playerex.networking.payload.AttributeMutationPayload
 import com.bibireden.playerex.networking.payload.LevelRequestPayload
 import com.bibireden.playerex.networking.type.AttributeMutationType
 import com.bibireden.playerex.networking.type.NotificationType
+import com.bibireden.playerex.registry.RefundConditionRegistry
 import com.bibireden.playerex.state.PlayerAttributeReconciler
 import com.bibireden.playerex.state.PlayerExState
 import com.bibireden.playerex.state.PlayerStateService
+import kotlin.math.floor
+import kotlin.math.round
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.ai.attributes.RangedAttribute
-import kotlin.math.floor
-import kotlin.math.round
-import com.bibireden.playerex.api.attribute.TradeSkillAttributes
 
 /** Server-authoritative PlayerEx progression transactions. */
 object PlayerProgression {
@@ -106,7 +107,7 @@ object PlayerProgression {
         val allocated = current.allocations.entries.sumOf { (id, count) ->
             if (id in PlayerEXAttributes.ALLOCATION_ATTRIBUTE_IDS) count.toLong() else 0L
         }.coerceAtMost(Int.MAX_VALUE.toLong())
-        val capacity = (allocated + com.bibireden.playerex.registry.RefundConditionRegistry.additionalCapacity(current, player)).coerceAtMost(Int.MAX_VALUE.toLong())
+        val capacity = (allocated + RefundConditionRegistry.additionalCapacity(current, player)).coerceAtMost(Int.MAX_VALUE.toLong())
         val total = (current.refundablePoints.toLong() + amount).coerceAtMost(capacity).toInt()
         if (total <= current.refundablePoints) return false
         commit(player, current.copy(refundablePoints = total), NotificationType.REFUNDED)
@@ -185,7 +186,7 @@ object PlayerProgression {
         val allocated = current.allocations.entries.sumOf { (id, count) ->
             if (id in PlayerEXAttributes.ALLOCATION_ATTRIBUTE_IDS + TradeSkillAttributes.IDS) count.toLong() else 0L
         }
-        val capacity = (allocated + com.bibireden.playerex.registry.RefundConditionRegistry.additionalCapacity(current, player)).coerceIn(0, Int.MAX_VALUE.toLong())
+        val capacity = (allocated + RefundConditionRegistry.additionalCapacity(current, player)).coerceIn(0, Int.MAX_VALUE.toLong())
         val total = (current.refundablePoints.toLong() + amount).coerceIn(0, capacity).toInt()
         commit(player, current.copy(refundablePoints = total), NotificationType.REFUNDED)
     }

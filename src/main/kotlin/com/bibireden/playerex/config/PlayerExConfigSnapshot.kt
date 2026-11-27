@@ -1,6 +1,7 @@
 package com.bibireden.playerex.config
 
 import com.bibireden.playerex.math.FormulaEngine
+import net.minecraft.resources.ResourceLocation
 
 /** Loader-neutral values consumed by common code. Fzzy classes stay in loader source sets. */
 data class PlayerExConfigSnapshot(
@@ -58,8 +59,8 @@ data class PlayerExConfigSnapshot(
 ) {
     fun normalized(): PlayerExConfigSnapshot = copy(
         startingDimensionCap = startingDimensionCap.coerceAtLeast(0),
-        dimensionLevelCaps = dimensionLevelCaps.filterKeys { net.minecraft.resources.ResourceLocation.tryParse(it) != null }.mapValues { it.value.coerceAtLeast(-1) },
-        relicDimensionRules = relicDimensionRules.filter { (id, values) -> net.minecraft.resources.ResourceLocation.tryParse(id) != null && values.size == 8 }.mapValues { (_, values) -> listOf(values[0].coerceIn(0, 200)) + values.drop(1).map { it.coerceIn(0, 100) } },
+        dimensionLevelCaps = dimensionLevelCaps.filterKeys { ResourceLocation.tryParse(it) != null }.mapValues { it.value.coerceAtLeast(-1) },
+        relicDimensionRules = relicDimensionRules.filter { (id, values) -> ResourceLocation.tryParse(id) != null && values.size == 8 }.mapValues { (_, values) -> listOf(values[0].coerceIn(0, 200)) + values.drop(1).map { it.coerceIn(0, 100) } },
         relicChestChance = relicChestChance.coerceIn(0, 100),
         relicChestLesserOrbChance = relicChestLesserOrbChance.coerceIn(0, 100),
         relicChestGreaterOrbChance = relicChestGreaterOrbChance.coerceIn(0, 100),

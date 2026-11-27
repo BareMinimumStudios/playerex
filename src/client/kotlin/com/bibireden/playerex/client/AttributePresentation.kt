@@ -1,14 +1,16 @@
 package com.bibireden.playerex.client
 
 import com.bibireden.playerex.PlayerEX
-import net.minecraft.client.Minecraft
+import com.bibireden.playerex.config.PlayerExConfigState
+import java.util.Locale
+import java.util.function.Supplier
 import net.minecraft.ChatFormatting
+import net.minecraft.client.Minecraft
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.Attribute
-import java.util.Locale
 
 /** Reads the required Data Attributes mod's public, unobfuscated API. No game fields are reflected.
  * Presentation lookups are cached once and kept separate from loader-specific packaging.
@@ -25,7 +27,7 @@ internal object AttributePresentation {
         val value = function.getMethod("getValue")
         val formatted = Class.forName("net.bms.data_attributes.api.DataAttributesAPI").methods.first {
             it.name == "getFormattedValue" && it.parameterCount == 2 &&
-                !java.util.function.Supplier::class.java.isAssignableFrom(it.parameterTypes[0])
+                !Supplier::class.java.isAssignableFrom(it.parameterTypes[0])
         }
     }
     private val api = runCatching { Api() }.onFailure {
@@ -65,7 +67,7 @@ internal object AttributePresentation {
         if (current == null) return "—"
         if (id.namespace == "irons_spellbooks" && id.path.endsWith("_spell_power")) return number(current * 100) + "%"
         return when (id.toString()) {
-            "playerex:health_regeneration" -> number(current * 20 / com.bibireden.playerex.config.PlayerExConfigState.current().healthRegenerationLifecycle.interval) + " hp/s"
+            "playerex:health_regeneration" -> number(current * 20 / PlayerExConfigState.current().healthRegenerationLifecycle.interval) + " hp/s"
             "irons_spellbooks:max_mana" -> number(current)
             "irons_spellbooks:mana_regen", "irons_spellbooks:spell_power", "irons_spellbooks:summon_damage" -> number(current * 100) + "%"
             "irons_spellbooks:cooldown_reduction", "irons_spellbooks:cast_time_reduction" -> number((current - 1.0) * 100) + "%"

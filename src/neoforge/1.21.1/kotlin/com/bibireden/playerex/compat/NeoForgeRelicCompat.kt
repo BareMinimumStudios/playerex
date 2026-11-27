@@ -3,12 +3,15 @@ package com.bibireden.playerex.compat
 import com.bibireden.playerex.PlayerEX
 import com.bibireden.playerex.item.RelicEquipment
 import com.google.common.collect.HashMultimap
-import net.neoforged.fml.ModList
-import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.item.ItemStack
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Proxy
+import net.minecraft.core.Holder
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.ai.attributes.Attribute
+import net.minecraft.world.entity.ai.attributes.AttributeModifier
+import net.minecraft.world.item.ItemStack
+import net.neoforged.fml.ModList
 
 object NeoForgeRelicCompat {
     fun register() {
@@ -24,7 +27,7 @@ object NeoForgeRelicCompat {
             val args = rawArgs ?: emptyArray()
             when (method.name) {
                 "curioTick", "onEquip" -> { RelicEquipment.initialize(args[1] as ItemStack, entity.invoke(args[0]) as LivingEntity); null }
-                "getAttributeModifiers" -> HashMultimap.create<net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute>, net.minecraft.world.entity.ai.attributes.AttributeModifier>().apply {
+                "getAttributeModifiers" -> HashMultimap.create<Holder<Attribute>, AttributeModifier>().apply {
                     RelicEquipment.modifiers(args[2] as ItemStack, "curios/${identifier.invoke(args[0])}/${index.invoke(args[0])}").forEach { (attribute, modifier) -> put(attribute, modifier) }
                 }
                 "toString" -> "PlayerEx relic curio"

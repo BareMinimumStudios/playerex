@@ -1,11 +1,12 @@
 package com.bibireden.playerex.client
 
+import com.bibireden.playerex.config.PlayerExConfigState
+import java.util.function.IntSupplier
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
-import java.util.function.IntSupplier
 
 /** Normal inventory entry tab; the visible face is clickable, its decorative rail is not. */
 class InventoryLinkButton(private val tabX: IntSupplier, private val tabY: IntSupplier) :
@@ -14,7 +15,7 @@ class InventoryLinkButton(private val tabX: IntSupplier, private val tabY: IntSu
     init { tooltip = Tooltip.create(Component.translatable("playerex.screen.title")) }
 
     override fun renderWidget(g: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-        if (com.bibireden.playerex.config.PlayerExConfigState.current().disableUI) { isHovered = false; return }
+        if (PlayerExConfigState.current().disableUI) { isHovered = false; return }
         // The recipe book changes the panel position without rebuilding its widgets.
         val anchorX = tabX.asInt; val anchorY = tabY.asInt
         x = anchorX + 2; y = anchorY + 18

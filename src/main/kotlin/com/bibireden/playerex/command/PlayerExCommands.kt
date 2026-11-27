@@ -4,6 +4,7 @@ import com.bibireden.playerex.api.attribute.PlayerEXAttributes
 import com.bibireden.playerex.api.attribute.TradeSkillAttributes
 import com.bibireden.playerex.item.ItemProgression
 import com.bibireden.playerex.item.PlayerExItemComponents
+import com.bibireden.playerex.progression.DimensionProgression
 import com.bibireden.playerex.progression.PlayerProgression
 import com.bibireden.playerex.state.PlayerStateService
 import com.mojang.brigadier.CommandDispatcher
@@ -16,6 +17,7 @@ import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.commands.arguments.ResourceLocationArgument
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.ai.attributes.RangedAttribute
 
 private typealias Context = CommandContext<CommandSourceStack>
@@ -59,9 +61,9 @@ object PlayerExCommands {
             .then(itemCommands("weapon", false)))
     }
 
-    private fun maximumLevel(player: net.minecraft.server.level.ServerPlayer): Int {
-        com.bibireden.playerex.progression.DimensionProgression.recordVisit(player)
-        return com.bibireden.playerex.progression.DimensionProgression.maximum(PlayerStateService.get(player),
+    private fun maximumLevel(player: ServerPlayer): Int {
+        DimensionProgression.recordVisit(player)
+        return DimensionProgression.maximum(PlayerStateService.get(player),
             PlayerEXAttributes.get(PlayerEXAttributes.LEVEL_ID)?.maxValue?.toInt() ?: 0)
     }
     private fun level(context: Context, amount: Int): Int {

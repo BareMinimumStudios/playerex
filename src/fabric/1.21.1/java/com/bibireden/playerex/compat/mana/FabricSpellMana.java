@@ -1,11 +1,9 @@
 package com.bibireden.playerex.compat.mana;
 
-import net.minecraft.core.Holder;
-import net.minecraft.world.entity.player.Player;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +11,9 @@ import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 
 /** Fabric-only adapter for the verified Spell Engine 1.10.9 and Mana Attributes 2.9.1 APIs. */
 public final class FabricSpellMana {
@@ -105,7 +106,7 @@ public final class FabricSpellMana {
         var cost = cost(spell, ((Number) field(item, "amount")).intValue());
         var available = mana(player);
         var authority = frame;
-        if (authority == null && player instanceof net.minecraft.server.level.ServerPlayer) {
+        if (authority == null && player instanceof ServerPlayer) {
             authority = new Frame(player, spell, matchingProcess(player, spell));
         }
         var required = authority != null && reservation(authority) != null ? 0 : cost;

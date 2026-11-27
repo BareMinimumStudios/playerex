@@ -3,6 +3,8 @@ package com.bibireden.playerex.state
 import com.bibireden.playerex.PlayerEX
 import com.bibireden.playerex.api.attribute.PlayerEXAttributes
 import com.bibireden.playerex.api.attribute.TradeSkillAttributes
+import com.bibireden.playerex.compat.magic.MagicIntegration
+import com.bibireden.playerex.progression.DimensionProgression
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
@@ -26,12 +28,12 @@ object PlayerAttributeReconciler {
                 else state.allocations[attributeId] ?: 0
             )
         }
-        com.bibireden.playerex.compat.magic.MagicIntegration.reconcile(player)
+        MagicIntegration.reconcile(player)
     }
 
     @JvmStatic
     fun reconcileOnLogin(player: ServerPlayer) {
-        com.bibireden.playerex.progression.DimensionProgression.recordVisit(player)
+        DimensionProgression.recordVisit(player)
         reconcile(player)
         (player as LoadedPlayerHealth).`playerex$restoreLoadedHealth`()
     }

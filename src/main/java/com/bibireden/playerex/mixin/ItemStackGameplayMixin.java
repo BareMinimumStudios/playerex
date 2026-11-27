@@ -1,8 +1,14 @@
 package com.bibireden.playerex.mixin;
 
 import com.bibireden.playerex.item.ItemProgression;
+import com.bibireden.playerex.item.PlayerExItemComponents;
+import com.bibireden.playerex.item.RelicEquipment;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.BiConsumer;
+import kotlin.Pair;
 import net.minecraft.core.Holder;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -12,6 +18,7 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -21,7 +28,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import java.util.function.BiConsumer;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackGameplayMixin {
@@ -45,10 +51,10 @@ public abstract class ItemStackGameplayMixin {
     private void playerex$modifiers(EquipmentSlot slot, BiConsumer<Holder<Attribute>, AttributeModifier> consumer, Operation<Void> original) {
         ItemStack stack = (ItemStack) (Object) this;
         BiConsumer<Holder<Attribute>, AttributeModifier> filtered = (a, m) -> ItemProgression.filterModifier(stack, a, m, consumer);
-        if (stack.has(com.bibireden.playerex.item.PlayerExItemComponents.RELIC) && stack.getItem() instanceof net.minecraft.world.item.ArmorItem) {
-            java.util.List<kotlin.Pair<Holder<Attribute>, AttributeModifier>> base = new java.util.ArrayList<>();
-            original.call(slot, (BiConsumer<Holder<Attribute>, AttributeModifier>) (a, m) -> base.add(new kotlin.Pair<>(a, m)));
-            com.bibireden.playerex.item.RelicEquipment.mergeArmor(stack, slot, base, filtered);
+        if (stack.has(PlayerExItemComponents.RELIC) && stack.getItem() instanceof ArmorItem) {
+            List<Pair<Holder<Attribute>, AttributeModifier>> base = new ArrayList<>();
+            original.call(slot, (BiConsumer<Holder<Attribute>, AttributeModifier>) (a, m) -> base.add(new Pair<>(a, m)));
+            RelicEquipment.mergeArmor(stack, slot, base, filtered);
         } else original.call(slot, filtered);
         ItemProgression.addModifiers(stack, slot, consumer);
     }
@@ -57,10 +63,10 @@ public abstract class ItemStackGameplayMixin {
     private void playerex$groupModifiers(EquipmentSlotGroup group, BiConsumer<Holder<Attribute>, AttributeModifier> consumer, Operation<Void> original) {
         ItemStack stack = (ItemStack) (Object) this;
         BiConsumer<Holder<Attribute>, AttributeModifier> filtered = (a, m) -> ItemProgression.filterModifier(stack, a, m, consumer);
-        if (stack.has(com.bibireden.playerex.item.PlayerExItemComponents.RELIC) && stack.getItem() instanceof net.minecraft.world.item.ArmorItem armor && group == EquipmentSlotGroup.bySlot(armor.getEquipmentSlot())) {
-            java.util.List<kotlin.Pair<Holder<Attribute>, AttributeModifier>> base = new java.util.ArrayList<>();
-            original.call(group, (BiConsumer<Holder<Attribute>, AttributeModifier>) (a, m) -> base.add(new kotlin.Pair<>(a, m)));
-            com.bibireden.playerex.item.RelicEquipment.mergeArmor(stack, armor.getEquipmentSlot(), base, filtered);
+        if (stack.has(PlayerExItemComponents.RELIC) && stack.getItem() instanceof ArmorItem armor && group == EquipmentSlotGroup.bySlot(armor.getEquipmentSlot())) {
+            List<Pair<Holder<Attribute>, AttributeModifier>> base = new ArrayList<>();
+            original.call(group, (BiConsumer<Holder<Attribute>, AttributeModifier>) (a, m) -> base.add(new Pair<>(a, m)));
+            RelicEquipment.mergeArmor(stack, armor.getEquipmentSlot(), base, filtered);
         } else original.call(group, filtered);
         // The tooltip path needs the same derived modifiers as equipment application.
         for (EquipmentSlot slot : PLAYEREX_EQUIPMENT_SLOTS) if (group == EquipmentSlotGroup.bySlot(slot)) ItemProgression.addModifiers(stack, slot, consumer);

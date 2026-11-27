@@ -1,14 +1,15 @@
 package com.bibireden.playerex.config
 
+import com.bibireden.playerex.PlayerEX
+import com.bibireden.playerex.math.FormulaEngine
 import me.fzzyhmstrs.fzzy_config.annotations.RootConfig
 import me.fzzyhmstrs.fzzy_config.annotations.Version
 import me.fzzyhmstrs.fzzy_config.api.FileType
 import me.fzzyhmstrs.fzzy_config.config.Config
+import me.fzzyhmstrs.fzzy_config.config.ConfigGroup
 import me.fzzyhmstrs.fzzy_config.event.api.ServerUpdateContext
 import me.fzzyhmstrs.fzzy_config.util.Translatable
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedString
-import com.bibireden.playerex.PlayerEX
-import com.bibireden.playerex.math.FormulaEngine
 
 @RootConfig
 @Version(1)
@@ -16,7 +17,7 @@ import com.bibireden.playerex.math.FormulaEngine
 @Translatable.Desc("Server-authoritative PlayerEx progression and compatibility configuration.")
 class PlayerExConfig : Config(PlayerEX.id("config")) {
     @Translatable.Name("Player progression")
-    val progressionGroup = me.fzzyhmstrs.fzzy_config.config.ConfigGroup("progression", false)
+    val progressionGroup = ConfigGroup("progression", false)
     @Translatable.Name("Skill points per level up")
     var skillPointsPerLevelUp: Int = 1
     @Translatable.Name("Level formula")
@@ -25,11 +26,11 @@ class PlayerExConfig : Config(PlayerEX.id("config")) {
     @Translatable.Name("Reset progression on death")
     var resetOnDeath: Boolean = false
     @Translatable.Name("Disable PlayerEx menu")
-    @me.fzzyhmstrs.fzzy_config.config.ConfigGroup.Pop
+    @ConfigGroup.Pop
     var disableUI: Boolean = false
 
     @Translatable.Name("Dimension-unlocked level caps")
-    val dimensionCapsGroup = me.fzzyhmstrs.fzzy_config.config.ConfigGroup("dimensionCaps", true)
+    val dimensionCapsGroup = ConfigGroup("dimensionCaps", true)
     @Translatable.Name("Enable dimension level caps")
     @Translatable.Desc("Use visited dimensions to unlock higher PlayerEx levels. Returning home or dying does not remove an unlock. Existing levels are never reduced.")
     var dimensionCapsEnabled: Boolean = false
@@ -38,11 +39,11 @@ class PlayerExConfig : Config(PlayerEX.id("config")) {
     var startingDimensionCap: Int = 10
     @Translatable.Name("Dimension level caps")
     @Translatable.Desc("Dimension ID -> unlocked maximum level. Example: minecraft:overworld=10, minecraft:the_nether=20. Use -1 to unlock the global maximum. Unlisted dimensions leave the cap unchanged. Config edits re-evaluate saved visits.")
-    @me.fzzyhmstrs.fzzy_config.config.ConfigGroup.Pop
+    @ConfigGroup.Pop
     var dimensionLevelCaps: Map<String, Int> = mapOf("minecraft:overworld" to 10, "minecraft:the_nether" to 20, "minecraft:the_end" to -1)
 
     @Translatable.Name("Weapon leveling")
-    val weaponsGroup = me.fzzyhmstrs.fzzy_config.config.ConfigGroup("weapons", true)
+    val weaponsGroup = ConfigGroup("weapons", true)
     @Translatable.Name("Enable weapon leveling")
     var weaponLevelingEnabled: Boolean = true
     @Translatable.Name("Weapon max level")
@@ -60,11 +61,11 @@ class PlayerExConfig : Config(PlayerEX.id("config")) {
     var weaponXpFromHostile: Int = -1
     @Translatable.Name("Boss XP")
     @Translatable.Desc("-1 inherits the shared kill reward in Advanced. Zero disables this reward; positive values set item XP per kill.")
-    @me.fzzyhmstrs.fzzy_config.config.ConfigGroup.Pop
+    @ConfigGroup.Pop
     var weaponXpFromBoss: Int = -1
 
     @Translatable.Name("Armor leveling")
-    val armorGroup = me.fzzyhmstrs.fzzy_config.config.ConfigGroup("armor", true)
+    val armorGroup = ConfigGroup("armor", true)
     @Translatable.Name("Enable armor leveling")
     var armorLevelingEnabled: Boolean = true
     @Translatable.Name("Armor max level")
@@ -87,11 +88,11 @@ class PlayerExConfig : Config(PlayerEX.id("config")) {
     var armorXpFromHostile: Int = -1
     @Translatable.Name("Boss XP")
     @Translatable.Desc("-1 inherits the shared kill reward in Advanced. Zero disables this reward; positive values set item XP per kill.")
-    @me.fzzyhmstrs.fzzy_config.config.ConfigGroup.Pop
+    @ConfigGroup.Pop
     var armorXpFromBoss: Int = -1
 
     @Translatable.Name("Item breaking and repair")
-    val breakageGroup = me.fzzyhmstrs.fzzy_config.config.ConfigGroup("breakage", true)
+    val breakageGroup = ConfigGroup("breakage", true)
     @Translatable.Name("Preserve eligible broken items")
     @Translatable.Desc("Items in playerex:unbreakable remain unusable at zero durability until repaired, while allowed preserved breaks remain.")
     var itemBreakingEnabled: Boolean = true
@@ -102,18 +103,18 @@ class PlayerExConfig : Config(PlayerEX.id("config")) {
     @Translatable.Name("Destroy broken Binding-cursed armor")
     var destroyCurseOfBinding: Boolean = true
     @Translatable.Name("Notify player when an item breaks")
-    @me.fzzyhmstrs.fzzy_config.config.ConfigGroup.Pop
+    @ConfigGroup.Pop
     var messageOnItemBreak: Boolean = true
 
     @Translatable.Name("Health regeneration")
-    val regenerationGroup = me.fzzyhmstrs.fzzy_config.config.ConfigGroup("regeneration", true)
+    val regenerationGroup = ConfigGroup("regeneration", true)
     @Translatable.Name("Regeneration interval")
     @Translatable.Desc("Once per second applies the regeneration attribute every 20 ticks. Every tick applies it 20 times as often.")
-    @me.fzzyhmstrs.fzzy_config.config.ConfigGroup.Pop
+    @ConfigGroup.Pop
     var healthRegenerationLifecycle = HealthRegenerationLifecycle.ON_EVERY_SECOND
 
     @Translatable.Name("Relics: chest loot")
-    val chestLootGroup = me.fzzyhmstrs.fzzy_config.config.ConfigGroup("chestLoot", true)
+    val chestLootGroup = ConfigGroup("chestLoot", true)
     @Translatable.Name("Enable chest drops")
     var relicChestsHaveLoot: Boolean = true
     @Translatable.Name("Relic drop chance (%)")
@@ -123,11 +124,11 @@ class PlayerExConfig : Config(PlayerEX.id("config")) {
     @Translatable.Name("Greater refund orb chance (%)")
     var relicChestGreaterOrbChance: Int = 1
     @Translatable.Name("Tome chance (%)")
-    @me.fzzyhmstrs.fzzy_config.config.ConfigGroup.Pop
+    @ConfigGroup.Pop
     var relicChestTomeChance: Int = 5
 
     @Translatable.Name("Relics: mob loot")
-    val mobLootGroup = me.fzzyhmstrs.fzzy_config.config.ConfigGroup("mobLoot", true)
+    val mobLootGroup = ConfigGroup("mobLoot", true)
     @Translatable.Name("Mob drop chance (%)")
     var relicMobLootChance: Int = 5
     @Translatable.Name("Require a player kill")
@@ -150,20 +151,20 @@ class PlayerExConfig : Config(PlayerEX.id("config")) {
     var relicMobGreaterOrbWeight: Int = 1
     @Translatable.Name("Tome relative weight")
     @Translatable.Desc("Relative share of a successful mob drop, not a percentage chance. Zero removes this outcome.")
-    @me.fzzyhmstrs.fzzy_config.config.ConfigGroup.Pop
+    @ConfigGroup.Pop
     var relicMobTomeWeight: Int = 10
 
     @Translatable.Name("Relics: dimension rarity rules")
-    val dimensionLootGroup = me.fzzyhmstrs.fzzy_config.config.ConfigGroup("dimensionLoot", true)
+    val dimensionLootGroup = ConfigGroup("dimensionLoot", true)
     @Translatable.Name("Enable dimension rules")
     var relicDimensionRulesEnabled: Boolean = true
     @Translatable.Name("Dimension rules")
     @Translatable.Desc("Each dimension uses eight values: mob drop multiplier %, then Common, Uncommon, Rare, Epic, Mythical, Legendary and Immortal acceptance %. Affects mob drops only.")
-    @me.fzzyhmstrs.fzzy_config.config.ConfigGroup.Pop
+    @ConfigGroup.Pop
     var relicDimensionRules: Map<String, List<Int>> = mapOf("minecraft:overworld" to listOf(100, 100, 80, 50, 30, 15, 5, 1), "minecraft:the_nether" to listOf(100, 50, 70, 90, 80, 60, 30, 10), "minecraft:the_end" to listOf(100, 10, 30, 60, 90, 100, 80, 50))
 
     @Translatable.Name("Advanced: XP recovery and shared kill rewards")
-    val advancedXpGroup = me.fzzyhmstrs.fzzy_config.config.ConfigGroup("advancedXp", true)
+    val advancedXpGroup = ConfigGroup("advancedXp", true)
     @Translatable.Name("Recovery interval (ticks)")
     var restorativeForceTicks: Int = 600
     @Translatable.Name("Recovery multiplier (%)")
@@ -176,7 +177,7 @@ class PlayerExConfig : Config(PlayerEX.id("config")) {
     @Translatable.Name("Hostile mob XP")
     var itemXpFromHostile: Int = 20
     @Translatable.Name("Boss XP")
-    @me.fzzyhmstrs.fzzy_config.config.ConfigGroup.Pop
+    @ConfigGroup.Pop
     var itemXpFromBoss: Int = 100
 
     fun toSnapshot(): PlayerExConfigSnapshot = PlayerExConfigSnapshot(

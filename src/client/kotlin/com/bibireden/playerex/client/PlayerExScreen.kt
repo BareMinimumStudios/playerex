@@ -1,22 +1,26 @@
 package com.bibireden.playerex.client
 
 import com.bibireden.playerex.api.attribute.PlayerEXAttributes
+import com.bibireden.playerex.compat.magic.IronMagicRules
+import com.bibireden.playerex.compat.magic.MagicIntegration
 import com.bibireden.playerex.config.PlayerExConfigState
-import com.bibireden.playerex.networking.PlayerExClientRequests
 import com.bibireden.playerex.math.ProgressionMath
+import com.bibireden.playerex.networking.PlayerExClientRequests
+import com.bibireden.playerex.progression.DimensionProgression
 import com.bibireden.playerex.state.ClientPlayerExState
+import java.util.Locale
+import kotlin.math.min
+import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.client.gui.screens.inventory.InventoryScreen
-import net.minecraft.ChatFormatting
-import net.minecraft.network.chat.Component
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.FormattedCharSequence
-import kotlin.math.min
 
 class PlayerExScreen : Screen(tr("title")) {
     private enum class Page(val key: String, val icon: String) {
@@ -191,7 +195,7 @@ class PlayerExScreen : Screen(tr("title")) {
         levelButton.active = ready && state.level.toLong() + levelAmount <= currentLevelCap() &&
             (minecraft?.player?.experienceLevel ?: 0) >= displayedCost
     }
-    private fun currentLevelCap(): Int = com.bibireden.playerex.progression.DimensionProgression.maximum(
+    private fun currentLevelCap(): Int = DimensionProgression.maximum(
         ClientPlayerExState.current(), (AttributePresentation.maximum(PlayerEXAttributes.LEVEL_ID) ?: 100.0).toInt())
     private fun cost(): Int {
         val level = ClientPlayerExState.current().level
@@ -212,7 +216,7 @@ class PlayerExScreen : Screen(tr("title")) {
         frame(g)
         texture(g, "ivy", PANEL_WIDTH - 45, -12, 61, 89, 61, 89)
         texture(g, "right_tab", PANEL_WIDTH - 1, 45, 19, 55, 19, 55)
-        displayText(g, Component.literal(tr(page.key).string.uppercase(java.util.Locale.ROOT)), 80f, 9f, 1.2f, 132f, bold = false)
+        displayText(g, Component.literal(tr(page.key).string.uppercase(Locale.ROOT)), 80f, 9f, 1.2f, 132f, bold = false)
         displayText(g, tr("level", ClientPlayerExState.current().level), 239f, 9f, 1.2f, 94f, outline = true)
         when (page) {
             Page.ATTRIBUTES -> attributes(g, mouseX, mouseY)
@@ -230,11 +234,11 @@ class PlayerExScreen : Screen(tr("title")) {
     }
     private fun schoolRequirementTooltip(id: ResourceLocation): List<Component> {
         if (id !in PlayerEXAttributes.IRON_SCHOOL_IDS) return emptyList()
-        val settings = com.bibireden.playerex.compat.magic.MagicIntegration.settings
+        val settings = MagicIntegration.settings
         if (!settings.restrictSpellLevels) return listOf(tr("iron_requirements_off"))
         val points = ClientPlayerExState.current().allocations[id] ?: 0
         val thresholds = settings.requirements("irons_spellbooks:" + id.path.removePrefix("iron_school_"))
-        val allowed = com.bibireden.playerex.compat.magic.IronMagicRules.allowedLevel(points, thresholds)
+        val allowed = IronMagicRules.allowedLevel(points, thresholds)
         return listOf(tr("iron_unlocked_level", allowed)) +
             if (allowed < thresholds.size) listOf(tr("iron_next_level", allowed + 1, thresholds[allowed])) else emptyList()
     }
@@ -327,7 +331,7 @@ class PlayerExScreen : Screen(tr("title")) {
             stat(g, id, 180, secondaryHeadingY + 21 + i * secondaryRowSpacing, mx, my)
         }
         mana?.takeIf { page == Page.SPELLS }?.let { value ->
-            centered(g, tr("mana", String.format(java.util.Locale.ROOT, "%.1f", value.current), String.format(java.util.Locale.ROOT, "%.1f", value.maximum)), 168, panelHeight - 67, WHITE)
+            centered(g, tr("mana", String.format(Locale.ROOT, "%.1f", value.current), String.format(Locale.ROOT, "%.1f", value.maximum)), 168, panelHeight - 67, WHITE)
             bar(g, 36, panelHeight - 55, 264, "progress_bar_blue", if (value.maximum > 0) (value.current / value.maximum).toDouble() else 0.0)
         }
     }

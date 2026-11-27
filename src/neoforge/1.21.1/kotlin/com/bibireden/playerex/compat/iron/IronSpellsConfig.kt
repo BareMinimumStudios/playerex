@@ -2,6 +2,7 @@ package com.bibireden.playerex.compat.iron
 
 import com.bibireden.playerex.PlayerEX
 import com.bibireden.playerex.compat.magic.*
+import com.bibireden.playerex.state.PlayerAttributeReconciler
 import me.fzzyhmstrs.fzzy_config.annotations.RootConfig
 import me.fzzyhmstrs.fzzy_config.annotations.Version
 import me.fzzyhmstrs.fzzy_config.api.FileType
@@ -58,7 +59,7 @@ class IronSpellsConfig : Config(PlayerEX.id("magic")) {
     override fun onUpdateServer(context: ServerUpdateContext) {
         publish()
         val server = context.getServer()
-        server.execute { server.playerList.players.forEach { com.bibireden.playerex.state.PlayerAttributeReconciler.reconcile(it) } }
+        server.execute { server.playerList.players.forEach { PlayerAttributeReconciler.reconcile(it) } }
     }
     override fun fileType(): FileType = FileType.JSON5
 }

@@ -1,9 +1,12 @@
 package com.bibireden.playerex.api.attribute
 
 import com.bibireden.playerex.PlayerEX
+import com.bibireden.playerex.compat.magic.IronMagicRules
+import com.bibireden.playerex.compat.magic.MagicIntegration
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.ai.attributes.RangedAttribute
+import net.minecraft.world.entity.player.Player
 
 /**
  * Loader-neutral PlayerEx attribute definitions and registry lookups.
@@ -50,7 +53,7 @@ object PlayerEXAttributes {
 
     @JvmField
     val IRON_SCHOOL_IDS: Map<ResourceLocation, ResourceLocation> =
-        com.bibireden.playerex.compat.magic.IronMagicRules.schools.associate {
+        IronMagicRules.schools.associate {
             id("iron_school_$it") to ResourceLocation.fromNamespaceAndPath("irons_spellbooks", "${it}_spell_power")
         }
     @JvmField
@@ -61,8 +64,8 @@ object PlayerEXAttributes {
     @JvmField
     val ALLOCATION_ATTRIBUTE_IDS = PRIMARY_ATTRIBUTE_IDS + SPELL_SCHOOL_IDS.keys
 
-    fun schoolAvailable(player: net.minecraft.world.entity.player.Player, allocation: ResourceLocation): Boolean {
-        val magic = com.bibireden.playerex.compat.magic.MagicIntegration
+    fun schoolAvailable(player: Player, allocation: ResourceLocation): Boolean {
+        val magic = MagicIntegration
         if (allocation in IRON_SCHOOL_IDS && !magic.ironEnabled()) return false
         if (allocation in RPG_SCHOOL_IDS && !magic.rpgEnabled()) return false
         val powerId = SPELL_SCHOOL_IDS[allocation] ?: return false

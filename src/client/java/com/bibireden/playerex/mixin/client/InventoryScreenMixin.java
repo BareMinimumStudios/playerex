@@ -1,6 +1,7 @@
 package com.bibireden.playerex.mixin.client;
 
 import com.bibireden.playerex.client.InventoryLinkButton;
+import com.bibireden.playerex.config.PlayerExConfigState;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
@@ -24,7 +25,7 @@ public abstract class InventoryScreenMixin extends Screen {
 
     @Inject(method = "init()V", at = @At("TAIL"))
     private void playerex$addProgressionTab(CallbackInfo ci) {
-        if (com.bibireden.playerex.config.PlayerExConfigState.current().getDisableUI()) return;
+        if (PlayerExConfigState.current().getDisableUI()) return;
         if (minecraft == null || minecraft.player == null) return;
         Object self = this;
         AbstractContainerScreen<?> container = (AbstractContainerScreen<?>) self;

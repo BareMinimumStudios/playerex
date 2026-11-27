@@ -3,9 +3,11 @@ package com.bibireden.playerex.compat.iron
 import com.bibireden.playerex.PlayerEX
 import com.bibireden.playerex.api.attribute.PlayerEXAttributes
 import com.bibireden.playerex.compat.magic.*
+import com.bibireden.playerex.state.PlayerAttributeReconciler
 import com.bibireden.playerex.state.PlayerStateService
 import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent
 import io.redspace.ironsspellbooks.api.spells.CastSource
+import java.util.WeakHashMap
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
@@ -17,7 +19,7 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent
 /** Loaded only after the NeoForge entrypoint confirms Iron's is present. No reflection or mixins. */
 object NeoForgeIronSpells {
     private val modifier = PlayerEX.id("compat/irons_spells")
-    private val previousSettings = java.util.WeakHashMap<ServerPlayer, IronMagicSettings>()
+    private val previousSettings = WeakHashMap<ServerPlayer, IronMagicSettings>()
     private val nativeAttributes by lazy {
         BuiltInRegistries.ATTRIBUTE.mapNotNull { attribute ->
             val id = BuiltInRegistries.ATTRIBUTE.getKey(attribute)
@@ -31,7 +33,7 @@ object NeoForgeIronSpells {
             val player = event.entity as? ServerPlayer ?: return@addListener
             if (player.tickCount % 20 == 0) {
                 if (previousSettings.put(player, MagicIntegration.settings) !== MagicIntegration.settings)
-                    com.bibireden.playerex.state.PlayerAttributeReconciler.reconcile(player)
+                    PlayerAttributeReconciler.reconcile(player)
                 else reconcile(player)
             }
         }

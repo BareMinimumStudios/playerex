@@ -2,8 +2,10 @@ package com.bibireden.playerex.progression
 
 import com.bibireden.playerex.PlayerEX
 import com.bibireden.playerex.compat.Compatibility
+import com.bibireden.playerex.config.PlayerExConfigState
 import com.bibireden.playerex.math.GameplayMath
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.damagesource.DamageTypes
 import net.minecraft.world.effect.MobEffects
@@ -32,7 +34,7 @@ object PlayerGameplay {
     private val rangedChance = PlayerEX.id("ranged_crit_chance")
     private val rangedDamage = PlayerEX.id("ranged_crit_damage")
 
-    private fun value(entity: LivingEntity, id: net.minecraft.resources.ResourceLocation, fallback: Double = 0.0): Double {
+    private fun value(entity: LivingEntity, id: ResourceLocation, fallback: Double = 0.0): Double {
         val attribute = BuiltInRegistries.ATTRIBUTE.get(id) ?: return fallback
         val instance = entity.getAttribute(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(attribute)) ?: return fallback
         return instance.value.takeIf(Double::isFinite) ?: fallback
@@ -53,7 +55,7 @@ object PlayerGameplay {
 
     @JvmStatic
     fun regenerate(entity: LivingEntity) {
-        if (entity.level().isClientSide || entity.tickCount % com.bibireden.playerex.config.PlayerExConfigState.current().healthRegenerationLifecycle.interval != 0 || !entity.isAlive || entity.health >= entity.maxHealth) return
+        if (entity.level().isClientSide || entity.tickCount % PlayerExConfigState.current().healthRegenerationLifecycle.interval != 0 || !entity.isAlive || entity.health >= entity.maxHealth) return
         val amount = value(entity, regeneration)
         if (amount > 0.0) entity.heal(amount.coerceAtMost(Float.MAX_VALUE.toDouble()).toFloat())
     }

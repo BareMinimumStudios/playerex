@@ -2,6 +2,7 @@ package com.bibireden.playerex.client
 
 import com.bibireden.playerex.PlayerEX
 import com.bibireden.playerex.item.RelicEquipment
+import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import net.minecraft.client.Minecraft
 import net.minecraft.client.model.HumanoidModel
@@ -25,7 +26,7 @@ object RelicArmorModels {
             .openAsReader().use { JsonParser.parseReader(it).asJsonObject["minecraft:geometry"].asJsonArray[0].asJsonObject }
         return bakeGeometry(name, geometry)
     }
-    private fun bakeGeometry(name: String, geometry: com.google.gson.JsonObject): Models {
+    private fun bakeGeometry(name: String, geometry: JsonObject): Models {
         fun model(trim: Boolean): HumanoidModel<LivingEntity> {
             val mesh = MeshDefinition()
             val root = mesh.root

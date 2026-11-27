@@ -1,9 +1,10 @@
 package com.bibireden.playerex.item
 
+import com.bibireden.playerex.api.event.PlayerEXSoundEvents
 import com.bibireden.playerex.progression.PlayerProgression
+import com.bibireden.playerex.state.PlayerAttributeReconciler
 import com.bibireden.playerex.state.PlayerExState
 import com.bibireden.playerex.state.PlayerStateService
-import com.bibireden.playerex.state.PlayerAttributeReconciler
 import net.minecraft.ChatFormatting
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.network.chat.Component
@@ -107,7 +108,7 @@ object RelicUtilityItems {
             entity.heal(amount)
             stack.shrink(1)
             level.sendParticles(ParticleTypes.HEART, entity.x, entity.y + 0.5, entity.z, 6, 0.5, 0.5, 0.5, 0.02)
-            level.playSound(null, entity.blockPosition(), com.bibireden.playerex.api.event.PlayerEXSoundEvents.POTION_USE_SOUND, SoundSource.PLAYERS, 0.75f, 1f)
+            level.playSound(null, entity.blockPosition(), PlayerEXSoundEvents.POTION_USE_SOUND, SoundSource.PLAYERS, 0.75f, 1f)
         }
     }
 }

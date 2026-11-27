@@ -1,14 +1,18 @@
 package com.bibireden.playerex.item
 
 import com.bibireden.playerex.PlayerEX
+import com.bibireden.playerex.api.PlayerEXTags
 import com.bibireden.playerex.config.PlayerExConfigState
+import java.util.function.BiConsumer
+import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.tags.TagKey
-import com.bibireden.playerex.api.PlayerEXTags
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.MobCategory
@@ -16,15 +20,16 @@ import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.item.*
-import java.util.function.BiConsumer
+import net.minecraft.world.item.enchantment.EnchantmentEffectComponents
+import net.minecraft.world.item.enchantment.EnchantmentHelper
 
 object ItemProgression {
     private val weapons = PlayerEXTags.WEAPONS
     private val armor = PlayerEXTags.ARMOR
     private val armorBlacklist = PlayerEXTags.ARMOR_BLACKLIST
     private val unbreakable = PlayerEXTags.UNBREAKABLE_ITEMS
-    private val bosses = TagKey.create(Registries.ENTITY_TYPE, net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("c", "bosses"))
-    private val rangedDamage = net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("ranged_weapon", "damage")
+    private val bosses = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("c", "bosses"))
+    private val rangedDamage = ResourceLocation.fromNamespaceAndPath("ranged_weapon", "damage")
     private val weaponBonus = PlayerEX.id("item/weapon_level")
     private val armorBonus = EquipmentSlot.values().associateWith { PlayerEX.id("item/armor_level/${it.serializedName}") }
 
@@ -41,7 +46,7 @@ object ItemProgression {
             val shared: Int
             val overrideXp: Int
             when {
-                victim.type.`is`(bosses) || victim.type == net.minecraft.world.entity.EntityType.WITHER || victim.type == net.minecraft.world.entity.EntityType.ENDER_DRAGON -> {
+                victim.type.`is`(bosses) || victim.type == EntityType.WITHER || victim.type == EntityType.ENDER_DRAGON -> {
                     shared = config.itemXpFromBoss; overrideXp = if (weapon) config.weaponXpFromBoss else config.armorXpFromBoss
                 }
                 victim.type.category == MobCategory.MONSTER -> {
@@ -84,7 +89,7 @@ object ItemProgression {
     fun preserveBroken(stack: ItemStack): Boolean {
         val config = PlayerExConfigState.current()
         if (!config.itemBreakingEnabled || !stack.`is`(unbreakable)) return false
-        if (config.destroyCurseOfBinding && isArmor(stack) && net.minecraft.world.item.enchantment.EnchantmentHelper.has(stack, net.minecraft.world.item.enchantment.EnchantmentEffectComponents.PREVENT_ARMOR_CHANGE)) return false
+        if (config.destroyCurseOfBinding && isArmor(stack) && EnchantmentHelper.has(stack, EnchantmentEffectComponents.PREVENT_ARMOR_CHANGE)) return false
         val current = state(stack)
         if (current.broken) return true
         if (!config.infiniteItemBreaking && current.timesBroken >= config.timesItemCanBreak) return false
@@ -96,7 +101,7 @@ object ItemProgression {
     @JvmStatic
     fun notifyBroken(stack: ItemStack, entity: LivingEntity?) {
         if (entity !is ServerPlayer || !PlayerExConfigState.current().messageOnItemBreak) return
-        entity.sendSystemMessage(Component.translatable(if (isArmor(stack)) "playerex.armor.broke" else "playerex.item.broke", stack.displayName).withStyle(net.minecraft.ChatFormatting.RED))
+        entity.sendSystemMessage(Component.translatable(if (isArmor(stack)) "playerex.armor.broke" else "playerex.item.broke", stack.displayName).withStyle(ChatFormatting.RED))
     }
 
     @JvmStatic

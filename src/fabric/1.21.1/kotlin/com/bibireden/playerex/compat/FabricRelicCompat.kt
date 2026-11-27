@@ -3,12 +3,15 @@ package com.bibireden.playerex.compat
 import com.bibireden.playerex.PlayerEX
 import com.bibireden.playerex.item.RelicEquipment
 import com.google.common.collect.HashMultimap
-import net.fabricmc.loader.api.FabricLoader
-import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.item.ItemStack
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Proxy
+import net.fabricmc.loader.api.FabricLoader
+import net.minecraft.core.Holder
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.ai.attributes.Attribute
+import net.minecraft.world.entity.ai.attributes.AttributeModifier
+import net.minecraft.world.item.ItemStack
 
 object FabricRelicCompat {
     fun register() {
@@ -21,7 +24,7 @@ object FabricRelicCompat {
             val args = rawArgs ?: emptyArray()
             when (method.name) {
                 "tick", "onEquip" -> { RelicEquipment.initialize(args[0] as ItemStack, args[2] as LivingEntity); null }
-                "getModifiers" -> HashMultimap.create<net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute>, net.minecraft.world.entity.ai.attributes.AttributeModifier>().apply {
+                "getModifiers" -> HashMultimap.create<Holder<Attribute>, AttributeModifier>().apply {
                     RelicEquipment.modifiers(args[0] as ItemStack, "trinkets/${slotId.invoke(args[1])}").forEach { (attribute, modifier) -> put(attribute, modifier) }
                 }
                 "toString" -> "PlayerEx relic trinket"
