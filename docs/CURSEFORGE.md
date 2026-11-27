@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/BareMinimumStudios/playerex#how-it-works"><img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/branding/button-guide.png" alt="Read the guide" width="224" height="64"></a>
+  <a href="https://github.com/BareMinimumStudios/playerex/tree/1.21.1#how-it-works"><img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/branding/button-guide.png" alt="Read the guide" width="224" height="64"></a>
   <a href="https://www.curseforge.com/minecraft/mc-mods/playerex-dc"><img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/branding/button-curseforge.png" alt="Download on CurseForge" width="224" height="64"></a>
   <a href="https://modrinth.com/mod/playerex-dc"><img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/branding/button-modrinth.png" alt="Download on Modrinth" width="224" height="64"></a>
 </p>
@@ -26,9 +26,15 @@ Your character should grow with the time you spend playing. PlayerEx brings RPG 
 
 This **Minecraft 1.21.1** version runs on **Fabric and NeoForge**. It carries forward PlayerEx: Director's Cut, with **WizardEx and RelicEx content built in**, a new character screen, and support for the magic and accessory mods you choose to install.
 
-**WizardEx and RelicEx are deprecated as standalone addons.** Their features are now built into PlayerEx 5.0.0. Do not install the old addon JARs alongside this release.
+**WizardEx and RelicEx are deprecated as standalone addons.** Their features have been built into PlayerEx since 5.0.0. Do not install the old addon JARs alongside this release.
 
-**PlayerEx 5.1.0 is for Minecraft 1.21.1.** Use matching PlayerEx versions on the server and clients, and keep backups when updating an existing world.
+## What’s new in 5.1.0
+
+- **Iron's Spells on NeoForge** adds nine optional schools, its own character tab, and configurable bonuses and casting requirements.
+- **Dimension-based level caps on both loaders** let pack makers unlock higher caps when players visit new dimensions.
+- **Pufferfish's Skills on NeoForge** can now award PlayerEx attributes such as Strength. Fabric also received fixes for item durability and progression resets on death.
+
+Casting requirements and dimension caps are off by default. Use matching PlayerEx versions on the server and clients.
 
 ## How it works
 
@@ -67,7 +73,8 @@ Attributes and Combat Stats are always available. Magic pages appear for the ins
 
 - **Attributes:** spend and refund points, check regeneration and resistances, and see your current health and oxygen.
 - **Combat Stats:** inspect melee and ranged bonuses, defenses, reach, breaking speed and other useful values.
-- **Spell Schools:** invest in available schools and check spell power, spell criticals and, on supported Fabric setups, mana.
+- **RPG Spell Schools** shows school allocations, spell power and critical stats, plus mana on supported Fabric setups.
+- **Iron's Spell Schools** shows Iron's school allocations, spell power and magic attributes on NeoForge.
 
 The pages use the supplied stone frame, gold icons, ivy and themed resource bars. Tooltips explain the values, while the bottom of the screen keeps your level and next-level XP cost close to the leveling controls.
 
@@ -167,6 +174,7 @@ Required dependencies:
 
 Optional integrations depend on the features you want:
 
+- [Iron's Spells 'n Spellbooks](https://modrinth.com/mod/irons-spells-n-spellbooks) **1.21.1-3.16.4 or newer** adds its own school progression on NeoForge.
 - [Spell Power Attributes](https://modrinth.com/mod/spell-power): magic attributes and school progression.
 - [More RPG Library](https://modrinth.com/mod/more-rpg-library): additional schools and RPG attributes.
 - [Spell Engine](https://modrinth.com/mod/spell-engine): spell integration and eligible Fabric rune substitution.
