@@ -19,24 +19,41 @@ REMNANT_SHA512 = {'fabric': '4bd42c30e0ab3be48ba18c4858fbc659e3b90d4fb057b30b2fd
 def release_metadata():
     properties = dict(re.findall(r"^([a-z_]+)=(.+)$", (ROOT / "gradle.properties").read_text(), re.M))
     version = properties["mod_version"].strip()
-    if not re.fullmatch(r"\d+\.\d+\.\d+", version):
+    if not re.fullmatch(r"(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)", version):
         raise ValueError("Release version must be a plain major.minor.patch value")
     tag = f"v{version}"
     if os.environ.get("GITHUB_REF_TYPE") == "tag" and os.environ.get("GITHUB_REF_NAME") != tag:
         raise ValueError(f"Release tag must match {tag}")
     text = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
-    heading = re.search(r"^## \[" + re.escape(version) + r"\] - (\d{4}-\d{2}-\d{2})$", text, re.M)
-    if not heading:
-        raise ValueError(f"Missing dated [{version}] changelog section")
-    date = datetime.date.fromisoformat(heading[1])
+    headings = list(re.finditer(r"^## (.+)$", text, re.M))
+    if not headings or headings[0][1] != "[Unreleased]":
+        raise ValueError("CHANGELOG.md must begin its release sections with [Unreleased]")
+    expected = re.compile(r"\[" + re.escape(version) + r"\] - (\d{4}-\d{2}-\d{2})")
+    if len(headings) < 2 or not (current := expected.fullmatch(headings[1][1])):
+        raise ValueError(f"The first dated changelog section must be [{version}] - YYYY-MM-DD")
+    if sum(expected.fullmatch(heading[1]) is not None for heading in headings) != 1:
+        raise ValueError(f"Duplicate [{version}] changelog section")
+    date = datetime.date.fromisoformat(current[1])
     if date > datetime.date.today():
         raise ValueError("Release date is in the future")
-    rest = text[heading.end():]
-    end = re.search(r"^## |^\[(?:Unreleased|\d)", rest, re.M)
-    notes = rest[:end.start()] if end else rest
-    if not re.search(r"^### (Added|Changed|Deprecated|Removed|Fixed|Security)$", notes, re.M):
+
+    end = headings[2].start() if len(headings) > 2 else len(text)
+    notes = text[headings[1].end():end].strip()
+    # The oldest section may be followed by the changelog's comparison links.
+    notes = re.split(r"^\[(?:Unreleased|\d+\.\d+\.\d+)\]:", notes, maxsplit=1, flags=re.M)[0].strip()
+    categories = re.split(r"^### (.+)$", notes, flags=re.M)
+    allowed = {"Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"}
+    seen = set()
+    for name, changes in zip(categories[1::2], categories[2::2]):
+        if name not in allowed or name in seen:
+            raise ValueError(f"Invalid or duplicate changelog category: {name}")
+        if not re.search(r"^[-*] \S", changes, re.M):
+            raise ValueError(f"Changelog category {name} has no entries")
+        seen.add(name)
+    if not seen:
         raise ValueError("Release notes must contain Keep a Changelog categories")
-    return version, tag, heading.group() + "\n\n" + notes.strip() + "\n"
+    # Publishing hosts render this file outside CHANGELOG.md.
+    return version, tag, f"## {version} - {date.isoformat()}\n\n{notes}\n"
 
 
 def verify_jar(path, loader, version):

@@ -1,9 +1,16 @@
 # Changelog
 
 Changes that affect players, pack authors and developers are collected here.
-The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and version numbers follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [5.1.1] - 2026-11-27
+
+### Changed
+
+- Level-cap checks skip dimension history when caps are disabled and stop scanning once the global cap is unlocked.
+- Build and publishing workflows validate the same dated changelog entry. All three publishing destinations use that entry for release notes.
 
 ## [5.1.0] - 2026-11-21
 
@@ -87,5 +94,8 @@ The first Minecraft 1.21.1 release, available for Fabric and NeoForge. This brin
 
 - The private local Remnant Maven repository, development logs, temporary probes and obsolete milestone notes from the release source package.
 
-[Unreleased]: https://github.com/BareMinimumStudios/playerex/compare/v5.0.0...HEAD
+[Unreleased]: https://github.com/BareMinimumStudios/playerex/compare/v5.1.1...1.21.1
+[5.1.1]: https://github.com/BareMinimumStudios/playerex/compare/v5.1.0...v5.1.1
+[5.1.0]: https://github.com/BareMinimumStudios/playerex/compare/v5.0.1...v5.1.0
+[5.0.1]: https://github.com/BareMinimumStudios/playerex/compare/v5.0.0...v5.0.1
 [5.0.0]: https://github.com/BareMinimumStudios/playerex/releases/tag/v5.0.0

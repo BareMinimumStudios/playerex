@@ -57,7 +57,7 @@ jobs:
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
 
-      - name: Read and validate version
+      - name: Validate version and changelog
         id: meta
         run: python3 scripts/release.py
 

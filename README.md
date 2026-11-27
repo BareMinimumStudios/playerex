@@ -217,7 +217,7 @@ PlayerEx uses **BML-1.0**. See the [license](https://github.com/BareMinimumStudi
 
 ## Development
 
-Current release is **5.1.0**.
+The current source version is **5.1.1**.
 
 Use **Java 21** and the included Gradle wrapper:
 

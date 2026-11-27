@@ -35,6 +35,9 @@ jobs:
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
 
+      - name: Validate changelog
+        run: python3 scripts/release.py
+
       - name: Build
         run: ./gradlew clean build --stacktrace
 

@@ -1,6 +1,6 @@
 # Preparing a release
 
-PlayerEx builds both Minecraft 1.21.1 loaders from the same source. The public version is **5.1.0**; the mod metadata has no alpha, beta or Minecraft suffix.
+PlayerEx builds both Minecraft 1.21.1 loaders from the same source. The current source version is **5.1.1**; the mod metadata has no alpha, beta or Minecraft suffix.
 
 ## Before publishing
 
@@ -27,9 +27,9 @@ Add these repository or organization Actions secrets:
 
 `GITHUB_TOKEN` is supplied by GitHub. No token belongs in source files.
 
-Publishing starts when a matching tag is pushed, or when an authorized maintainer runs the publish workflow manually. For this version, the tag is **`v5.1.0`**. A mismatched tag or missing dated changelog section stops the build before upload.
+Publishing starts when a matching tag is pushed, or when an authorized maintainer runs the publish workflow manually. For this version, the tag is **`v5.1.1`**. Both workflows validate the current dated changelog entry before compiling. Publishing also checks that the tag matches the installed version.
 
-Modrinth and CurseForge receive separate Fabric and NeoForge files. Their version identifiers are `5.1.0+1.21.1-fabric` and `5.1.0+1.21.1-neoforge`, including the Minecraft version and loader; the installed mod version remains `5.1.0`. Both are marked **release**, for Minecraft 1.21.1, Java 21, client and server.
+Modrinth and CurseForge receive separate Fabric and NeoForge files. Their version identifiers are `5.1.1+1.21.1-fabric` and `5.1.1+1.21.1-neoforge`, including the Minecraft version and loader; the installed mod version remains `5.1.1`. Both are marked **release**, for Minecraft 1.21.1, Java 21, client and server.
 
 Data Attributes, Fzzy Config and the loader's language/runtime dependencies are marked required. Remnant is marked embedded because PlayerEx already includes its public JAR. Players should not install a second copy just to satisfy the dependency listing.
 
@@ -47,7 +47,7 @@ Publishing marks Ranged Weapon API, More RPG Library, Spell Power and Spell Engi
 
 ## Changelog and descriptions
 
-Keep future notes under `[Unreleased]`. Before a release, move them into `## [version] - YYYY-MM-DD`, using only the relevant Added, Changed, Deprecated, Removed, Fixed or Security sections. `scripts/release.py` extracts that release alone for every destination.
+Keep future notes under `[Unreleased]`. Before a release, move them into `## [version] - YYYY-MM-DD`, using only the relevant Added, Changed, Deprecated, Removed, Fixed or Security sections. `scripts/release.py` extracts that release alone for every destination. Link release headings to their GitHub tag comparisons and advance the Unreleased link after each version bump.
 
 `README.md` is the GitHub overview. `docs/MODRINTH.md` and `docs/CURSEFORGE.md` provide ready-to-paste marketplace descriptions. Keep both aligned with the player-facing content in the README. They use ordinary Markdown and clickable image buttons.
 

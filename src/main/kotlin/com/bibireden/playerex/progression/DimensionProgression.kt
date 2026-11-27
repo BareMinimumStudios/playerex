@@ -17,7 +17,7 @@ object DimensionProgression {
 
     fun maximum(state: PlayerExState, global: Int): Int {
         val config = PlayerExConfigState.current()
-        return DimensionCapRules.maximum(state.visitedDimensions.map { it.toString() }, config.dimensionCapsEnabled,
-            config.startingDimensionCap, config.dimensionLevelCaps, global)
+        return DimensionCapRules.maximum(state.visitedDimensions, config.dimensionCapsEnabled,
+            config.startingDimensionCap, config.dimensionLevelCaps, global) { it.toString() }
     }
 }
