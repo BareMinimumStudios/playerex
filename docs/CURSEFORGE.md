@@ -3,12 +3,12 @@
 </p>
 
 <p align="center" style="text-align: center;">
-<a href="https://modrinth.com/mod/playerex-dc"><img src="https://img.shields.io/badge/Modrinth-133329?logo=modrinth&amp;logoColor=8CFFCF&amp;style=for-the-badge" alt="Modrinth" height="28"></a>
-<a href="https://www.curseforge.com/minecraft/mc-mods/playerex-dc"><img src="https://img.shields.io/badge/CurseForge-39232B?logo=curseforge&amp;logoColor=FFA880&amp;style=for-the-badge" alt="CurseForge" height="28"></a>
-<a href="https://github.com/BareMinimumStudios/playerex"><img src="https://img.shields.io/badge/Source-242B49?logo=github&amp;logoColor=EAF0FF&amp;style=for-the-badge" alt="GitHub source" height="28"></a>
-<a href="https://github.com/BareMinimumStudios/playerex/issues"><img src="https://img.shields.io/github/issues-raw/BareMinimumStudios/playerex?style=for-the-badge&amp;labelColor=242B49&amp;color=364775" alt="Report an issue" height="28"></a>
-<a href="https://github.com/BareMinimumStudios/playerex/forks"><img src="https://img.shields.io/github/forks/BareMinimumStudios/playerex?style=for-the-badge&amp;labelColor=242B49&amp;color=364775" alt="Forks" height="28"></a>
-<a href="https://github.com/BareMinimumStudios/playerex/stargazers"><img src="https://img.shields.io/github/stars/BareMinimumStudios/playerex?style=for-the-badge&amp;labelColor=242B49&amp;color=364775" alt="Stars" height="28"></a>
+<a href="https://modrinth.com/mod/playerex-dc"><img src="https://img.shields.io/badge/Modrinth-344032?logo=modrinth&amp;logoColor=E5CD80&amp;style=for-the-badge" alt="Modrinth" height="28"></a>
+<a href="https://www.curseforge.com/minecraft/mc-mods/playerex-dc"><img src="https://img.shields.io/badge/CurseForge-49362A?logo=curseforge&amp;logoColor=F2D36B&amp;style=for-the-badge" alt="CurseForge" height="28"></a>
+<a href="https://github.com/BareMinimumStudios/playerex"><img src="https://img.shields.io/badge/Source-292A27?logo=github&amp;logoColor=F2D36B&amp;style=for-the-badge" alt="GitHub source" height="28"></a>
+<a href="https://github.com/BareMinimumStudios/playerex/issues"><img src="https://img.shields.io/github/issues-raw/BareMinimumStudios/playerex?style=for-the-badge&amp;labelColor=292A27&amp;color=66532B" alt="Report an issue" height="28"></a>
+<a href="https://github.com/BareMinimumStudios/playerex/forks"><img src="https://img.shields.io/github/forks/BareMinimumStudios/playerex?style=for-the-badge&amp;labelColor=292A27&amp;color=66532B" alt="Forks" height="28"></a>
+<a href="https://github.com/BareMinimumStudios/playerex/stargazers"><img src="https://img.shields.io/github/stars/BareMinimumStudios/playerex?style=for-the-badge&amp;labelColor=292A27&amp;color=66532B" alt="Stars" height="28"></a>
 </p>
 
 <p align="center" style="text-align: center;">
