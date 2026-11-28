@@ -1,28 +1,24 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/branding/playerex-dc-banner.png" alt="PlayerEx DC" width="900">
+<p align="center" style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/branding/playerex-dc-banner.png" alt="PlayerEx DC" width="1080">
 </p>
 
-<p align="center">
-  <a href="https://github.com/BareMinimumStudios/playerex/blob/1.21.1/LICENSE"><img src="https://img.shields.io/badge/License-BML_1.1-F2D36B?style=for-the-badge&amp;labelColor=292A27" alt="License: BML 1.1"></a>
-  <a href="https://github.com/BareMinimumStudios/playerex/stargazers"><img src="https://img.shields.io/github/stars/BareMinimumStudios/playerex?style=for-the-badge&amp;labelColor=292A27&amp;color=F2D36B" alt="GitHub stars"></a>
-  <a href="https://github.com/BareMinimumStudios/playerex/network/members"><img src="https://img.shields.io/github/forks/BareMinimumStudios/playerex?style=for-the-badge&amp;labelColor=292A27&amp;color=F2D36B" alt="GitHub forks"></a>
-  <a href="https://github.com/BareMinimumStudios/playerex/issues"><img src="https://img.shields.io/github/issues/BareMinimumStudios/playerex?style=for-the-badge&amp;labelColor=292A27&amp;color=F2D36B" alt="Report an issue"></a>
+<p align="center" style="text-align: center;">
+<a href="https://modrinth.com/mod/playerex-dc"><img src="https://img.shields.io/badge/Modrinth-133329?logo=modrinth&amp;logoColor=8CFFCF&amp;style=for-the-badge" alt="Modrinth" height="28"></a>
+<a href="https://www.curseforge.com/minecraft/mc-mods/playerex-dc"><img src="https://img.shields.io/badge/CurseForge-39232B?logo=curseforge&amp;logoColor=FFA880&amp;style=for-the-badge" alt="CurseForge" height="28"></a>
+<a href="https://github.com/BareMinimumStudios/playerex"><img src="https://img.shields.io/badge/Source-242B49?logo=github&amp;logoColor=EAF0FF&amp;style=for-the-badge" alt="GitHub source" height="28"></a>
+<a href="https://github.com/BareMinimumStudios/playerex/issues"><img src="https://img.shields.io/github/issues-raw/BareMinimumStudios/playerex?style=for-the-badge&amp;labelColor=242B49&amp;color=364775" alt="Report an issue" height="28"></a>
+<a href="https://github.com/BareMinimumStudios/playerex/forks"><img src="https://img.shields.io/github/forks/BareMinimumStudios/playerex?style=for-the-badge&amp;labelColor=242B49&amp;color=364775" alt="Forks" height="28"></a>
+<a href="https://github.com/BareMinimumStudios/playerex/stargazers"><img src="https://img.shields.io/github/stars/BareMinimumStudios/playerex?style=for-the-badge&amp;labelColor=242B49&amp;color=364775" alt="Stars" height="28"></a>
 </p>
 
-<p align="center">
-  <a href="https://github.com/BareMinimumStudios/playerex/tree/1.21.1#how-it-works"><img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/branding/button-guide.png" alt="Read the guide" width="224" height="64"></a>
-  <a href="https://www.curseforge.com/minecraft/mc-mods/playerex-dc"><img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/branding/button-curseforge.png" alt="Download on CurseForge" width="224" height="64"></a>
-  <a href="https://modrinth.com/mod/playerex-dc"><img src="https://raw.githubusercontent.com/BareMinimumStudios/playerex/1.21.1/docs/branding/button-modrinth.png" alt="Download on Modrinth" width="224" height="64"></a>
-</p>
-
-<p align="center">
+<p align="center" style="text-align: center;">
   <strong>Minecraft 1.21.1 · Fabric + NeoForge · Java 21 · Client &amp; Server</strong><br>
   <a href="https://github.com/BareMinimumStudios/playerex">Source code</a> · <a href="https://discord.gg/pcRw79hwey">Discord community</a>
 </p>
 
 # PlayerEx
 
-Your character should grow with the time you spend playing. PlayerEx brings RPG progression to Minecraft: earn levels, choose where your skill points go, and keep improving the equipment you take into a fight.
+Spend Minecraft XP to level your character, invest in six attributes, and improve weapons and armor through combat. Find relics, infuse their bonuses into armor, or train in spell schools from the magic mods you install.
 
 This **Minecraft 1.21.1** version runs on **Fabric and NeoForge**. It carries forward PlayerEx: Director's Cut, with **WizardEx and RelicEx content built in**, a new character screen, and support for the magic and accessory mods you choose to install.
 
@@ -219,5 +215,5 @@ PlayerEx uses **BML-1.1**. See the [license](https://github.com/BareMinimumStudi
 
 [![Sponsor Banner](https://www.bisecthosting.com/partners/custom-banners/db76a74a-a111-4660-98b7-5a75c15a5951.png)](https://bisecthosting.com/bareminimum)
 
-Use code **`bareminimum`** to get **25% off your first month**.
+Use code **`bareminimum`** to get **25% off your first month**!
 
